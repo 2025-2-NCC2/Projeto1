@@ -1,5 +1,21 @@
 # Auria API
 
+Backend minimalista para o projeto Auria, desenvolvido com Node.js, Express e MySQL.
+
+## Funcionalidades
+
+- Registro de usuários (student, mentor, admin)
+- Login e autenticação via JWT
+- Endpoint de perfil do usuário autenticado
+- Geração de convites para roles restritas (mentor/admin)
+- Middleware para proteção de rotas
+- Script para criação/promover usuário admin
+
+## Estrutura do Projeto
+
+```markdown
+# Auria API
+
 API backend minimal para o projeto Auria, construída com Node.js, Express e MySQL.
 
 ## Recursos
@@ -47,3 +63,4 @@ Ajuste o arquivo se necessário antes de executar.
 ## Observações
 - Certifique-se de que a tabela `users` exista e possua os campos esperados (name, email, password_hash, role, is_active, created_at, updated_at).
 - Mantenha o `JWT_SECRET` seguro e não o commit em código-fonte.
+```

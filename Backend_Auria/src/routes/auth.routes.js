@@ -1,26 +1,15 @@
 // src/routes/auth.routes.js
 import { Router } from 'express';
-import { registerStudent, login, me } from '../controllers/auth.controller.js';
-import jwt from 'jsonwebtoken';
-
+import { register, registerAdmin, registerMentor, login, me } from '../controllers/auth.controller.js';
+import { ensureAuth, ensureAuthOptional } from '../middlewares/auth.js';
 
 const router = Router();
 
-function authRequired(req, res, next) {
-  const auth = req.headers.authorization || '';
-  const token = auth.startsWith('Bearer ') ? auth.slice(7) : null;
-  if (!token) return res.status(401).json({ message: 'Token ausente' });
-  try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = payload;
-    next();
-  } catch {
-    return res.status(401).json({ message: 'Token inválido' });
-  }
-}
+router.post('/register', ensureAuthOptional, register);             // body.role: 'student' | 'mentor' | 'admin'
+router.post('/register/admin', ensureAuthOptional, registerAdmin);  // allows with token admin OR inviteCode
+router.post('/register/mentor', ensureAuthOptional, registerMentor);
 
-router.post('/register', registerStudent);
 router.post('/login', login);
-router.get('/me', authRequired, me);
+router.get('/me', ensureAuth, me);
 
 export default router;
