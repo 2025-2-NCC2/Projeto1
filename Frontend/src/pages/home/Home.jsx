@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ArrowRight, BarChart3, Users, Heart, Brain } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function Home({ user }) {
   const features = [
@@ -42,10 +43,10 @@ export default function Home({ user }) {
         {!user ? (
           <div className="space-x-4">
             <Button size="lg" asChild>
-              <a href="/login" className="flex items-center space-x-2">
+              <Link to="/login" className="flex items-center space-x-2">
                 <span>Começar Agora</span>
                 <ArrowRight className="h-5 w-5" />
-              </a>
+              </Link>
             </Button>
             <Button variant="outline" size="lg">
               Saiba Mais
@@ -53,10 +54,10 @@ export default function Home({ user }) {
           </div>
         ) : (
           <Button size="lg" asChild>
-            <a href="/dashboard" className="flex items-center space-x-2">
+            <Link to="/dashboard" className="flex items-center space-x-2">
               <span>Ir para Dashboard</span>
               <ArrowRight className="h-5 w-5" />
-            </a>
+            </Link>
           </Button>
         )}
       </div>
@@ -121,10 +122,10 @@ export default function Home({ user }) {
             Junte-se a milhares de usuários que já transformaram sua gestão.
           </p>
           <Button size="lg" asChild>
-            <a href="/login" className="flex items-center space-x-2">
+            <Link to="/login" className="flex items-center space-x-2">
               <span>Criar Conta Gratuita</span>
               <ArrowRight className="h-5 w-5" />
-            </a>
+            </Link>
           </Button>
         </div>
       )}

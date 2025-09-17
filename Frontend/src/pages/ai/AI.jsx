@@ -16,6 +16,7 @@ import {
   Zap,
   Send
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function AI({ user }) {
   const [query, setQuery] = useState('')
@@ -36,7 +37,7 @@ export default function AI({ user }) {
           </CardHeader>
           <CardContent className="text-center">
             <Button asChild>
-              <a href="/dashboard">Voltar ao Dashboard</a>
+              <Link to="/dashboard">Voltar ao Dashboard</Link>
             </Button>
           </CardContent>
         </Card>

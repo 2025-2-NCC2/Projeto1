@@ -12,20 +12,21 @@ import {
   Shield
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom';
 
 const menuItems = [
-  { icon: Home, label: 'Home', href: '#/', roles: ['admin', 'colab'] },
-  { icon: BarChart3, label: 'Dashboard', href: '#/dashboard', roles: ['admin', 'colab'] },
-  { icon: Shield, label: 'Admin', href: '#/admin', roles: ['admin'] },
-  { icon: UserCheck, label: 'Colaboração', href: '#/colab', roles: ['admin', 'colab'] },
-  { icon: Users, label: 'Grupos', href: '#/groups', roles: ['admin', 'colab'] },
-  { icon: Settings, label: 'Nomes', href: '#/names', roles: ['admin'] },
-  { icon: BarChart3, label: 'Indicadores', href: '#/indicators', roles: ['admin', 'colab'] },
-  { icon: Heart, label: 'Doações', href: '#/donations', roles: ['admin', 'colab'] },
-  { icon: QrCode, label: 'QR Code', href: '#/qr-code', roles: ['admin', 'colab'] },
-  { icon: Target, label: 'Métricas', href: '#/metrics', roles: ['admin', 'colab'] },
-  { icon: List, label: 'Listas', href: '#/list', roles: ['admin', 'colab'] },
-  { icon: Brain, label: 'IA', href: '#/ai', roles: ['admin'] },
+  { icon: Home, label: 'Home', href: '/', roles: ['admin', 'colab'] },
+  { icon: BarChart3, label: 'Dashboard', href: '/dashboard', roles: ['admin', 'colab'] },
+  { icon: Shield, label: 'Admin', href: '/admin', roles: ['admin'] },
+  { icon: UserCheck, label: 'Colaboração', href: '/colab', roles: ['admin', 'colab'] },
+  { icon: Users, label: 'Grupos', href: '/groups', roles: ['admin', 'colab'] },
+  { icon: Settings, label: 'Nomes', href: '/names', roles: ['admin'] },
+  { icon: BarChart3, label: 'Indicadores', href: '/indicators', roles: ['admin', 'colab'] },
+  { icon: Heart, label: 'Doações', href: '/donations', roles: ['admin', 'colab'] },
+  { icon: QrCode, label: 'QR Code', href: '/qr-code', roles: ['admin', 'colab'] },
+  { icon: Target, label: 'Métricas', href: '/metrics', roles: ['admin', 'colab'] },
+  { icon: List, label: 'Listas', href: '/list', roles: ['admin', 'colab'] },
+  { icon: Brain, label: 'IA', href: '/ai', roles: ['admin'] },
 ]
 
 export default function Sidebar({ user, currentPath = '/' }) {
@@ -56,10 +57,10 @@ export default function Sidebar({ user, currentPath = '/' }) {
                 }`}
                 asChild
               >
-                <a href={item.href} className="flex items-center space-x-3">
+                <Link to={item.href} className="flex items-center space-x-3">
                   <Icon className="h-5 w-5" />
                   <span>{item.label}</span>
-                </a>
+                </Link>
               </Button>
             )
           })}

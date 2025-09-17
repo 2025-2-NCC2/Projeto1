@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Eye, EyeOff, LogIn } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function Login({ onLogin }) {
   const [formData, setFormData] = useState({
@@ -165,7 +166,7 @@ export default function Login({ onLogin }) {
         {/* Back to Home */}
         <div className="text-center">
           <Button variant="link" asChild>
-            <a href="/">← Voltar para Home</a>
+            <Link to="/">← Voltar para Home</Link>
           </Button>
         </div>
       </div>

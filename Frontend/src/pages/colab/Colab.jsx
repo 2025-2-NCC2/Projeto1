@@ -10,6 +10,7 @@ import {
   Target,
   Activity
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function Colab({ user }) {
   const collaboratorStats = [
@@ -86,13 +87,13 @@ export default function Colab({ user }) {
                     className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-green-50 hover:border-green-200"
                     asChild
                   >
-                    <a href={action.href}>
+                    <Link to={action.href}>
                       <Icon className="h-6 w-6 text-green-600" />
                       <div className="text-left">
                         <div className="font-medium">{action.title}</div>
                         <div className="text-xs text-gray-500">{action.description}</div>
                       </div>
-                    </a>
+                    </Link>
                   </Button>
                 )
               })}
@@ -139,28 +140,28 @@ export default function Colab({ user }) {
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" asChild>
-              <a href="/dashboard">
+              <Link to="/dashboard">
                 <Activity className="h-6 w-6 text-blue-600" />
                 <span className="text-sm">Dashboard</span>
-              </a>
+              </Link>
             </Button>
             <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" asChild>
-              <a href="/groups">
+              <Link to="/groups">
                 <Users className="h-6 w-6 text-green-600" />
                 <span className="text-sm">Grupos</span>
-              </a>
+              </Link>
             </Button>
             <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" asChild>
-              <a href="/donations">
+              <Link to="/donations">
                 <Heart className="h-6 w-6 text-red-600" />
                 <span className="text-sm">Doações</span>
-              </a>
+              </Link>
             </Button>
             <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" asChild>
-              <a href="/metrics">
+              <Link to="/metrics">
                 <Target className="h-6 w-6 text-purple-600" />
                 <span className="text-sm">Métricas</span>
-              </a>
+              </Link>
             </Button>
           </div>
         </CardContent>

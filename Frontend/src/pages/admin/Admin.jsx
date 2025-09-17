@@ -15,6 +15,7 @@ import {
   Trash2,
   Eye
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function Admin({ user }) {
   const [searchTerm, setSearchTerm] = useState('')
@@ -33,7 +34,7 @@ export default function Admin({ user }) {
           </CardHeader>
           <CardContent className="text-center">
             <Button asChild>
-              <a href="/dashboard">Voltar ao Dashboard</a>
+              <Link to="/dashboard">Voltar ao Dashboard</Link>
             </Button>
           </CardContent>
         </Card>

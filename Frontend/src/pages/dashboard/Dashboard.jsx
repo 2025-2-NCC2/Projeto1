@@ -10,6 +10,7 @@ import {
   Activity,
   DollarSign
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function Dashboard({ user }) {
   const stats = [
@@ -126,13 +127,13 @@ export default function Dashboard({ user }) {
                     className="h-auto p-4 flex flex-col items-start space-y-2 hover:bg-blue-50 hover:border-blue-200"
                     asChild
                   >
-                    <a href={action.href}>
+                    <Link to={action.href}>
                       <Icon className="h-6 w-6 text-blue-600" />
                       <div className="text-left">
                         <div className="font-medium">{action.title}</div>
                         <div className="text-xs text-gray-500">{action.description}</div>
                       </div>
-                    </a>
+                    </Link>
                   </Button>
                 )
               })}

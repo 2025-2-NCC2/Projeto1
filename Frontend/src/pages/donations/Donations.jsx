@@ -15,6 +15,7 @@ import {
   Filter,
   Download
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 export default function Donations() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -116,10 +117,10 @@ export default function Donations() {
             <span>Exportar</span>
           </Button>
           <Button asChild>
-            <a href="/qr-code" className="flex items-center space-x-2">
+            <Link to="/qr-code" className="flex items-center space-x-2">
               <QrCode className="h-4 w-4" />
               <span>Gerar QR Code</span>
-            </a>
+            </Link>
           </Button>
         </div>
       </div>
@@ -263,10 +264,10 @@ export default function Donations() {
               <span className="text-sm">Nova Campanha</span>
             </Button>
             <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2" asChild>
-              <a href="/qr-code">
+            <Link to="/qr-code">
                 <QrCode className="h-6 w-6 text-blue-600" />
                 <span className="text-sm">Gerar QR Code</span>
-              </a>
+              </Link>
             </Button>
             <Button variant="outline" className="h-auto p-4 flex flex-col items-center space-y-2">
               <Download className="h-6 w-6 text-green-600" />
