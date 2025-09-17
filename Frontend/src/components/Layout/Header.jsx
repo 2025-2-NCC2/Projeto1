@@ -12,7 +12,7 @@ export default function Header({ user, onLogout }) {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <h1 className="text-2xl font-bold text-blue-600">Sistema Miro</h1>
+            <h1 className="text-2xl font-bold text-blue-600">Sistema Auria</h1>
           </div>
 
           {/* Desktop Navigation */}
