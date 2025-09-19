@@ -1,0 +1,22 @@
+/* src/index.css */
+:root{
+  --green: #0b9a5f;
+  --dark: #073e2c;
+  --bg: #ffffff;
+  --max-width: 1100px;
+  --gap: 20px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body,#root{height:100%}
+body{
+  font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+  background:var(--bg);
+  color:#222;
+  -webkit-font-smoothing:antialiased;
+}
+.container{
+  max-width:var(--max-width);
+  margin:0 auto;
+  padding:24px;
+}
