@@ -11,8 +11,18 @@ r.get("/db/health", async (_, res) => {
   try {
     const [rows] = await pool.query("SELECT 1 AS db_ok");
     res.json({ ok: true, db: rows[0].db_ok }); // Retorna sucesso se o banco responder
-  } catch {
-    res.status(500).json({ ok: false, db: "down" }); // Erro se não conseguir conectar
+  } catch (error) {
+    res.status(500).json({ erro: error.message, db: "down" }); // Erro se não conseguir conectar
+  }
+});
+
+//GET http://localhost:3000/api/users/list
+r.get("/users/list", async (_, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM users");
+    res.json({ ok: true, users: rows });
+  } catch (error) {
+    res.status(500).json({ erro: error.message, db: "down" }); // Erro se não conseguir conectar
   }
 });
 
@@ -47,7 +57,7 @@ r.post("/users", async (req, res) => {
     if (err.code === "ER_DUP_ENTRY") {
       return res.status(409).json({ error: "email já cadastrado" }); // Email duplicado
     }
-    res.status(500).json({ error: "Erro ao criar usuário" }); // Erro genérico
+    res.status(500).json({ error: err.code }); // Erro genérico
   }
 });
 
