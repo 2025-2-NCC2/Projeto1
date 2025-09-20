@@ -20,3 +20,24 @@ body{
   margin:0 auto;
   padding:24px;
 }
+
+.action{
+  border-right: 1px solid #ddd;
+}
+
+th{
+  border-top: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+}
+
+.td-style{
+  border-left: 1px solid #ddd;
+  padding:8px;
+}
+
+.delete-img, .update-img{
+  width:32px;
+  cursor:pointer;
+  transition:filter .2s;
+  margin-right: 5px;
+}
