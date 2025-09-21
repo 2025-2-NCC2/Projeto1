@@ -1,12 +1,30 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Modal  from 'react-modal';
 
 function Config() {
   const [usuarios, setUsuarios] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [usuarioSelecionado, setUsuarioSelecionado] = useState({ id: null, name: '', email: '' });
+  const customStyles = {
+    content: {
+      width: '1200px',
+      height: '800px',
+      margin: 'auto',
+      padding: '20px',
+      borderRadius: '8px',
+      backgroundColor: '#fff',
+      boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+    },
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+  };
+
 
   useEffect(() => {
     // Fetch simples para o backend
-    fetch("https://auria-sepia.vercel.app/api/users/list") // dev: http://localhost:3000/api/users/list
+    fetch("http://localhost:3000/api/users/list") // dev: http://localhost:3000/api/users/list
       .then((res) => res.json())
       .then((data) => {
         setUsuarios(data.users);
@@ -42,7 +60,7 @@ if (usuarios.length > 0) {
       if (!window.confirm(`Deseja realmente excluir o usuário ${name}?`)) return;
 
       try {
-        const response = await fetch(`https://auria-sepia.vercel.app/api/users/${id}`, { // dev: http://localhost:3000/api/users/${id}
+        const response = await fetch(`http://localhost:3000/api/users/${id}`, { // dev: http://localhost:3000/api/users/${id}
           method: "DELETE",
           headers: {
             "Content-Type": "application/json"
@@ -60,6 +78,35 @@ if (usuarios.length > 0) {
         alert("Erro ao conectar com o servidor");
       }
     };
+    
+    const handleUpdate = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/users/${usuarioSelecionado.id}`, {// dev: http://localhost:3000/api/users/${usuarioSelecionado.id}
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: usuarioSelecionado.name,
+            email: usuarioSelecionado.email
+          })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          alert("Usuário atualizado com sucesso!");
+          setUsuarios((prev) =>
+            prev.map((u) => (u.id === usuarioSelecionado.id ? { ...u, ...usuarioSelecionado } : u))
+          );
+          setModalIsOpen(false);
+        } else {
+          alert(data.error || "Erro ao atualizar usuário");
+        }
+      } catch (err) {
+        alert("Erro ao conectar com o servidor");
+      }
+    };
+
 
 
   return (
@@ -84,9 +131,14 @@ if (usuarios.length > 0) {
               <td className="td-style">{user.email}</td>
               <td className="dt-left td-style">{user.created_at}</td>
               <td className="dt-center td-style action">
-                <Link /* to={} */>
+                <button
+                  style={{ background: "none", border: "none", padding: 0 }}
+                  onClick={() => {
+                    setUsuarioSelecionado({ id: user.id, name: user.name, email: user.email });
+                    setModalIsOpen(true);
+                  }}>
                   <img src="edit.png" className="update-img" alt="Editar" />
-                </Link>
+                </button>
                 <button style={{ background: "none", border: "none", padding: 0 }} onClick={() => handleDelete(user.id, user.name)}>
                   <img src="delete.png" className="delete-img" alt="Excluir" />
                 </button>
@@ -95,6 +147,22 @@ if (usuarios.length > 0) {
           ))}
         </tbody>
       </table>
+      <Modal style={customStyles} isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}>
+        <h2>Editar Usuário</h2>
+        <input
+          type="text"
+          placeholder="Novo nome"
+          value={usuarioSelecionado.name}
+          onChange={(e) => setUsuarioSelecionado({ ...usuarioSelecionado, name: e.target.value })}
+        />
+        <input
+          type="email"
+          placeholder="Novo email"
+          value={usuarioSelecionado.email}
+          onChange={(e) => setUsuarioSelecionado({ ...usuarioSelecionado, email: e.target.value })}
+        />
+        <button onClick={handleUpdate}>Salvar</button>
+      </Modal>
     </div>
   );
 }
