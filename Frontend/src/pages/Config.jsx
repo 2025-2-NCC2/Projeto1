@@ -81,7 +81,7 @@ if (usuarios.length > 0) {
     
     const handleUpdate = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/api/users/${usuarioSelecionado.id}`, {
+        const response = await fetch(`http://localhost:3000/api/users/${usuarioSelecionado.id}`, {// dev: http://localhost:3000/api/users/${usuarioSelecionado.id}
           method: "PUT",
           headers: {
             "Content-Type": "application/json"

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import "./LoginAdmin.css"; // Reutilizando o mesmo CSS do LoginColab
 
 function LoginAdmin() {
   const [email, setEmail] = useState("");
@@ -20,8 +21,8 @@ function LoginAdmin() {
 
       if (response.ok) {
         alert("Login bem-sucedido!");
-        console.log("Token JWT:", data.token); // opcional: salvar no localStorage
-        navigate("/"); // redireciona para Home
+        console.log("Token JWT:", data.token);
+        navigate("/");
       } else {
         alert(data.error || "Email ou senha incorretos!");
       }
@@ -32,21 +33,36 @@ function LoginAdmin() {
   };
 
   return (
-    <div>
-      <h1>Login Admin</h1>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </div>
-        <div>
-          <label>Senha:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </div>
-        <Link to="/cadastro">Não possui cadastro? Cadastre-se</Link>
-        <br />
-        <button type="submit">Entrar</button>
-      </form>
+    <div className="login-container">
+      <div className="login-box">
+        <h2>Login Admin</h2>
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Senha:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <Link to="/cadastro" className="link-cadastro">
+            Não possui cadastro? Cadastre-se
+          </Link>
+          <div className="form-actions">
+            <button type="submit">Entrar</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
