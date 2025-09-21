@@ -6,7 +6,7 @@ function Config() {
 
   useEffect(() => {
     // Fetch simples para o backend
-    fetch("http://localhost:3000/api/users/list")
+    fetch("https://auria-sepia.vercel.app/api/users/list") // dev: http://localhost:3000/api/users/list
       .then((res) => res.json())
       .then((data) => {
         setUsuarios(data.users);
@@ -42,7 +42,7 @@ if (usuarios.length > 0) {
       if (!window.confirm(`Deseja realmente excluir o usuário ${name}?`)) return;
 
       try {
-        const response = await fetch(`http://localhost:3000/api/users/${id}`, {
+        const response = await fetch(`https://auria-sepia.vercel.app/api/users/${id}`, { // dev: http://localhost:3000/api/users/${id}
           method: "DELETE",
           headers: {
             "Content-Type": "application/json"
