@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import "./LoginModal.css"; // Estilos externos
 
 function LoginColab() {
   const [email, setEmail] = useState("");
@@ -10,7 +11,7 @@ function LoginColab() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/api/login", {
+      const response = await fetch("https://auriadb.vercel.app/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -21,7 +22,7 @@ function LoginColab() {
       if (response.ok) {
         alert("Login bem-sucedido!");
         console.log("Token JWT:", data.token);
-        navigate("/"); // redireciona para Home
+        navigate("/");
       } else {
         alert(data.error || "Email ou senha incorretos!");
       }
@@ -32,21 +33,36 @@ function LoginColab() {
   };
 
   return (
-    <div>
-      <h1>Login Colaborador</h1>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-        </div>
-        <div>
-          <label>Senha:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </div>
-        <Link to="/cadastro">Não possui cadastro? Cadastre-se</Link>
-        <br />
-        <button type="submit">Entrar</button>
-      </form>
+    <div className="login-container">
+      <div className="login-box">
+        <h2>Login Colaborador</h2>
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Senha:</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <Link to="/cadastro" className="link-cadastro">
+            Não possui cadastro? Cadastre-se
+          </Link>
+          <div className="form-actions">
+            <button type="submit">Entrar</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
