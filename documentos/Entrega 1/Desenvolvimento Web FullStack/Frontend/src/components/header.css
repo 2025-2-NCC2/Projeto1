@@ -1,0 +1,40 @@
+.site-header{
+  background: white;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.header-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--gap);
+  padding:12px 0;
+}
+.logo{
+  font-weight:800;
+  color:var(--green);
+  font-size:50px;
+}
+.main-nav{
+  display:flex;
+  gap:24px;
+}
+.main-nav a{
+  text-decoration:none;
+  color:#0b2b20;
+  font-weight:600;
+  letter-spacing:0.6px;
+}
+.socials{ display:flex; gap:8px; align-items:center;}
+.soc{
+  display:inline-block;
+  padding:6px 8px;
+  border-radius:6px;
+  border:1px solid rgba(0,0,0,0.06);
+  font-size:12px;
+}
+
+/* responsividade simples */
+@media (max-width: 720px){
+  .main-nav{ display:none; } /* esconde menu em mobile para simplificar */
+  .logo{ font-size:18px; }
+}
