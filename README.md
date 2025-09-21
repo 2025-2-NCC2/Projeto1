@@ -104,7 +104,7 @@ Coloque código do prompt de comnando se for necessário
 ```
 
 ## 📋 Licença/License
-<a href="https://creativecommons.org">Auria</a> © 2025<a href="https://creativecommons.org"></a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>>
+<a href="https://creativecommons.org">Auria</a> © 2025<a href="https://creativecommons.org"></a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
 
 ## 🎓 Referências
 
