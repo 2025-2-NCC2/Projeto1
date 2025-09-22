@@ -98,6 +98,8 @@ Feito os comandos, ele abrirá um link para o direcionamento do site (http://loc
 
 Para o <b>Backend<b/>, navegue pelo seguinte caminho: <b>documentos/Entrega 1/Desenvolvimento Web FullStack/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
 
+No <b>powershell<b/>
+
 ```sh
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
