@@ -68,7 +68,7 @@ Para ter acesso ao site, utilize o link https://auria-pro.netlify.app/.
 
 Para abrir este projeto você necessita das seguintes ferramentas:
 
-<h1>Frontend<h1/>
+<h3>Frontend<h3/>
 
 -<a href="https://godotengine.org/download">GODOT</a>
 
