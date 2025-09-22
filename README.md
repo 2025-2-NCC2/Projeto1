@@ -68,9 +68,10 @@ Para ter acesso ao site, utilize o link https://auria-pro.netlify.app/.
 
 Para abrir este projeto você necessita das seguintes ferramentas:
 
-<h3>Frontend<h3/>
+<h3>Frontend e Backend<h3/>
 
--<a href="https://godotengine.org/download">GODOT</a>
+<a href="https://www.nodejs.tech/pt-br/download">Node.js</a>, <a href="https://code.visualstudio.com/download">VS Code</a>, <a href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a>.
+
 
 ```sh
 make install
