@@ -79,13 +79,13 @@ Para ter acesso ao site, utilize o link https://auria-pro.netlify.app/.
 ## 💻 Configuração para Desenvolvimento
 
 
-Para abrir este projeto você necessita das seguintes ferramentas:
+Para abrir este projeto você necessitará das seguintes ferramentas:
 
 <b>Frontend e Backend<b/>
 
 <a href="https://www.nodejs.tech/pt-br/download">Node.js</a>, <a href="https://code.visualstudio.com/download">VS Code</a>, <a href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a>.
 
-Para o <b>Frontend<b/>, navegue o seguinte caminho: <b>documentos/Entrega 1/Desenvolvimento Web FullStack/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
+Para o <b>Frontend<b/>, navegue o seguinte caminho:    <b>documentos/Entrega 1/Desenvolvimento Web FullStack/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
 ```sh
 npm install
 ```
@@ -96,7 +96,7 @@ npm run dev
 ```
 Feito os comandos, ele abrirá um link para o direcionamento do site (http://localhost:5173/)
 
-Para o <b>Backend<b/>, navegue pelo seguinte caminho:<b>documentos/Entrega 1/Desenvolvimento Web FullStack/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
+Para o <b>Backend<b/>, navegue pelo seguinte caminho: <b>documentos/Entrega 1/Desenvolvimento Web FullStack/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
 
 ```sh
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
