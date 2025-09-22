@@ -120,7 +120,7 @@ npm start
 
 ## 📍 Links públicos
 
-FRONTEND: https://auria-pro.netlify.app/
+FRONTEND: https://auria-pro.netlify.app/   <br>
 BACKEND: https://auriadb.vercel.app/api/db/health
 
 
@@ -130,7 +130,7 @@ Tutorial demonstrativo da página inicial do site: https://youtu.be/HJaTsa5sXsE
 
 ## 📍 Rotas da API
 
-# Endpoint de lista de user
+ Endpoint de lista de user
 https://auriadb.vercel.app/api/users/list
 
 
