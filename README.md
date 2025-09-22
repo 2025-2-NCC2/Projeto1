@@ -36,8 +36,7 @@ Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gere
 &emsp;&emsp;&emsp;|--> Projeto Interdisciplinar - Programação Web  
 &emsp;&emsp;&emsp;&emsp;|--> Link Figma.txt  
 &emsp;&emsp;&emsp;|--> Projeto em Banco de Dados  
-&emsp;&emsp;&emsp;&emsp;|--> Entrega DB.draw.io <br>
-&emsp;&emsp;&emsp;&emsp;|--> Banco de dados - Entrega.img 
+&emsp;&emsp;&emsp;&emsp;|--> Entrega DB.draw.io 
 &emsp;&emsp;|--> Documento - Projeto Extensão COM empresa Auria.docx  
 &emsp;|--> Imagens  
 &emsp;&emsp;|--> home auria.png  
