@@ -118,6 +118,21 @@ cd Backend
 npm start
 ```
 
+## 📍 Links públicos
+
+FRONTEND: https://auria-pro.netlify.app/
+BACKEND: https://auriadb.vercel.app/api/db/health
+
+
+## 🎬 Vídeo demonstrativo
+
+Tutorial demonstrativo da página inicial do site: https://youtu.be/HJaTsa5sXsE
+
+## 📍 Rotas da API
+
+# Endpoint de lista de user
+https://auriadb.vercel.app/api/users/list
+
 
 ## 📋 Licença/License
 <a href="https://creativecommons.org">Auria</a> © 2025<a href="https://creativecommons.org"></a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>

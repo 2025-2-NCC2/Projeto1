@@ -1,5 +1,0 @@
-# Endpoint de lista de user
-https://auriadb.vercel.app/api/users/list
-
-# Conexão Backend
-https://auriadb.vercel.app/api/db/health
