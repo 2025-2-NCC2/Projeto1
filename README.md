@@ -54,19 +54,22 @@ Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gere
 &emsp;|--> README.md  
 
 
-A pasta raiz contem dois arquivos que devem ser alterados:
+&emsp;|--> *Documentos*  
+&emsp;&emsp;Contém toda a documentação acadêmica e institucional do projeto, incluindo entregas de disciplinas e o documento de extensão com a empresa Auria.  
 
-<b>README.MD</b>: Arquivo que serve como guia e explicação geral sobre seu projeto. O mesmo que você está lendo agora.
+&emsp;|--> *Imagens*  
+&emsp;&emsp;Armazena imagens utilizadas no projeto, como a interface inicial (home auria.png).  
 
-Há também 4 pastas que seguem da seguinte forma:
+&emsp;|--> *SRC*  
+&emsp;&emsp;Contém o código-fonte do projeto (Backend e Frontend), organizado por entregas.  
 
-<b>documentos</b>: Toda a documentação estará nesta pasta.
+&emsp;|--> *.gitignore*  
+&emsp;&emsp;Define quais arquivos e pastas devem ser ignorados pelo controle de versão Git.  
 
-<b>executáveis</b>: Binários e executáveis do projeto devem estar nesta pasta.
+&emsp;|--> *README.md*  
+&emsp;&emsp;Arquivo de guia e explicação geral do projeto.
 
-<b>imagens</b>: Imagens do sistema
 
-<b>src</b>: Pasta que contém o código fonte.
 
 ## 🛠 Instalação
 
