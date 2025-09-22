@@ -26,41 +26,33 @@ Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gere
 
 ## 🛠 Estrutura de pastas
 
-- Raiz
-|
-|--> Documentos
-|    |--> Entrega 1
-|    |    |--> Calculo II
-|    |    |   |--> 1 Entrega_Cálculo II.pdf
-|    |    |
-|    |    |--> Desenvolvimento Web Full Stack
-|    |    |   |--> Backend
-|    |    |   |--> Frontend
-|    |    |   |--> Auriafinal.mp4
-|    |    |   |--> Link Acesso Frontend.txt
-|    |    |   |--> Link BackEnd.txt
-|    |    |
-|    |    |--> Gestão Empresarial e Dinâmica das Organizações
-|    |    |   |--> Entrega 1 - Gestão Empresarial
-|    |    |
-|    |    |--> Projeto Interdisciplinar - Programação Web
-|    |    |   |--> Link Figma.txt
-|    |    |
-|    |    |--> Projeto em Banco de Dados
-|    |        |--> Entrega DB.draw.io
-|    |
-|    |--> Documento - Projeto Extensão COM empresa Auria.docx
-|
-|--> Imagens
-|    |--> home auria.png
-|
-|--> SRC
-|    |--> Entrega 1
-|    |    |--> Backend
-|    |    |--> Frontend
-|
-|--> .gitignore
-|--> README.md
+- Raiz  
+&emsp;|--> Documentos  
+&emsp;&emsp;|--> Entrega 1  
+&emsp;&emsp;&emsp;|--> Calculo II  
+&emsp;&emsp;&emsp;&emsp;|--> 1 Entrega_Cálculo II.pdf  
+&emsp;&emsp;&emsp;|--> Desenvolvimento Web Full Stack  
+&emsp;&emsp;&emsp;&emsp;|--> Backend  
+&emsp;&emsp;&emsp;&emsp;|--> Frontend  
+&emsp;&emsp;&emsp;&emsp;|--> Auriafinal.mp4  
+&emsp;&emsp;&emsp;&emsp;|--> Link Acesso Frontend.txt  
+&emsp;&emsp;&emsp;&emsp;|--> Link BackEnd.txt  
+&emsp;&emsp;&emsp;|--> Gestão Empresarial e Dinâmica das Organizações  
+&emsp;&emsp;&emsp;&emsp;|--> Entrega 1 - Gestão Empresarial  
+&emsp;&emsp;&emsp;|--> Projeto Interdisciplinar - Programação Web  
+&emsp;&emsp;&emsp;&emsp;|--> Link Figma.txt  
+&emsp;&emsp;&emsp;|--> Projeto em Banco de Dados  
+&emsp;&emsp;&emsp;&emsp;|--> Entrega DB.draw.io  
+&emsp;&emsp;|--> Documento - Projeto Extensão COM empresa Auria.docx  
+&emsp;|--> Imagens  
+&emsp;&emsp;|--> home auria.png  
+&emsp;|--> SRC  
+&emsp;&emsp;|--> Entrega 1  
+&emsp;&emsp;&emsp;|--> Backend  
+&emsp;&emsp;&emsp;|--> Frontend  
+&emsp;|--> .gitignore  
+&emsp;|--> README.md  
+
 
 A pasta raiz contem dois arquivos que devem ser alterados:
 
