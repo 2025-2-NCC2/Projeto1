@@ -22,7 +22,7 @@
 
 
 A plataforma de gestão desenvolvida,  busca oferecer ferramentas e recursos para que líderes e colaboradores possam aprimorar suas habilidades interpessoais, promover um ambiente de trabalho mais colaborativo e inclusivo, e tomar decisões que considerem o bem-estar e as perspectivas de todos os envolvidos. 
-Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gerenciar grupos de líderes e equipes, acompanhar o progresso de iniciativas de desenvolvimento empático, facilitar a comunicação e a colaboração entre os participantes, e até mesmo utilizar o módulo de inteligência artificial para analisar o engajamento e o impacto das ações de liderança, tornando a gestão e a expansão da iniciativa mais eficientes e transparentes. teste
+Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gerenciar grupos de líderes e equipes, acompanhar o progresso de iniciativas de desenvolvimento empático, facilitar a comunicação e a colaboração entre os participantes, e até mesmo utilizar o módulo de inteligência artificial para analisar o engajamento e o impacto das ações de liderança, tornando a gestão e a expansão da iniciativa mais eficientes e transparentes.
 
 ## 🛠 Estrutura de pastas
 
@@ -68,7 +68,7 @@ Para ter acesso ao site, utilize o link https://auria-pro.netlify.app/.
 
 Para abrir este projeto você necessita das seguintes ferramentas:
 
-
+<h1>Frontend<h1/>
 
 -<a href="https://godotengine.org/download">GODOT</a>
 
