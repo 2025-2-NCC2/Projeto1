@@ -26,20 +26,41 @@ Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gere
 
 ## 🛠 Estrutura de pastas
 
--Raiz<br>
-|<br>
-|-->documentos<br>
-  &emsp;|-->antigos<br>
-  &emsp;|Documentação.docx<br>
-|-->executáveis<br>
-  &emsp;|-->windows<br>
-  &emsp;|-->android<br>
-  &emsp;|-->HTML<br>
-|-->imagens<br>
-|-->src<br>
-  &emsp;|-->Backend<br>
-  &emsp;|-->Frontend<br>
-|readme.md<br>
+- Raiz
+|
+|--> Documentos
+|    |--> Entrega 1
+|    |    |--> Calculo II
+|    |    |   |--> 1 Entrega_Cálculo II.pdf
+|    |    |
+|    |    |--> Desenvolvimento Web Full Stack
+|    |    |   |--> Backend
+|    |    |   |--> Frontend
+|    |    |   |--> Auriafinal.mp4
+|    |    |   |--> Link Acesso Frontend.txt
+|    |    |   |--> Link BackEnd.txt
+|    |    |
+|    |    |--> Gestão Empresarial e Dinâmica das Organizações
+|    |    |   |--> Entrega 1 - Gestão Empresarial
+|    |    |
+|    |    |--> Projeto Interdisciplinar - Programação Web
+|    |    |   |--> Link Figma.txt
+|    |    |
+|    |    |--> Projeto em Banco de Dados
+|    |        |--> Entrega DB.draw.io
+|    |
+|    |--> Documento - Projeto Extensão COM empresa Auria.docx
+|
+|--> Imagens
+|    |--> home auria.png
+|
+|--> SRC
+|    |--> Entrega 1
+|    |    |--> Backend
+|    |    |--> Frontend
+|
+|--> .gitignore
+|--> README.md
 
 A pasta raiz contem dois arquivos que devem ser alterados:
 
@@ -72,12 +93,34 @@ Para abrir este projeto você necessita das seguintes ferramentas:
 
 <a href="https://www.nodejs.tech/pt-br/download">Node.js</a>, <a href="https://code.visualstudio.com/download">VS Code</a>, <a href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a>.
 
+Para o <b>Frontend<b/>, navegue o seguinte caminho: <b>documentos/Entrega 1/Desenvolvimento Web FullStack/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
+```sh
+npm install
+```
+e Por fim,
 
 ```sh
-make install
-npm test
-Coloque código do prompt de comnando se for necessário
+npm run dev
 ```
+Feito os comandos, ele abrirá um link para o direcionamento do site (http://localhost:5173/)
+
+Para o <b>Backend<b/>, navegue pelo seguinte caminho:<b>documentos/Entrega 1/Desenvolvimento Web FullStack/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
+
+```sh
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+Posteriormente, instale as pendências:
+
+```sh
+npm install
+```
+Por fim,
+
+```sh
+cd Backend
+npm start
+```
+
 
 ## 📋 Licença/License
 <a href="https://creativecommons.org">Auria</a> © 2025<a href="https://creativecommons.org"></a> is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
