@@ -30,7 +30,7 @@ Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gere
 &emsp;|--> Documentos  
 &emsp;&emsp;|--> Entrega 1  
 &emsp;&emsp;&emsp;|--> Calculo II  
-&emsp;&emsp;&emsp;&emsp;|--> 1 Entrega_Cálculo II.pdf 
+&emsp;&emsp;&emsp;&emsp;|--> 1 Entrega_Cálculo II.pdf <br>
 &emsp;&emsp;&emsp;|--> Gestão Empresarial e Dinâmica das Organizações  
 &emsp;&emsp;&emsp;&emsp;|--> Entrega 1 - Gestão Empresarial  
 &emsp;&emsp;&emsp;|--> Projeto Interdisciplinar - Programação Web  
