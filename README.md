@@ -30,19 +30,14 @@ Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gere
 &emsp;|--> Documentos  
 &emsp;&emsp;|--> Entrega 1  
 &emsp;&emsp;&emsp;|--> Calculo II  
-&emsp;&emsp;&emsp;&emsp;|--> 1 Entrega_Cálculo II.pdf  
-&emsp;&emsp;&emsp;|--> Desenvolvimento Web Full Stack  
-&emsp;&emsp;&emsp;&emsp;|--> Backend  
-&emsp;&emsp;&emsp;&emsp;|--> Frontend  
-&emsp;&emsp;&emsp;&emsp;|--> Auriafinal.mp4  
-&emsp;&emsp;&emsp;&emsp;|--> Link Acesso Frontend.txt  
-&emsp;&emsp;&emsp;&emsp;|--> Link BackEnd.txt  
+&emsp;&emsp;&emsp;&emsp;|--> 1 Entrega_Cálculo II.pdf   
 &emsp;&emsp;&emsp;|--> Gestão Empresarial e Dinâmica das Organizações  
 &emsp;&emsp;&emsp;&emsp;|--> Entrega 1 - Gestão Empresarial  
 &emsp;&emsp;&emsp;|--> Projeto Interdisciplinar - Programação Web  
 &emsp;&emsp;&emsp;&emsp;|--> Link Figma.txt  
 &emsp;&emsp;&emsp;|--> Projeto em Banco de Dados  
-&emsp;&emsp;&emsp;&emsp;|--> Entrega DB.draw.io  
+&emsp;&emsp;&emsp;&emsp;|--> Entrega DB.draw.io 
+&emsp;&emsp;&emsp;&emsp;|--> Banco de dados - Entrega.img 
 &emsp;&emsp;|--> Documento - Projeto Extensão COM empresa Auria.docx  
 &emsp;|--> Imagens  
 &emsp;&emsp;|--> home auria.png  
@@ -51,7 +46,7 @@ Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gere
 &emsp;&emsp;&emsp;|--> Backend  
 &emsp;&emsp;&emsp;|--> Frontend  
 &emsp;|--> .gitignore  
-&emsp;|--> README.md  <br>
+&emsp;|--> README.md  <br> <br>
 
 
 &emsp;|--> *Documentos*  
@@ -82,16 +77,18 @@ Para ter acesso ao site, utilize o link https://auria-pro.netlify.app/.
 ## 💻 Configuração para Desenvolvimento
 
 
-Para abrir este projeto você necessitará das seguintes ferramentas:
+Para abrir este projeto, você necessitará das seguintes ferramentas:
 
 
 <a href="https://www.nodejs.tech/pt-br/download">Node.js</a>, <a href="https://code.visualstudio.com/download">VS Code</a>, <a href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a>.
 
-Para o <b>Frontend<b/>, navegue o seguinte caminho:    <b>src/Entrega 1/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
+Para o <b>Frontend<b/>, navegue o seguinte caminho:    <b>src/Entrega 1/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência:
+
+Para instalar as pendências:
 ```sh
 npm install
 ```
-e Por fim,
+e Por fim, para rodar no seu navegador
 
 ```sh
 npm run dev
@@ -100,7 +97,7 @@ Feito os comandos, ele abrirá um link para o direcionamento do site (http://loc
 
 Para o <b>Backend<b/>, navegue pelo seguinte caminho: <b>src/Entrega 1/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
 
-No <b>powershell<b/>
+No <b>powershell<b/>, digite o comando abaixo, para liberar as ferramentes de scripts do seu computador:
 
 ```sh
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
@@ -110,7 +107,7 @@ Posteriormente, instale as pendências:
 ```sh
 npm install
 ```
-Por fim,
+Por fim, para rodar o backend
 
 ```sh
 cd Backend
@@ -145,4 +142,5 @@ Aqui estão as referências usadas no projeto.
 3. <https://institutoayrtonsenna.org.br//>
 4. <https://www.youtube.com/watch?v=oE_08KTRA9w/>
 5. <https://awari.com.br/guia-completo-de-documentacao-do-figma-para-designers/>
+6. <https://creativecommons.org/licenses/by/4.0/>
 
