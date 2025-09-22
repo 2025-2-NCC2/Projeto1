@@ -68,7 +68,7 @@ Para ter acesso ao site, utilize o link https://auria-pro.netlify.app/.
 
 Para abrir este projeto você necessita das seguintes ferramentas:
 
-<h3>Frontend e Backend<h3/>
+<b>Frontend e Backend<b/>
 
 <a href="https://www.nodejs.tech/pt-br/download">Node.js</a>, <a href="https://code.visualstudio.com/download">VS Code</a>, <a href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a>.
 
