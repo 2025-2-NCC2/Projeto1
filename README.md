@@ -51,7 +51,7 @@ Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gere
 &emsp;&emsp;&emsp;|--> Backend  
 &emsp;&emsp;&emsp;|--> Frontend  
 &emsp;|--> .gitignore  
-&emsp;|--> README.md  
+&emsp;|--> README.md  <br>
 
 
 &emsp;|--> *Documentos*  
@@ -84,11 +84,10 @@ Para ter acesso ao site, utilize o link https://auria-pro.netlify.app/.
 
 Para abrir este projeto você necessitará das seguintes ferramentas:
 
-<b>Frontend e Backend<b/>
 
 <a href="https://www.nodejs.tech/pt-br/download">Node.js</a>, <a href="https://code.visualstudio.com/download">VS Code</a>, <a href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a>.
 
-Para o <b>Frontend<b/>, navegue o seguinte caminho:    <b>documentos/Entrega 1/Desenvolvimento Web FullStack/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
+Para o <b>Frontend<b/>, navegue o seguinte caminho:    <b>src/Entrega 1/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
 ```sh
 npm install
 ```
@@ -99,7 +98,7 @@ npm run dev
 ```
 Feito os comandos, ele abrirá um link para o direcionamento do site (http://localhost:5173/)
 
-Para o <b>Backend<b/>, navegue pelo seguinte caminho: <b>documentos/Entrega 1/Desenvolvimento Web FullStack/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
+Para o <b>Backend<b/>, navegue pelo seguinte caminho: <b>src/Entrega 1/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
 
 No <b>powershell<b/>
 
@@ -141,9 +140,9 @@ https://auriadb.vercel.app/api/users/list
 
 Aqui estão as referências usadas no projeto.
 
-1. <https://github.com/iuricode/readme-template>
-2. <https://github.com/gabrieldejesus/readme-model>
-3. <https://chooser-beta.creativecommons.org/>
-4. <https://freesound.org/>
-5. <https://www.toptal.com/developers/gitignore>
-6. Músicas por: <a href="https://freesound.org/people/DaveJf/sounds/616544/"> DaveJf </a> e <a href="https://freesound.org/people/DRFX/sounds/338986/"> DRFX </a> ambas com Licença CC 0.
+1. <https://code.visualstudio.com/Docs>
+2. <https://liderancasempaticas.com/>
+3. <https://institutoayrtonsenna.org.br//>
+4. <https://www.youtube.com/watch?v=oE_08KTRA9w/>
+5. <https://awari.com.br/guia-completo-de-documentacao-do-figma-para-designers/>
+
