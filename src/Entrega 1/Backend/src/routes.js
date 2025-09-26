@@ -30,10 +30,10 @@ r.get("/users/list", async (_, res) => {
 //GET http://localhost:3000/api/users
 
 r.post("/users", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, grupo } = req.body;
 
   // Validação dos campos obrigatórios
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !grupo) {
     return res.status(400).json({ error: "name, email e password são obrigatórios" });
   }
 
@@ -42,13 +42,11 @@ r.post("/users", async (req, res) => {
 
     // Insere o usuário no banco
     const [ins] = await pool.query(
-      "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
-      [name, email, hashedPassword]
+      "INSERT INTO users (name, email, grupo) VALUES (?, ?, ?)",
+      [name, email, grupo]
     );
-
-    // Busca os dados do usuário recém-criado (sem a senha)
     const [rows] = await pool.query(
-      "SELECT id, name, email, created_at FROM users WHERE id = ?",
+      "SELECT id, name, email, created_at, grupo FROM users WHERE id = ?",
       [ins.insertId]
     );
 
@@ -65,18 +63,18 @@ r.post("/users", async (req, res) => {
 //POST http://localhost:3000/api/users
 //Body Json {"name": "Fulano", "email": "fulano@teste.com"}
 
-r.post("/users", async (req, res) => {
+/* r.post("/users", async (req, res) => {
   const { name, email } = req.body;
-  if (!name || !email) {
+  if (!name || !email || !group) {
     return res.status(400).json({ error: "name e email obrigatórios" });
   }
   try {
     const [ins] = await pool.query(
-      "INSERT INTO users (name, email) VALUES (?, ?)",
-      [name, email]
+      "INSERT INTO users (name, email, grupo) VALUES (?, ?, ?)",
+      [name, email, grupo]
     );
     const [rows] = await pool.query(
-      "SELECT id, name, email, created_at FROM users WHERE id = ?",
+      "SELECT id, name, email, created_at, grupo FROM users WHERE id = ?",
       [ins.insertId]
     );
     res.status(201).json(rows[0]);
@@ -86,7 +84,7 @@ r.post("/users", async (req, res) => {
     }
     res.status(500).json({ error: "Erro ao criar usuário" });
   }
-});
+}); */
 
 //GET http://localhost:3000/api/users/1 (?)
 // Buscar Usuário específico

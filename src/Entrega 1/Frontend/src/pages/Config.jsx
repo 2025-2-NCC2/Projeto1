@@ -23,7 +23,7 @@ function Config() {
 
   useEffect(() => {
     // Fetch simples para o backend
-    fetch("https://auriadb.vercel.app/api/users/list") // dev: http://localhost:3000/api/users/list
+    fetch("https://localhost:3000/api/users/list") // dev: http://localhost:3000/api/users/list
       .then((res) => res.json())
       .then((data) => {
         setUsuarios(data.users);
@@ -59,7 +59,7 @@ if (usuarios.length > 0) {
       if (!window.confirm(`Deseja realmente excluir o usuário ${name}?`)) return;
 
       try {
-        const response = await fetch(`https://auriadb.vercel.app/api/users/${id}`, { // dev: http://localhost:3000/api/users/${id}
+        const response = await fetch(`https://localhost:3000/api/users/${id}`, { // dev: http://localhost:3000/api/users/${id}
           method: "DELETE",
           headers: {
             "Content-Type": "application/json"
@@ -80,7 +80,7 @@ if (usuarios.length > 0) {
     
     const handleUpdate = async () => {
       try {
-        const response = await fetch(`https://auriadb.vercel.app/api/users/${usuarioSelecionado.id}`, {// dev: http://localhost:3000/api/users/${usuarioSelecionado.id}
+        const response = await fetch(`https://localhost:3000/api/users/${usuarioSelecionado.id}`, {// dev: http://localhost:3000/api/users/${usuarioSelecionado.id}
           method: "PUT",
           headers: {
             "Content-Type": "application/json"

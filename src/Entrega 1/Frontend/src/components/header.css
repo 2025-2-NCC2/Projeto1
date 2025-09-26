@@ -1,7 +1,9 @@
 .site-header{
-  background: white;
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  background: linear-gradient(180deg, #e2ffe0 0%, #f0f0f0 100%);
+  border-bottom: 1px solid rgb(212, 212, 212);
+  box-shadow: 5px -2px 9px 0px;
 }
+
 .header-inner{
   display:flex;
   align-items:center;
@@ -24,13 +26,48 @@
   font-weight:600;
   letter-spacing:0.6px;
 }
-.socials{ display:flex; gap:8px; align-items:center;}
+
+.socials{ 
+  display:flex; 
+  gap:8px;
+  align-items:center;
+}
+
 .soc{
   display:inline-block;
   padding:6px 8px;
   border-radius:6px;
   border:1px solid rgba(0,0,0,0.06);
   font-size:12px;
+}
+
+.login-section{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-container{
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 6px;
+  padding: 5px;
+}
+
+.login-btn-container{
+  background-color: black;
+}
+
+.signup-btn-container:hover, .login-btn-container:hover{
+  background-color: #858585;
+}
+
+.signup-btn-container{
+  background-color: black;
+}
+
+.link{
+  text-decoration: none;
+  color: white;
 }
 
 /* responsividade simples */

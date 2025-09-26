@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div>
-    
-
       <main>
         <h1>Bem-vindo ao Projeto Auria</h1>
         <p>Transparência, controle e seguranção: é o nosso dever</p>
@@ -14,12 +12,12 @@ function Home() {
         {/* Botões de login */}
         <div className="buttons">
           <Link to="/login-admin">
-  <button>Administrador</button>
-</Link>
+            <button>Administrador</button>
+          </Link>
 
          <Link to="/login-colab">
-  <button>Colaborador</button>
-</Link>
+          <button>Colaborador</button>
+        </Link>
 
         </div>
 

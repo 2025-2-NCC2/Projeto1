@@ -12,20 +12,28 @@ export default function Header() {
           <Link to="/">HOME</Link>
           <a href="#para-surdos">PARA SURDOS</a>
           <a href="#tutorial">TUTORIAL</a>
-          <Link to="/config">EXCLUIR USUÁRIOS</Link> {/* Nova aba */}
+          <Link to="/config">EXCLUIR USUÁRIOS</Link>
         </nav>
-
+        <div className='login-section'>
+          <div className='btn-container login-btn-container'>
+            <Link className='link' to="/login">Entrar</Link>
+          </div>
+          <div className='btn-container signup-btn-container'>
+            <Link className='link' to="/cadastro">Cadastre-se</Link>
+          </div>
+        </div>
+{/* 
         <div className="socials">
           <a href="https://www.instagram.com" target="_blank" className="soc">
             <img src="/instagram20px.png" alt="" />
           </a>
           <a href="https://www.youtube.com" target="_blank" className="soc">
-            <img src="/linkedin20px.png" alt="YouTube" />
+            <img src="/.png" alt="YouTube" />
           </a>
           <a href="https://www.linkedin.com" target="_blank" className="soc">
-            <img src="/instagram20px.png" alt="LinkedIn" />
+            <img src="/linkedin20px.png" alt="LinkedIn" />
           </a>
-        </div>
+        </div> */}
       </div>
     </header>
   );
