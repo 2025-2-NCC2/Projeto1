@@ -5,7 +5,17 @@ const STORAGE_KEY_GROUPS = 'auria_groups_v1'
 
 export default function MentorDashboard() {
 
+  // ---------------------------------------------------------------------
+  // IDENTIDADE DO MENTOR LOGADO (mock)
+  // Em produção, isso virá do login/contexto (ex.: auth.user.id)
+  // Aqui deixamos fixo para demonstrar: este mentor é o dono do grupo 1.
+  // ---------------------------------------------------------------------
+  const currentMentorId = 'mentor-001'
+  const currentMentorName = 'Você'
+
   const [grupos, setGrupos] = useState([]);
+  const [currGroup, setCurrGroup] = useState([]);
+  const [members, setMembers] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [usuarioSelecionado, setUsuarioSelecionado] = useState({ id: null, name: '', email: '' });
 
@@ -25,14 +35,52 @@ export default function MentorDashboard() {
   };
   fetchGroups();
 }, []);
-  
-  // ---------------------------------------------------------------------
-  // IDENTIDADE DO MENTOR LOGADO (mock)
-  // Em produção, isso virá do login/contexto (ex.: auth.user.id)
-  // Aqui deixamos fixo para demonstrar: este mentor é o dono do grupo 1.
-  // ---------------------------------------------------------------------
-  const currentMentorId = 'mentor-001'
-  const currentMentorName = 'Você'
+
+const handleMembers = async (idGroup) => {
+    //console.log("Grupo selecionado ID:", idGroup);
+    try {
+      const response = await fetch(`http://localhost:3000/api/user/groups/${idGroup}`, { // dev: http://localhost:3000/api/groups/${id}
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setMembers((prev) => [...prev, data][0]); // adiciona o grupo retornado
+      } else {
+        alert(data.error || "Erro ao carregar usuários do grupo");
+      }
+    } catch (err) {
+      alert("Erro ao conectar com o servidor" + err.message);
+    }
+  };
+  console.log("Grupo selecionado ID:", members);
+
+  const handleGroup = async (id) => {
+    //console.log("Grupo selecionado ID:", id);
+    try {
+      const response = await fetch(`http://localhost:3000/api/groups/${id}`, { // dev: http://localhost:3000/api/groups/${id}
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        alert(`Grupo ${data.name} carregado com sucesso!`);
+        setCurrGroup((prev) => [...prev, data]); // adiciona o grupo retornado
+        handleMembers(id)
+      } else {
+        alert(data.error || "Erro ao carregar grupo");
+      }
+    } catch (err) {
+      alert("Erro ao conectar com o servidor" + err.message);
+    }
+  };
+  console.log(currGroup);
 
   // ---------------------------------------------------------------------
   // DADOS DE GRUPOS (múltiplos grupos com metas/participantes/doações)
@@ -303,8 +351,8 @@ export default function MentorDashboard() {
             <select
               className="form-select form-select-sm"
               style={{ minWidth: 220 }}
-              value={selectedGroupId}
-              onChange={(e) => setSelectedGroupId(Number(e.target.value))}
+              value={currGroup[0]?.id || ""} 
+              onChange={(e) => handleGroup(e.target.value)} // carrega detalhes do grupo
             >
               <option value="" disabled>-- selecione --</option>
               {grupos.map(g => (
@@ -369,7 +417,7 @@ export default function MentorDashboard() {
                 <div className="card-body">
                   <div className="text-secondary small">Mentorados</div>
                   <div className="d-flex align-items-center justify-content-between">
-                    <div className="fs-4 fw-semibold">{kpisMentor.totalMentorados}</div>
+                    <div className="fs-4 fw-semibold">{currGroup[0]?.members ?? "-"}</div>
                     <i className="bi bi-people fs-3 text-primary" aria-hidden="true"></i>
                   </div>
                 </div>
@@ -380,7 +428,7 @@ export default function MentorDashboard() {
                 <div className="card-body">
                   <div className="text-secondary small">Sessões (próx. 7 dias)</div>
                   <div className="d-flex align-items-center justify-content-between">
-                    <div className="fs-4 fw-semibold">{kpisMentor.sessoesSemana}</div>
+                    <div className="fs-4 fw-semibold">{"-"}</div>
                     <i className="bi bi-calendar-week fs-3 text-primary" aria-hidden="true"></i>
                   </div>
                 </div>
@@ -391,7 +439,7 @@ export default function MentorDashboard() {
                 <div className="card-body">
                   <div className="text-secondary small">Feedbacks pendentes</div>
                   <div className="d-flex align-items-center justify-content-between">
-                    <div className="fs-4 fw-semibold">{kpisMentor.feedbackPend}</div>
+                    <div className="fs-4 fw-semibold">{"-"}</div>
                     <i className="bi bi-clipboard-check fs-3 text-primary" aria-hidden="true"></i>
                   </div>
                 </div>
@@ -402,7 +450,7 @@ export default function MentorDashboard() {
                 <div className="card-body">
                   <div className="text-secondary small">Satisfação média</div>
                   <div className="d-flex align-items-center justify-content-between">
-                    <div className="fs-4 fw-semibold">{kpisMentor.satisfacaoMedia}</div>
+                    <div className="fs-4 fw-semibold">{"-"}</div>
                     <i className="bi bi-emoji-smile fs-3 text-primary" aria-hidden="true"></i>
                   </div>
                 </div>
@@ -552,7 +600,7 @@ export default function MentorDashboard() {
                 <div className="card-body">
                   <div className="text-secondary small">Participantes ativos</div>
                   <div className="d-flex align-items-center justify-content-between">
-                    <div className="fs-4 fw-semibold">{participantesAtivos.length}</div>
+                    <div className="fs-4 fw-semibold">{currGroup[0]?.members}</div>
                     <i className="bi bi-people fs-3 text-primary" aria-hidden="true"></i>
                   </div>
                 </div>
@@ -563,7 +611,7 @@ export default function MentorDashboard() {
               <div className="card shadow-sm h-100">
                 <div className="card-body">
                   <div className="text-secondary small">Meta (kg) • Atingido</div>
-                  <div className="fw-semibold">{group.metas.kg} kg • {totalKg.toFixed(1)} kg</div>
+                  <div className="fw-semibold">{currGroup[0]?.food_goal} kg • {currGroup[0]?.current_food_collection} kg</div>
                   <div className="progress mt-2" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={progressoKg}>
                     <div className="progress-bar bg-success" style={{ width: `${progressoKg}%` }}>{progressoKg}%</div>
                   </div>
@@ -575,7 +623,7 @@ export default function MentorDashboard() {
               <div className="card shadow-sm h-100">
                 <div className="card-body">
                   <div className="text-secondary small">Meta (R$) • Atingido</div>
-                  <div className="fw-semibold">R$ {group.metas.brl.toLocaleString()} • R$ {totalBRL.toLocaleString()}</div>
+                  <div className="fw-semibold">R$ {currGroup[0]?.monetary_target.toLocaleString()} • R$ {currGroup[0]?.current_money_collection.toLocaleString()}</div>
                   <div className="progress mt-2" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={progressoBRL}>
                     <div className="progress-bar bg-info" style={{ width: `${progressoBRL}%` }}>{progressoBRL}%</div>
                   </div>
@@ -588,7 +636,7 @@ export default function MentorDashboard() {
                 <div className="card-body">
                   <div className="text-secondary small">Doações registradas</div>
                   <div className="d-flex align-items-center justify-content-between">
-                    <div className="fs-4 fw-semibold">{group.doacoes.length}</div>
+                    <div className="fs-4 fw-semibold">{"-"}</div>
                     <i className="bi bi-gift fs-3 text-primary" aria-hidden="true"></i>
                   </div>
                 </div>
@@ -659,7 +707,7 @@ export default function MentorDashboard() {
               <div className="card shadow-sm">
                 <div className="card-body">
                   <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
-                    <h3 className="h6 mb-0">Participantes de {group.nome}</h3>
+                    <h3 className="h6 mb-0">Participantes de {currGroup[0]?.name}</h3>
                     <div className="input-group" style={{ maxWidth: 320 }}>
                       <span className="input-group-text"><i className="bi bi-search" aria-hidden="true"></i></span>
                       <input
@@ -686,21 +734,21 @@ export default function MentorDashboard() {
                         </tr>
                       </thead>
                       <tbody>
-                        {participantesFiltrados.map(p => {
+                        {members.map(p => {
                           const kg = somaPorParticipante(p.id, 'kg')
                           const brl = somaPorParticipante(p.id, 'brl')
                           return (
-                            <tr key={p.id} className={!p.ativo ? 'table-light' : ''}>
-                              <td className="fw-semibold">{p.nome}</td>
+                            <tr key={p.id} className={p.status == 1 ? 'table-light' : ''}>
+                              <td className="fw-semibold">{p.name}</td>
                               <td>{p.email}</td>
-                              <td>{new Date(p.desde).toLocaleDateString('pt-BR')}</td>
+                              <td>{new Date(p.created_at).toLocaleDateString('pt-BR')}</td>
                               <td className="text-center">
-                                <span className={`badge ${p.ativo ? 'text-bg-success' : 'text-bg-secondary'}`}>
-                                  {p.ativo ? 'Ativo' : 'Inativo'}
+                                <span className={`badge ${p.status == 1 ? 'text-bg-success' : 'text-bg-secondary'}`}>
+                                  {p.status == 1 ? 'Ativo' : 'Inativo'}
                                 </span>
                               </td>
-                              <td className="text-center">{kg.toFixed(1)}</td>
-                              <td className="text-center">R$ {brl.toLocaleString()}</td>
+                              <td className="text-center">{p.current_food_collection}</td>
+                              <td className="text-center">R$ {p.current_money_collection}</td>
                               <td className="text-end">
                                 <div className="btn-group">
                                   <button

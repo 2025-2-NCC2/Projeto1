@@ -115,6 +115,43 @@ r.get("/users/:id", async (req, res) => {
     res.status(500).json({ error: "Erro ao Buscar Usuário" });
   }
 });
+
+//GET http://localhost:3000/api/groups/:id (?)
+r.get("/groups/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [rows] = await pool.query(
+      "SELECT id, name, members, monetary_target, food_goal, current_food_collection, current_money_collection FROM groups WHERE id = ?",
+      [id]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "Grupo não encontrado" });
+    }
+    res.json(rows[0]); // Retorna o usuário encontrado
+  } catch {
+    res.status(500).json({ error: "Erro ao Buscar Usuário" });
+  }
+});
+
+//GET http://localhost:3000/api/user/groups/:id (?)
+r.get("/user/groups/:groupId", async (req, res) => {
+  const { groupId } = req.params;
+  try {
+    const [rows] = await pool.query(
+      "SELECT id, name, email, created_at, current_money_collection, current_food_collection, status FROM users WHERE group_id = ?",
+      [groupId]
+    );
+
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "Grupo não encontrado" });
+    }
+    res.json(rows); // Retorna o usuário encontrado
+  } catch(err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 //PUT http://localhost:3000/api/users/1 (?)
 
 r.put("/users/:id", async (req, res) => {
