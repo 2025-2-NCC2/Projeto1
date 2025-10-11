@@ -26,6 +26,16 @@ r.get("/users/list", async (_, res) => {
   }
 });
 
+//GET http://localhost:3000/api/groups/list
+r.get("/groups/list", async (_, res) => {
+  try {
+    const [rows] = await pool.query("SELECT * FROM groups");
+    res.json({ ok: true, groups: rows });
+  } catch (error) {
+    res.status(500).json({ erro: error.message, db: "down" }); // Erro se não conseguir conectar
+  }
+});
+
 
 //GET http://localhost:3000/api/users
 

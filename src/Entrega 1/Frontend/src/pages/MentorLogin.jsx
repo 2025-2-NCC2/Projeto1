@@ -1,16 +1,33 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function CollaboratorLogin() {
-  const navigate = useNavigate()
-  const [email, setEmail] = useState('')
-  const [senha, setSenha] = useState('')
+export default function MentorLogin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-  function onSubmit(e) {
-    e.preventDefault()
-    // Sem validação por enquanto:
-    navigate('/colaborador/painel', { replace: true })
-  }
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Login bem-sucedido!");
+        console.log("Token JWT:", data.token);
+        navigate("/mentor/painel", { replace: true });
+      } else {
+        alert(data.error || "Email ou senha incorretos!");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao conectar com o servidor.");
+    }
+  };
 
   return (
     <div className="container py-5">
@@ -18,13 +35,13 @@ export default function CollaboratorLogin() {
         <div className="col-12 col-sm-10 col-md-8 col-lg-5">
           <div className="card shadow-sm">
             <div className="card-body p-4">
-              <h1 className="h4 mb-3">Entrar como colaborador</h1>
+              <h1 className="h4 mb-3">Entrar como mentor</h1>
 
-              <form noValidate onSubmit={onSubmit}>
+              <form onSubmit={handleLogin}>
                 <div className="mb-3">
-                  <label htmlFor="colab-email" className="form-label">E-mail</label>
+                  <label htmlFor="mentor-email" className="form-label">E-mail</label>
                   <input
-                    id="colab-email"
+                    id="mentor-email"
                     type="email"
                     className="form-control"
                     placeholder="voce@empresa.com"
@@ -35,14 +52,14 @@ export default function CollaboratorLogin() {
                 </div>
 
                 <div className="mb-3">
-                  <label htmlFor="colab-senha" className="form-label">Senha</label>
+                  <label htmlFor="mentor-senha" className="form-label">Senha</label>
                   <input
-                    id="colab-senha"
+                    id="mentor-senha"
                     type="password"
                     className="form-control"
                     placeholder="••••••••"
-                    value={senha}
-                    onChange={(e) => setSenha(e.target.value)}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                 </div>
@@ -59,7 +76,7 @@ export default function CollaboratorLogin() {
             </div>
           </div>
 
-          <p className="text-center text-secondary small mt-3 mb-0">
+          <p className="text-center text-primary  mt-3 mb-0">
             © {new Date().getFullYear()} Auria
           </p>
         </div>

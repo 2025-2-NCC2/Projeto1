@@ -1,43 +1,75 @@
-/* src/index.css */
-:root{
-  --green: #0b9a5f;
-  --dark: #073e2c;
-  --bg: #ffffff;
-  --max-width: 1100px;
-  --gap: 20px;
+/* Paleta: aplicar depois do tema (Minty) */
+:root,
+[data-bs-theme="light"] {
+  /* Verde FECAP */
+  --bs-primary: #006633;
+  --bs-primary-rgb: 0, 102, 51;
+
+  /* Links (evita azul) */
+  --bs-link-color: #006633;
+  --bs-link-color-rgb: 0, 102, 51;
+  --bs-link-hover-color: #0b9a5f;
+
+  /* Fundo acolhedor */
+  --bs-body-bg: #f8f9f8;
+
+  /* Ênfase / variants usadas em badges/alerts do tema */
+  --bs-primary-text-emphasis: #00361a;
+  --bs-primary-bg-subtle: #e0efe6;
+  --bs-primary-border-subtle: #a7d2bb;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
-html,body,#root{height:100%}
-body{
+/* Botões primários - garante que nada fique azul */
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #006633;
+  --bs-btn-border-color: #006633;
+
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #0b9a5f;
+  --bs-btn-hover-border-color: #0b8a58;
+
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #0a7a4a;
+  --bs-btn-active-border-color: #0a7a4a;
+
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #5aa67f;
+  --bs-btn-disabled-border-color: #5aa67f;
+}
+
+/* Outline primary no mesmo tom */
+.btn-outline-primary {
+  --bs-btn-color: #006633;
+  --bs-btn-border-color: #006633;
+
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #006633;
+  --bs-btn-hover-border-color: #006633;
+
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #0a7a4a;
+  --bs-btn-active-border-color: #0a7a4a;
+}
+
+/* Tipografia e ajustes gerais */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
+
+body {
   font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
-  background:var(--bg);
-  color:#222;
-  -webkit-font-smoothing:antialiased;
+  background-color: var(--bs-body-bg);
+  color: #222;
+  -webkit-font-smoothing: antialiased;
+  body {
+  background-image: url('/img/fundo.jpg');
+  background-size: cover; /* cobre toda a tela */
+  background-position: center; /* centraliza */
+  background-repeat: no-repeat; /* evita repetição */
+  height: 100vh; /* ocupa a tela toda */
+  margin: 0;
 }
-.container{
-  max-width:var(--max-width);
-  margin:0 auto;
-  padding:24px;
-}
-
-.action{
-  border-right: 1px solid #ddd;
-}
-
-th{
-  border-top: 1px solid #ddd;
-  border-left: 1px solid #ddd;
 }
 
-.td-style{
-  border-left: 1px solid #ddd;
-  padding:8px;
-}
-
-.delete-img, .update-img{
-  width:32px;
-  cursor:pointer;
-  transition:filter .2s;
-  margin-right: 5px;
-}
+/* Opcional: limitar largura padrão em páginas de conteúdo */
+.container { max-width: 1500px; }

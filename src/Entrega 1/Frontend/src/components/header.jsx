@@ -1,40 +1,34 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './header.css';
+import { NavLink, Link } from 'react-router-dom'
 
 export default function Header() {
   return (
-    <header className="site-header">
-      <div className="header-inner container">
-        <div className="logo">FECAP</div>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-primary" aria-label="Navegação principal">
+      <div className="container">
+        <Link className="navbar-brand d-flex align-items-center gap-2" to="/">
+          <i className="bi bi-lightning-charge-fill" aria-hidden="true"></i>
+          <span>Auria</span>
+        </Link>
 
-        <nav className="main-nav" aria-label="Main navigation">
-          <Link to="/">HOME</Link>
-          <a href="#para-surdos">PARA SURDOS</a>
-          <a href="#tutorial">TUTORIAL</a>
-          <Link to="/config">EXCLUIR USUÁRIOS</Link>
-        </nav>
-        <div className='login-section'>
-          <div className='btn-container login-btn-container'>
-            <Link className='link' to="/login">Entrar</Link>
-          </div>
-          <div className='btn-container signup-btn-container'>
-            <Link className='link' to="/cadastro">Cadastre-se</Link>
-          </div>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mainNav"
+          aria-controls="mainNav"
+          aria-expanded="false"
+          aria-label="Alternar navegação"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="mainNav" className="collapse navbar-collapse">
+          <ul className="navbar-nav ms-auto">
+            <li className="nav-item"><NavLink end to="/" className="nav-link">Home</NavLink></li>
+            <li className="nav-item"><NavLink to="/cadastro" className="nav-link">Cadastro</NavLink></li>
+            <li className="nav-item"><NavLink to="/config" className="nav-link">Config</NavLink></li>
+          </ul>
         </div>
-{/* 
-        <div className="socials">
-          <a href="https://www.instagram.com" target="_blank" className="soc">
-            <img src="/instagram20px.png" alt="" />
-          </a>
-          <a href="https://www.youtube.com" target="_blank" className="soc">
-            <img src="/.png" alt="YouTube" />
-          </a>
-          <a href="https://www.linkedin.com" target="_blank" className="soc">
-            <img src="/linkedin20px.png" alt="LinkedIn" />
-          </a>
-        </div> */}
       </div>
-    </header>
-  );
+    </nav>
+  )
 }

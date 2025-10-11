@@ -4,6 +4,28 @@ import { useEffect, useMemo, useState } from 'react'
 const STORAGE_KEY_GROUPS = 'auria_groups_v1'
 
 export default function MentorDashboard() {
+
+  const [grupos, setGrupos] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [usuarioSelecionado, setUsuarioSelecionado] = useState({ id: null, name: '', email: '' });
+
+
+  useEffect(() => {
+  const fetchGroups = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/groups/list");
+      if (!response.ok) throw new Error("Erro na resposta do servidor");
+      
+      const data = await response.json();
+      setGrupos(data.groups);
+      console.log("Grupos:", data.groups); // imprime como objeto
+    } catch (err) {
+      console.error("Erro ao buscar grupos:", err);
+    }
+  };
+  fetchGroups();
+}, []);
+  
   // ---------------------------------------------------------------------
   // IDENTIDADE DO MENTOR LOGADO (mock)
   // Em produção, isso virá do login/contexto (ex.: auth.user.id)
@@ -284,9 +306,10 @@ export default function MentorDashboard() {
               value={selectedGroupId}
               onChange={(e) => setSelectedGroupId(Number(e.target.value))}
             >
-              {groups.map(g => (
+              <option value="" disabled>-- selecione --</option>
+              {grupos.map(g => (
                 <option key={g.id} value={g.id}>
-                  {g.nome} {g.mentorOwner.id === currentMentorId ? '• (meu)' : ''}
+                  {g.name} {/* g.mentorOwner.id === currentMentorId ? '• (meu)' : '' */}
                 </option>
               ))}
             </select>
