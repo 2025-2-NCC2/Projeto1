@@ -1,9 +1,30 @@
 import { json, Router } from "express"; // Importa Express e Router
-import { pool } from "./db.js"; // Importa pool de conexões com MySQL
-import bcrypt from 'bcrypt'; // Para criptografar senhas
-import jwt from 'jsonwebtoken'; // Para gerar tokens JWT
+import pool from "./db.js"; // Importa pool de conexões com MySQL
+import bcrypt from "bcrypt"; // Para criptografar senhas
+import jwt from "jsonwebtoken"; // Para gerar tokens JWT
+import fs from 'fs';
+import multer from 'multer';
+import {
+  register,
+  login,
+  forgotPassword,
+  logout,
+} from "./controllers/authController.js";
+import { profile, updateMe, deleteUser } from "./controllers/userController.js";
+import { authMiddleware } from "./middlewares/authMiddleware.js";
 
 const r = Router(); // Cria instância de rotas
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // pasta onde os arquivos serão salvos
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ storage });
 
 
 //GET http://localhost:3000/api/db/health
@@ -36,15 +57,16 @@ r.get("/groups/list", async (_, res) => {
   }
 });
 
-
 //GET http://localhost:3000/api/users
 
-r.post("/users", async (req, res) => {
+/* r.post("/users", async (req, res) => {
   const { name, email, password, grupo } = req.body;
 
   // Validação dos campos obrigatórios
   if (!name || !email || !password || !grupo) {
-    return res.status(400).json({ error: "name, email e password são obrigatórios" });
+    return res
+      .status(400)
+      .json({ error: "name, email e password são obrigatórios" });
   }
 
   try {
@@ -67,8 +89,7 @@ r.post("/users", async (req, res) => {
     }
     res.status(500).json({ error: err.code }); // Erro genérico
   }
-});
-
+}); */
 
 //POST http://localhost:3000/api/users
 //Body Json {"name": "Fulano", "email": "fulano@teste.com"}
@@ -99,7 +120,7 @@ r.post("/users", async (req, res) => {
 //GET http://localhost:3000/api/users/1 (?)
 // Buscar Usuário específico
 
-r.get("/users/:id", async (req, res) => {
+/* r.get("/users/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const [rows] = await pool.query(
@@ -114,7 +135,7 @@ r.get("/users/:id", async (req, res) => {
   } catch {
     res.status(500).json({ error: "Erro ao Buscar Usuário" });
   }
-});
+}); */
 
 //GET http://localhost:3000/api/groups/:id (?)
 r.get("/groups/:id", async (req, res) => {
@@ -147,14 +168,14 @@ r.get("/user/groups/:groupId", async (req, res) => {
       return res.status(404).json({ error: "Grupo não encontrado" });
     }
     res.json(rows); // Retorna o usuário encontrado
-  } catch(err) {
+  } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
 //PUT http://localhost:3000/api/users/1 (?)
 
-r.put("/users/:id", async (req, res) => {
+/* r.put("/users/:id", async (req, res) => {
   const { id } = req.params;
   const { name, email } = req.body;
 
@@ -184,11 +205,11 @@ r.put("/users/:id", async (req, res) => {
     }
     res.status(500).json({ error: "Erro ao atualizar usuário" });
   }
-});
+}); */
 
 //DELETE http://localhost:3000/api/users/1 (?)
 
-r.delete("/users/:id", async (req, res) => {
+/* r.delete("/users/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const [result] = await pool.query("DELETE FROM users WHERE id =?", [id]);
@@ -199,14 +220,16 @@ r.delete("/users/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: "Erro ao excluir um usuário" });
   }
-});
+}); */
 
 //GET http://localhost:3000/api/pokemon/pikachu
 
 r.get("/pokemon/:name", async (req, res) => {
   const { name } = req.params;
   try {
-    const resp = await fetch(`https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(name)}`);
+    const resp = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(name)}`
+    );
     console.log("resposta api", resp.status, resp.statusText);
 
     if (!resp.ok)
@@ -223,105 +246,127 @@ r.get("/pokemon/:name", async (req, res) => {
   }
 });
 
-
-
 // POST http://localhost:3000/api/login
 
-r.post('/login', async (req, res) => {
+r.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return res.status(400).json({ error: 'email e password são obrigatórios' });
+    return res.status(400).json({ error: "email e password são obrigatórios" });
   }
 
   try {
     const [rows] = await pool.query(
-      'SELECT id, name, email, password FROM users WHERE email = ?',
+      "SELECT id, name, email, password FROM users WHERE email = ?",
       [email]
     );
 
     if (rows.length === 0) {
-      return res.status(401).json({ error: 'Usuário não encontrado' });
+      return res.status(401).json({ error: "Usuário não encontrado" });
     }
 
     const user = rows[0];
 
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
-      return res.status(401).json({ error: 'Senha incorreta' });
+      return res.status(401).json({ error: "Senha incorreta" });
     }
 
     const token = jwt.sign(
       { id: user.id, name: user.name, email: user.email },
-      'seuSegredoJWT', // Use variável de ambiente em produção
-      { expiresIn: '1h' }
+      "seuSegredoJWT", // Use variável de ambiente em produção
+      { expiresIn: "1h" }
     );
 
-    res.json({ message: 'Login bem-sucedido', token });
+    res.json({ message: "Login bem-sucedido", token });
   } catch (err) {
-    res.status(500).json({ error: 'Erro ao validar login' });
+    res.status(500).json({ error: "Erro ao validar login" });
   }
 });
+
+//Público
+r.post("/auth/register", register);
+r.post("/auth/login", login);
+r.post("/auth/forgot-password", forgotPassword);
+
+//Privado
+r.post("/auth/logout", authMiddleware, logout);
+r.get("/users/profile", authMiddleware, profile);
+r.put("/users/me", authMiddleware, updateMe);
+r.delete("/users/:id", authMiddleware, deleteUser);
 
 //POST - http://localhost:3000/api/images
 //Body - form-data - key: image (File)
 //Inserir Imagem
-r.post('/images', upload.single('image'), async(req, res)=>{
-  try{
-      const filepath = req.file.path
-      await pool.execute("INSERT INTO images (img) VALUES (?)", [filepath])
-      res.status(201).json({message: "Imagem enviada com sucesso!", img:filepath})
-  } catch (error){
-      res.status(500).json({error: error.message})
+r.post("/images", upload.single("image"), async (req, res) => {
+  try {
+    const filepath = req.file.path;
+    await pool.execute("INSERT INTO images (img) VALUES (?)", [filepath]);
+    res
+      .status(201)
+      .json({ message: "Imagem enviada com sucesso!", img: filepath });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-})
+});
 //GET - http://localhost:3000/api/images
 //Retornar a lista com o ID e o caminho da imagem
 //Listar Imagem
-r.get('/images', async(req, res)=>{
-  try{
-      const [rows] = await pool.execute("SELECT * FROM images")
-      res.status(200).json(rows)
-  } catch (error){
-      res.status(500).json({error: error.message})
+r.get("/images", async (req, res) => {
+  try {
+    const [rows] = await pool.execute("SELECT * FROM images");
+    res.status(200).json(rows);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-})
+});
 //PUT - http://localhost:3000/api/images/1
 //Body - form-data - key: image (File)
 //Atualizar Imagem
-r.put('/images/:id', upload.single('image'), async(req, res)=>{
-  try{
-      const{id} = req.params
-      const newPath = req.file.path
-      const [old] = await pool.execute("SELECT * FROM images WHERE id =?", [id])
-      if (old.length === 0) return res.status(404).json({error:"Imagem não encontrada!"})
-      const oldPath = old[0].img
-      await pool.execute("UPDATE images SET img = ? WHERE id =?", [newPath, id])
-      fs.unlink(oldPath, (err) =>{
-          if(err) console.warn("Erro ao Remover:", err)
-      })
-      res.json({message: "Imagem Atualizada com sucesso!", img:newPath})
-  } catch (error){
-      res.status(500).json({error: error.message})
+
+r.put("/images/:id", upload.single("image"), async (req, res) => {
+  try {
+    const { id } = req.params;
+    const newPath = req.file.path;
+
+    const [old] = await pool.execute("SELECT * FROM images WHERE id = ?", [id]);
+    if (old.length === 0)
+      return res.status(404).json({ error: "Imagem não encontrada!" });
+
+    const oldPath = old[0].img;
+
+    await pool.execute("UPDATE images SET img = ? WHERE id = ?", [newPath, id]);
+
+    fs.unlink(oldPath, (err) => {
+      if (err) console.warn("Erro ao Remover:", err);
+    });
+
+    res.json({ message: "Imagem Atualizada com sucesso!", img: newPath });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-})
+});
+
 //DELETE - http://localhost:3000/api/images/1
 //Remove a imagem com o Id selecionado e do disco
 //Deletar Imagem
-r.delete('/images/:id', async(req, res)=>{
-  try{
-      const {id} = req.params
-      const [rows] = await pool.execute("SELECT * FROM images WHERE id = ?", [id])
-      if (rows.length === 0) return res.status(404).json({error:"Imagem não encontrada!"})
-      const filePath = rows[0].img
-      await pool.execute("DELETE FROM images WHERE id =?", [id])
-      fs.unlink(filePath, (err) =>{
-          if(err) console.warn("Erro ao Remover:", err)
-      })
-      res.json({message: "Imagem excluída com sucesso!"})
-  } catch (error){
-      res.status(500).json({error: error.message})
+r.delete("/images/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [rows] = await pool.execute("SELECT * FROM images WHERE id = ?", [
+      id,
+    ]);
+    if (rows.length === 0)
+      return res.status(404).json({ error: "Imagem não encontrada!" });
+    const filePath = rows[0].img;
+    await pool.execute("DELETE FROM images WHERE id =?", [id]);
+    fs.unlink(filePath, (err) => {
+      if (err) console.warn("Erro ao Remover:", err);
+    });
+    res.json({ message: "Imagem excluída com sucesso!" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-})
+});
 
 export default r;
