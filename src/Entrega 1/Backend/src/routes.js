@@ -2,8 +2,8 @@ import { json, Router } from "express"; // Importa Express e Router
 import pool from "./db.js"; // Importa pool de conexões com MySQL
 import bcrypt from "bcrypt"; // Para criptografar senhas
 import jwt from "jsonwebtoken"; // Para gerar tokens JWT
-import fs from "fs";
-import multer from "multer";
+import fs from 'fs';
+import multer from 'multer';
 import {
   register,
   login,
@@ -17,14 +17,15 @@ const r = Router(); // Cria instância de rotas
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/"); // pasta onde os arquivos serão salvos
+    cb(null, 'uploads/'); // pasta onde os arquivos serão salvos
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
+    cb(null, Date.now() + '-' + file.originalname);
+  }
 });
 
 const upload = multer({ storage });
+
 
 //GET http://localhost:3000/api/db/health
 r.get("/db/health", async (_, res) => {
@@ -256,16 +257,15 @@ r.post("/login", async (req, res) => {
 
   try {
     const [rows] = await pool.query(
-      "SELECT id, name, email, password, `type` FROM users WHERE email = ?",
+      "SELECT id, name, email, password FROM users WHERE email = ?",
       [email]
     );
 
-    if (!rows.length)
+    if (rows.length === 0) {
       return res.status(401).json({ error: "Usuário não encontrado" });
+    }
 
     const user = rows[0];
-    
-    const userType = user.type || "Colaborador";
 
     const match = await bcrypt.compare(password, user.password);
     if (!match) {
@@ -273,21 +273,12 @@ r.post("/login", async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: user.id, name: user.name, email: user.email, type: user.type },
+      { id: user.id, name: user.name, email: user.email },
       "seuSegredoJWT", // Use variável de ambiente em produção
       { expiresIn: "1h" }
     );
 
-    res.json({
-      message: "Login bem-sucedido",
-      token,
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        type: user.type,
-      },
-    });
+    res.json({ message: "Login bem-sucedido", token });
   } catch (err) {
     res.status(500).json({ error: "Erro ao validar login" });
   }

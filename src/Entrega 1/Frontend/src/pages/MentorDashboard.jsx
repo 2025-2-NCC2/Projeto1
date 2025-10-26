@@ -37,27 +37,31 @@ export default function MentorDashboard() {
 }, []);
 
 const handleMembers = async (idGroup) => {
-  try {
-    const response = await fetch(`http://localhost:3000/api/groups/${idGroup}`);
+    //console.log("Grupo selecionado ID:", idGroup);
+    try {
+      const response = await fetch(`http://localhost:3000/api/user/groups/${idGroup}`, { // dev: http://localhost:3000/api/groups/${id}
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || "Erro na resposta do servidor");
+      const data = await response.json();
+      if (response.ok) {
+        setMembers((prev) => [...prev, data][0]); // adiciona o grupo retornado
+      } else {
+        alert(data.error || "Erro ao carregar usuários do grupo");
+      }
+    } catch (err) {
+      alert("Erro ao conectar com o servidor" + err.message);
     }
-
-    const data = await response.json();
-    console.log("Grupo:", data);
-  } catch (error) {
-    console.error("Erro ao buscar grupos:", error);
-  }
-};
-
-  console.log("Grupo MEMBERS ID:", members);
+  };
+  console.log("Grupo selecionado ID:", members);
 
   const handleGroup = async (id) => {
     //console.log("Grupo selecionado ID:", id);
     try {
-      const response = await fetch(`http://localhost:3000/api/user/groups/${id}`, { // dev: http://localhost:3000/api/groups/${id}
+      const response = await fetch(`http://localhost:3000/api/groups/${id}`, { // dev: http://localhost:3000/api/groups/${id}
         method: "GET",
         headers: {
           "Content-Type": "application/json"
@@ -520,7 +524,7 @@ const handleMembers = async (idGroup) => {
             </div>
 
             <div className="col-12 col-lg-4">
-              {/* Meus mentorados 
+              {/* Meus mentorados */}
               <div className="card shadow-sm mb-4">
                 <div className="card-body">
                   <h2 className="h6 mb-3">Meus mentorados</h2>
@@ -539,9 +543,9 @@ const handleMembers = async (idGroup) => {
                     ))}
                   </ul>
                 </div>
-              </div>*/}
+              </div>
 
-              {/* Próximas sessões 
+              {/* Próximas sessões */}
               <div className="card shadow-sm mb-4">
                 <div className="card-body">
                   <h2 className="h6 mb-3">Próximas sessões</h2>
@@ -562,9 +566,9 @@ const handleMembers = async (idGroup) => {
                     )}
                   </ul>
                 </div>
-              </div>*/}
+              </div>
 
-              {/* Recursos 
+              {/* Recursos */}
               <div className="card shadow-sm">
                 <div className="card-body">
                   <h2 className="h6 mb-3">Recursos sugeridos</h2>
@@ -581,7 +585,7 @@ const handleMembers = async (idGroup) => {
                     ))}
                   </ul>
                 </div>
-              </div>*/}
+              </div>
 
             </div>
           </div>
@@ -655,7 +659,7 @@ const handleMembers = async (idGroup) => {
             <button
               className="btn btn-primary"
               data-bs-toggle="modal"
-              data-bs-target="#modalDoacaoMentor"
+              data-bs-target="#modalDoacao"
               disabled={!isOwner}
               title={isOwner ? 'Registrar doação' : 'Somente leitura (você não é o mentor deste grupo)'}
             >
@@ -751,10 +755,10 @@ const handleMembers = async (idGroup) => {
                                     className="btn btn-sm btn-outline-primary"
                                     title={isOwner ? 'Registrar doação' : 'Somente leitura'}
                                     data-bs-toggle="modal"
-                                    data-bs-target="#modalDoacaoMentor"
+                                    data-bs-target="#modalDoacao"
                                     onClick={() => {
                                       if (!isOwner) return
-                                      const sel = document.querySelector('#modalDoacaoMentor select[name="participanteId"]')
+                                      const sel = document.querySelector('#modalDoacao select[name="participanteId"]')
                                       if (sel) sel.value = String(p.id)
                                     }}
                                     disabled={!isOwner}
@@ -1034,7 +1038,7 @@ const handleMembers = async (idGroup) => {
       </div>
 
       {/* Modal: Registrar doação (somente dono) */}
-  <div className="modal fade" id="modalDoacaoMentor" tabIndex="-1" aria-labelledby="modalDoacaoMentorLabel" aria-hidden="true">
+      <div className="modal fade" id="modalDoacao" tabIndex="-1" aria-labelledby="modalDoacaoLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={(e) => {
@@ -1049,7 +1053,7 @@ const handleMembers = async (idGroup) => {
               form.reset()
             }}>
               <div className="modal-header">
-                <h1 className="modal-title fs-5" id="modalDoacaoMentorLabel">Registrar doação</h1>
+                <h1 className="modal-title fs-5" id="modalDoacaoLabel">Registrar doação</h1>
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
               </div>
               <div className="modal-body">

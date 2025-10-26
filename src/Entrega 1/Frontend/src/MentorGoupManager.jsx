@@ -158,7 +158,7 @@ export default function MentorGroupManager() {
             type="button"
             className="btn btn-primary"
             data-bs-toggle="modal"
-            data-bs-target="#modalDoacaoGroup"
+            data-bs-target="#modalDoacao"
           >
             <i className="bi bi-gift-fill me-1" aria-hidden="true"></i>
             Registrar doação
@@ -281,10 +281,10 @@ export default function MentorGroupManager() {
                           <td className="text-center">R$ {brl.toLocaleString()}</td>
                           <td className="text-end">
                             <div className="btn-group">
-                              <button className="btn btn-sm btn-outline-primary" title="Registrar doação" data-bs-toggle="modal" data-bs-target="#modalDoacaoGroup"
+                              <button className="btn btn-sm btn-outline-primary" title="Registrar doação" data-bs-toggle="modal" data-bs-target="#modalDoacao"
                                 onClick={() => {
                                   // Prefill participante no modal
-                                  const sel = document.querySelector('#modalDoacaoGroup select[name="participanteId"]')
+                                  const sel = document.querySelector('#modalDoacao select[name="participanteId"]')
                                   if (sel) sel.value = String(p.id)
                                 }}>
                                 <i className="bi bi-gift" aria-hidden="true"></i>
@@ -330,7 +330,7 @@ export default function MentorGroupManager() {
                     <span className="input-group-text"><i className="bi bi-search" aria-hidden="true"></i></span>
                     <input type="search" className="form-control" placeholder="Buscar por nome, tipo ou data..." value={qDoacao} onChange={e => setQDoacao(e.target.value)} />
                   </div>
-                  <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDoacaoGroup">
+                  <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalDoacao">
                     <i className="bi bi-gift-fill me-1" aria-hidden="true"></i>
                     Nova doação
                   </button>
@@ -456,7 +456,7 @@ export default function MentorGroupManager() {
       </div>
 
       {/* --------- MODAL: Registrar doação --------- */}
-  <div className="modal fade" id="modalDoacaoGroup" tabIndex="-1" aria-labelledby="modalDoacaoGroupLabel" aria-hidden="true">
+      <div className="modal fade" id="modalDoacao" tabIndex="-1" aria-labelledby="modalDoacaoLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
             <form onSubmit={(e) => {
@@ -470,7 +470,7 @@ export default function MentorGroupManager() {
               form.reset()
             }}>
               <div className="modal-header">
-                <h1 className="modal-title fs-5" id="modalDoacaoGroupLabel">Registrar doação</h1>
+                <h1 className="modal-title fs-5" id="modalDoacaoLabel">Registrar doação</h1>
                 <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
               </div>
               <div className="modal-body">

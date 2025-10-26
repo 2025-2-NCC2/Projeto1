@@ -1,312 +1,375 @@
-import { useMemo, useState } from "react";
-import ModalDoacao from '../components/modalDoacao';
-import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid,
-  Tooltip, Legend, ResponsiveContainer
-} from "recharts";
+import { useMemo, useState } from 'react'
 
 export default function CollaboratorDashboard() {
-  const [mostrarModal, setMostrarModal] = useState(false);
+  // Dados fictícios
   const [tarefas, setTarefas] = useState([
-    {
-      id: 1,
-      titulo: "Separar cestas básicas para entrega",
-      projeto: "Doações Alimentares",
-      equipe: "Logística",
-      prioridade: "Alta",
-      vencimento: "2025-10-05",
-      progresso: 60,
-      status: "Em andamento",
-    }
-  ]);
+    { id: 1, titulo: 'Revisar extratos Itaú', projeto: 'Financeiro', equipe: 'Financeiro', prioridade: 'Alta', vencimento: '2025-10-05', progresso: 60, status: 'Em andamento' },
+    { id: 2, titulo: 'Validar OCR Santander', projeto: 'Tecnologia', equipe: 'Tecnologia', prioridade: 'Média', vencimento: '2025-10-07', progresso: 30, status: 'Em andamento' },
+    { id: 3, titulo: 'Relatório semanal',     projeto: 'Operações', equipe: 'Operações',  prioridade: 'Baixa', vencimento: '2025-10-04', progresso: 90, status: 'Quase pronto' },
+    { id: 4, titulo: 'Briefing parceria C6',   projeto: 'Parcerias', equipe: 'Parcerias',  prioridade: 'Alta',  vencimento: '2025-10-09', progresso: 10, status: 'Novo' },
+  ])
 
-  const [q, setQ] = useState("");
-  const [atividadeError, setAtividadeError] = useState("");
+  const [q, setQ] = useState('')
 
-  // Metas de doação
-  const kgTarget = 500;
-  const kgCurrent = 0;
-  const moneyTarget = 2000;
-  const moneyCurrent = 0;
+  const filtradas = useMemo(() => {
+    const s = q.trim().toLowerCase()
+    if (!s) return tarefas
+    return tarefas.filter(t =>
+      t.titulo.toLowerCase().includes(s) ||
+      t.projeto.toLowerCase().includes(s) ||
+      t.equipe.toLowerCase().includes(s)
+    )
+  }, [q, tarefas])
 
-  const kgPercent = (kgCurrent / kgTarget) * 100;
-  const moneyPercent = (moneyCurrent / moneyTarget) * 100;
-
-  const kgCurrentFmt = kgCurrent.toLocaleString("pt-BR");
-  const kgTargetFmt = kgTarget.toLocaleString("pt-BR");
-  const moneyCurrentFmt = moneyCurrent.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-  const moneyTargetFmt = moneyTarget.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-
-  const groups = [
-    { id: 1, moneyColor: "#3b82f6", kgColor: "#22c55e" },
-  ];
-
-  const chartData = [
-    { semana: "Semana 1", grupo1Money: 100, grupo1Kg: 50 },
-    { semana: "Semana 2", grupo1Money: 150, grupo1Kg: 70 },
-    { semana: "Semana 3", grupo1Money: 120, grupo1Kg: 60 },
-    { semana: "Semana 4", grupo1Money: 180, grupo1Kg: 80 },
-  ];
-
-  const tarefasFiltradas = useMemo(() => {
-    const termo = q.trim().toLowerCase();
-    if (!termo) return tarefas;
-    return tarefas.filter(
-      (t) =>
-        t.titulo.toLowerCase().includes(termo) ||
-        t.projeto.toLowerCase().includes(termo) ||
-        t.equipe.toLowerCase().includes(termo)
-    );
-  }, [q, tarefas]);
-
+  // KPIs
   const kpis = useMemo(() => {
-    const minhasEquipes = new Set(tarefas.map((t) => t.equipe)).size;
-    const abertas = tarefas.filter((t) => t.progresso < 100).length;
-    const projetos = new Set(tarefas.map((t) => t.projeto)).size;
-    const mensagens = 3;
-    return { minhasEquipes, abertas, projetos, mensagens };
-  }, [tarefas]);
+    const minhasEquipes = new Set(tarefas.map(t => t.equipe)).size
+    const abertas = tarefas.filter(t => t.progresso < 100).length
+    const projetos = new Set(tarefas.map(t => t.projeto)).size
+    const mensagens = 3 // placeholder
+    return { minhasEquipes, abertas, projetos, mensagens }
+  }, [tarefas])
 
-  function adicionarTarefaLocal(tarefa) {
-    setTarefas((prev) => [
-      {
-        id: prev.length ? Math.max(...prev.map((x) => x.id)) + 1 : 1,
-        ...tarefa,
-      },
+  function badgePrioridade(p) {
+    switch ((p || '').toLowerCase()) {
+      case 'alta': return 'text-bg-danger'
+      case 'média':
+      case 'media': return 'text-bg-warning'
+      case 'baixa': return 'text-bg-secondary'
+      default: return 'text-bg-light text-dark'
+    }
+  }
+
+  function statusBadge(s) {
+    const v = (s || '').toLowerCase()
+    if (v.includes('novo')) return 'text-bg-primary'
+    if (v.includes('quase')) return 'text-bg-info'
+    return 'text-bg-success'
+  }
+
+  // Simplesmente simula criação de tarefa local (sem backend)
+  function criarTarefaLocal(tarefa) {
+    setTarefas(prev => [
       ...prev,
-    ]);
+      { id: prev.length ? Math.max(...prev.map(x => x.id)) + 1 : 1, ...tarefa }
+    ])
   }
 
-  function handleRegistrarAtividade(e) {
-    e.preventDefault();
-    const form = e.target;
-    const titulo = form.titulo?.value?.trim();
-    const projeto = form.projeto?.value?.trim();
+  const proximosPrazos = useMemo(() => {
+    return [...tarefas]
+      .sort((a, b) => a.vencimento.localeCompare(b.vencimento))
+      .slice(0, 5)
+  }, [tarefas])
 
-    if (!titulo || !projeto) {
-      setAtividadeError("Por favor, preencha os campos obrigatórios: título e projeto.");
-      return;
-    }
-
-    const descricao = form.descricao?.value || "";
-    const equipe = form.equipe?.value || "Equipe";
-    const prioridade = form.prioridade?.value || "Média";
-    const vencimento = form.vencimento?.value || new Date().toISOString().slice(0, 10);
-
-    adicionarTarefaLocal({
-      titulo,
-      projeto,
-      equipe,
-      prioridade,
-      vencimento,
-      progresso: 0,
-      status: "Novo",
-    });
-
-    form.reset();
-    setQ("");
-    setAtividadeError("");
-
-    try {
-      const modalEl = document.getElementById("modalRegistrarAtividade");
-      if (modalEl) {
-        const bsModal = window.bootstrap?.Modal?.getInstance(modalEl) ?? new window.bootstrap.Modal(modalEl);
-        bsModal.hide();
-      }
-    } catch (err) {
-      console.warn("Não foi possível fechar o modal programaticamente", err);
-    }
-  }
+  const anuncios = [
+    { titulo: 'Manutenção 06/10 22h', msg: 'Sistema ficará indisponível por 30 minutos.' },
+    { titulo: 'Nova política de revisões', msg: 'Padrão mínimo semanal para cada equipe.' }
+  ]
 
   return (
-    <div className="dashboard-container py-4">
+    <div className="container py-4">
+      <div className="d-flex align-items-center justify-content-between mb-3">
+        <h1 className="h4 mb-0">Meu painel</h1>
+
+        <div className="d-flex gap-2">
+          <button
+            type="button"
+            className="btn btn-outline-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#modalRegistrarAtividade"
+          >
+            <i className="bi bi-clipboard2-check me-1" aria-hidden="true"></i>
+            Registrar atividade
+          </button>
+
+        </div>
+      </div>
 
       {/* KPIs */}
       <div className="row g-3 mb-4">
-        {[
-          { label: "Minhas equipes", value: kpis.minhasEquipes, icon: "people", color: "#0ea5e9" },
-          { label: "Tarefas abertas", value: kpis.abertas, icon: "list-check", color: "#f97316" },
-          { label: "Projetos", value: kpis.projetos, icon: "kanban", color: "#10b981" },
-          { label: "Mensagens", value: kpis.mensagens, icon: "chat-dots", color: "#6366f1" },
-        ].map((kpi, i) => (
-          <div className="col-12 col-md-6 col-lg-3" key={i}>
-            <div className="card kpi-card shadow-sm h-100">
-              <div className="card-body">
-                <div className="text-secondary small">{kpi.label}</div>
-                <div className="d-flex align-items-center justify-content-between">
-                  <div className="fs-4 fw-semibold">{kpi.value}</div>
-                  <div
-                    className="kpi-icon d-flex align-items-center justify-content-center"
-                    style={{ backgroundColor: kpi.color }}
-                  >
-                    <i className={`bi bi-${kpi.icon} text-white fs-5`}></i>
-                  </div>
+        <div className="col-12 col-md-6 col-lg-3">
+          <div className="card shadow-sm h-100">
+            <div className="card-body">
+              <div className="text-secondary small">Minhas equipes</div>
+              <div className="d-flex align-items-center justify-content-between">
+                <div className="fs-4 fw-semibold">{kpis.minhasEquipes}</div>
+                <i className="bi bi-people fs-3 text-primary" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-12 col-md-6 col-lg-3">
+          <div className="card shadow-sm h-100">
+            <div className="card-body">
+              <div className="text-secondary small">Tarefas abertas</div>
+              <div className="d-flex align-items-center justify-content-between">
+                <div className="fs-4 fw-semibold">{kpis.abertas}</div>
+                <i className="bi bi-list-check fs-3 text-primary" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-12 col-md-6 col-lg-3">
+          <div className="card shadow-sm h-100">
+            <div className="card-body">
+              <div className="text-secondary small">Projetos</div>
+              <div className="d-flex align-items-center justify-content-between">
+                <div className="fs-4 fw-semibold">{kpis.projetos}</div>
+                <i className="bi bi-kanban fs-3 text-primary" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-12 col-md-6 col-lg-3">
+          <div className="card shadow-sm h-100">
+            <div className="card-body">
+              <div className="text-secondary small">Mensagens</div>
+              <div className="d-flex align-items-center justify-content-between">
+                <div className="fs-4 fw-semibold">{kpis.mensagens}</div>
+                <i className="bi bi-chat-dots fs-3 text-primary" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<div className="card shadow-sm mb-4">
+  <div className="card-body">
+    <h2 className="h6 mb-3">Minhas metas de doação</h2>
+    <div className="mb-3">
+      <div className="d-flex justify-content-between">
+        <span>Meta em kg: 500 kg</span>
+        <span>320 kg</span>
+      </div>
+      <div className="progress">
+        <div className="progress-bar bg-success" style={{ width: '64%' }}>64%</div>
+      </div>
+    </div>
+    <div className="mb-3">
+      <div className="d-flex justify-content-between">
+        <span>Meta em R$: R$ 2.000</span>
+        <span>R$ 1.200</span>
+      </div>
+      <div className="progress">
+        <div className="progress-bar bg-info" style={{ width: '60%' }}>60%</div>
+      </div>
+    </div>
+    <button className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalDoacao">
+      <i className="bi bi-plus-lg me-1"></i> Registrar doação
+    </button>
+  </div>
+  <div className="modal fade" id="modalDoacao" tabIndex="-1" aria-labelledby="modalDoacaoLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <form onSubmit={(e) => { e.preventDefault(); /* lógica para salvar */ }}>
+        <div className="modal-header">
+          <h5 className="modal-title" id="modalDoacaoLabel">Registrar doação</h5>
+          <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+        <div className="modal-body">
+          <div className="mb-3">
+            <label className="form-label">Tipo de doação</label>
+            <select className="form-select" required>
+              <option value="kg">Alimento (kg)</option>
+              <option value="dinheiro">Dinheiro (R$)</option>
+            </select>
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Quantidade</label>
+            <input type="number" className="form-control" placeholder="Ex.: 10" required />
+          </div>
+        </div>
+        <div className="modal-footer">
+          <button type="button" className="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+      {/* Conteúdo principal */}
+      <div className="row g-4">
+        {/* Tarefas */}
+        <div className="col-12 col-lg-8">
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <div className="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+                <h2 className="h6 mb-0">Minhas tarefas</h2>
+                <div className="input-group" style={{ maxWidth: 360 }}>
+                  <span className="input-group-text">
+                    <i className="bi bi-search" aria-hidden="true"></i>
+                  </span>
+                  <input
+                    type="search"
+                    className="form-control"
+                    placeholder="Buscar por título, projeto ou equipe..."
+                    value={q}
+                    onChange={(e) => setQ(e.target.value)}
+                  />
                 </div>
               </div>
+
+              <div className="table-responsive">
+                <table className="table table-sm align-middle">
+                  <thead>
+                    <tr>
+                      <th>Tarefa</th>
+                      <th>Projeto</th>
+                      <th>Equipe</th>
+                      <th>Prioridade</th>
+                      <th style={{ minWidth: 160 }}>Progresso</th>
+                      <th>Vencimento</th>
+                      <th>Status</th>
+                      <th className="text-end">Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filtradas.map(t => (
+                      <tr key={t.id}>
+                        <td className="fw-semibold">{t.titulo}</td>
+                        <td>{t.projeto}</td>
+                        <td>{t.equipe}</td>
+                        <td><span className={`badge ${badgePrioridade(t.prioridade)}`}>{t.prioridade}</span></td>
+                        <td>
+                          <div className="progress" role="progressbar" aria-valuenow={t.progresso} aria-valuemin="0" aria-valuemax="100">
+                            <div className="progress-bar" style={{ width: `${t.progresso}%` }}>{t.progresso}%</div>
+                          </div>
+                        </td>
+                        <td>{new Date(t.vencimento).toLocaleDateString()}</td>
+                        <td><span className={`badge ${statusBadge(t.status)}`}>{t.status}</span></td>
+                        <td className="text-end">
+                          <div className="btn-group">
+                            <button className="btn btn-sm btn-outline-primary" title="Detalhes">
+                              <i className="bi bi-eye" aria-hidden="true"></i>
+                            </button>
+                            <button className="btn btn-sm btn-outline-secondary" title="Atualizar progresso"
+                              onClick={() => {
+                                // Simples incremento de progresso local
+                                setTarefas(prev => prev.map(x => x.id === t.id ? { ...x, progresso: Math.min(100, x.progresso + 10) } : x))
+                              }}>
+                              <i className="bi bi-arrow-up-right" aria-hidden="true"></i>
+                            </button>
+                            <button className="btn btn-sm btn-outline-success" title="Concluir"
+                              onClick={() => {
+                                setTarefas(prev => prev.map(x => x.id === t.id ? { ...x, progresso: 100, status: 'Concluída' } : x))
+                              }}>
+                              <i className="bi bi-check2-circle" aria-hidden="true"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                    {filtradas.length === 0 && (
+                      <tr>
+                        <td colSpan="8" className="text-center text-secondary py-4">
+                          Nenhuma tarefa encontrada para “{q}”.
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
             </div>
           </div>
-        ))}
-      </div>
+        </div>
 
-      {/* Metas de doação */}
-      <div className="card donation-card shadow-sm mb-4">
-        <div className="card-body">
-          <h2 className="h6 fw-bold text-success mb-3">Minhas metas de doação</h2>
-
-          {/* Meta em kg */}
-          <div className="mb-4">
-            <div className="d-flex justify-content-between align-items-center mb-1">
-              <span className="text-secondary small">
-                Meta em kg: <strong>{kgTargetFmt}</strong>
-              </span>
-              <span className="fw-semibold text-dark">{kgCurrentFmt} kg</span>
+        {/* Sidebar */}
+        <div className="col-12 col-lg-4">
+          <div className="card shadow-sm mb-4">
+            <div className="card-body">
+              <h2 className="h6 mb-3">Minhas equipes</h2>
+              <ul className="list-group list-group-flush">
+                {[...new Set(tarefas.map(t => t.equipe))].map((nome, i) => (
+                  <li key={i} className="list-group-item d-flex align-items-center justify-content-between">
+                    <div className="d-flex align-items-center gap-2">
+                      <div className="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style={{ width: 32, height: 32 }}>
+                        <span className="small">{nome[0]}</span>
+                      </div>
+                      <div className="fw-semibold">{nome}</div>
+                    </div>
+                    <span className="badge text-bg-primary">
+                      {tarefas.filter(t => t.equipe === nome && t.progresso < 100).length} abertas
+                    </span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="progress custom-progress">
-              <div
-                className="progress-bar bg-success fw-semibold"
-                style={{ width: `${kgPercent}%` }}
-              >
-                {kgPercent.toFixed(0)}%
+          </div>
+
+          <div className="card shadow-sm mb-4">
+            <div className="card-body">
+              <h2 className="h6 mb-3">Próximos prazos</h2>
+              <ul className="list-unstyled mb-0">
+                {proximosPrazos.map(t => (
+                  <li key={t.id} className="mb-2">
+                    <div className="d-flex justify-content-between">
+                      <div>
+                        <div className="fw-semibold">{t.titulo}</div>
+                        <div className="small text-secondary">{t.projeto} • {t.equipe}</div>
+                      </div>
+                      <div className="text-end">
+                        <div className="small">{new Date(t.vencimento).toLocaleDateString()}</div>
+                        <span className={`badge ${badgePrioridade(t.prioridade)}`}>{t.prioridade}</span>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="card shadow-sm">
+            <div className="card-body">
+              <h2 className="h6 mb-3">Anúncios</h2>
+              <div className="border-start ps-3">
+                {anuncios.map((a, i) => (
+                  <div key={i} className="mb-3">
+                    <div className="fw-semibold">{a.titulo}</div>
+                    <div className="text-secondary small">{a.msg}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Meta em R$ */}
-          <div className="mb-4">
-            <div className="d-flex justify-content-between align-items-center mb-1">
-              <span className="text-secondary small">
-                Meta em R$: <strong>{moneyTargetFmt}</strong>
-              </span>
-              <span className="fw-semibold text-dark">{moneyCurrentFmt}</span>
-            </div>
-            <div className="progress custom-progress">
-              <div
-                className="progress-bar bg-info fw-semibold"
-                style={{ width: `${moneyPercent}%` }}
-              >
-                {moneyPercent.toFixed(0)}%
-              </div>
-            </div>
-          </div>
-
-          <button className="btn custom-btn-register w-100" onClick={() => setMostrarModal(true)}>
-            <i className="bi bi-plus-lg me-1"></i> Registrar doação
-          </button>
         </div>
       </div>
-      <ModalDoacao mostrar={mostrarModal} fecharModal={() => setMostrarModal(false)} />
 
-      {/* Gráficos */}
-      {["Dinheiro (R$)", "Alimentos (Kg)"].map((tipo, idx) => (
-        <div className="card chart-card shadow-sm mb-4" key={idx}>
-          <div className="card-body">
-            <h2 className="h6 mb-3 text-dark">Evolução das Doações em {tipo}</h2>
-            <div style={{ width: "100%", height: 300 }}>
-              <ResponsiveContainer>
-                <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
-                  <XAxis dataKey="semana" stroke="#374151" />
-                  <YAxis
-                    label={{
-                      value: tipo.includes("R$") ? "R$" : "Kg",
-                      angle: -90,
-                      position: "insideLeft",
-                      style: { fill: "#374151" },
-                    }}
-                  />
-                  <Tooltip />
-                  <Legend />
-                  {groups.map((group) => (
-                    <Line
-                      key={`${tipo.includes("R$") ? "money" : "kg"}-${group.id}`}
-                      type="monotone"
-                      dataKey={`grupo${group.id}${tipo.includes("R$") ? "Money" : "Kg"}`}
-                      stroke={tipo.includes("R$") ? group.moneyColor : group.kgColor}
-                      strokeWidth={3}
-                      dot={{ r: 4 }}
-                      name={`Grupo ${group.id} (${tipo.includes("R$") ? "R$" : "Kg"})`}
-                    />
-                    
-                  ))}
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
+      {/* Modal: Registrar atividade */}
+      <div className="modal fade" id="modalRegistrarAtividade" tabIndex="-1" aria-labelledby="modalRegistrarAtividadeLabel" aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <form onSubmit={(e) => { e.preventDefault(); /* integrar backend depois */ }}>
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="modalRegistrarAtividadeLabel">Registrar atividade</h1>
+                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+              </div>
+              <div className="modal-body">
+                <div className="mb-3">
+                  <label className="form-label">Título</label>
+                  <input type="text" className="form-control" placeholder="Ex.: Revisão de extratos" required />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Descrição</label>
+                  <textarea className="form-control" rows="3" placeholder="O que foi feito?"></textarea>
+                </div>
+                <div className="mb-3">
+                  <label className="form-label">Projeto</label>
+                  <input type="text" className="form-control" placeholder="Nome do projeto" />
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">Salvar</button>
+              </div>
+            </form>
           </div>
         </div>
-      ))}
+      </div>
 
-      <style>{`
-        .dashboard-container {
-          background: linear-gradient(180deg, #f9fafb 0%, #eef2f7 100%);
-          min-height: 100vh;
-          padding: 2rem;
-        }
-
-        .btn-gradient {
-          background: linear-gradient(90deg, #2563eb, #22c55e);
-          color: #fff;
-          font-weight: 600;
-          border: none;
-          border-radius: 10px;
-          padding: 0.6rem 1.2rem;
-          transition: 0.3s;
-        }
-
-        .btn-gradient:hover {
-          filter: brightness(1.1);
-          transform: translateY(-2px);
-        }
-
-        .kpi-card {
-          border: none;
-          border-radius: 16px;
-          background-color: #ffffff;
-          transition: all 0.25s ease;
-        }
-
-        .kpi-card:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .kpi-icon {
-          width: 38px;
-          height: 38px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .donation-card, .chart-card {
-          border-radius: 16px;
-          border: none;
-          background-color: #ffffff;
-        }
-
-        .custom-progress {
-          height: 10px;
-          border-radius: 10px;
-          background-color: #f3f4f6;
-        }
-
-        .custom-btn-register {
-          background-color: #22b77e;
-          border: none;
-          color: #fff;
-          border-radius: 10px;
-          padding: 10px 0;
-          font-weight: 600;
-          font-size: 0.95rem;
-          transition: all 0.25s ease;
-          box-shadow: 0 4px 12px rgba(34, 183, 126, 0.3);
-        }
-
-        .custom-btn-register:hover {
-          background-color: #1ea36f;
-          transform: translateY(-2px);
-        }
-      `}</style>
     </div>
-  );
+  )
 }

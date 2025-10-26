@@ -5,7 +5,7 @@ import { createToken, denyToken } from "../services/tokenService.js";
 const sanitizeUser = (u) => ({ id: u.id, name: u.name, email: u.email });
 
 export const register = async (req, res) => {
-  const { name, email, password, type } = req.body; // <-- pegar type
+  const { name, email, password, type } = req.body;
   if (!name || !email || !password || !type) {
     return res
       .status(400)
@@ -23,7 +23,7 @@ export const register = async (req, res) => {
 
     const [result] = await pool.query(
       "INSERT INTO users (name, email, password, `type`) VALUES (?, ?, ?, ?)",
-      [name, email, hashed, type] // <-- incluir type aqui
+      [name, email, hashed, type]
     );
 
     return res.status(201).json({ id: result.insertId, name, email, type });
@@ -36,10 +36,9 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    const [rows] = await pool.execute(
-      "SELECT * FROM users WHERE email = ?",
-      [email]
-    );
+    const [rows] = await pool.execute("SELECT * FROM users WHERE email = ?", [
+      email,
+    ]);
 
     if (rows.length === 0)
       return res.status(401).json({ error: "Usuário não encontrado" });
@@ -47,20 +46,16 @@ export const login = async (req, res) => {
     const user = rows[0];
 
     const senhaValida = await bcrypt.compare(password, user.password);
-    if (!senhaValida)
-      return res.status(401).json({ error: "Senha inválida" });
+    if (!senhaValida) return res.status(401).json({ error: "Senha inválida" });
 
-    // Garante que type sempre existe
-    const userType = user.type || "Colaborador"; 
+    const userType = user.type || "Colaborador";
 
-    // Cria token JWT
     const { token, jti } = createToken({
       id: user.id,
       email: user.email,
       type: userType,
     });
 
-    // Retorna o user corretamente
     return res.json({
       jti,
       token,
@@ -68,7 +63,7 @@ export const login = async (req, res) => {
         id: user.id,
         name: user.name,
         email: user.email,
-        type: userType, // <-- aqui é crucial
+        type: userType,
       },
     });
   } catch (err) {
@@ -76,7 +71,6 @@ export const login = async (req, res) => {
     res.status(500).json({ error: "Erro no login" });
   }
 };
-
 
 // Logout: revoga o token atual (via jti em denylist)
 export const logout = async (req, res) => {
@@ -95,6 +89,7 @@ export const forgotPassword = async (req, res) => {
   const { email, newPassword } = req.body;
   if (!email || !newPassword)
     return res.status(400).json({ error: "Envie email e newPassword" });
+
   try {
     const hashed = await bcrypt.hash(newPassword, 10);
     await pool.query("UPDATE users SET password = ? WHERE email = ?", [

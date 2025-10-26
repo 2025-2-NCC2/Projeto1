@@ -1,22 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import logo from '../assets/logo.png';
 
 export default function MentorLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [animate, setAnimate] = useState(false); // controla a animação
   const navigate = useNavigate();
-
-  const primaryColor = "#22B77E"; // Verde
-  const secondaryColor = "#17A2B8"; // Azul-claro
-  const textColor = "#000000ff"; // Texto branco sobre o vídeo
-
-  useEffect(() => {
-    const timeout = setTimeout(() => setAnimate(true), 100);
-    return () => clearTimeout(timeout);
-  }, []);
-
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -42,100 +30,56 @@ export default function MentorLogin() {
   };
 
   return (
-    <div 
-      className="container-fluid p-0"
-      style={{ 
-        fontFamily: 'Montserrat, Roboto, sans-serif', 
-        minHeight: '100vh',
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-        color: textColor
-      }}
-    >
-      {/* Vídeo de fundo desfocado */}
-      <video
-        autoPlay
-        loop
-        muted
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          filter: 'blur(8px)',
-          zIndex: -1
-        }}
-      >
-        <source src="../src/assets/video.mp4" type="video/mp4" />
-        Seu navegador não suporta vídeo.
-      </video>
+    <div className="container py-5">
+      <div className="row justify-content-center">
+        <div className="col-12 col-sm-10 col-md-8 col-lg-5">
+          <div className="card shadow-sm">
+            <div className="card-body p-4">
+              <h1 className="h4 mb-3">Entrar como mentor</h1>
 
-      {/* Formulário */}
-      <div 
-        className="col-12 col-sm-10 col-md-8 col-lg-5"
-        style={{
-          transform: animate ? 'translateY(0)' : 'translateY(200px)',
-          opacity: animate ? 1 : 0,
-          transition: 'all 1.0s ease-out',
-          zIndex: 1
-        }}
-      >
-        <div className="text-center mb-4">
-          
-        </div>
-        <div className="card shadow-sm" style={{ borderColor: primaryColor, borderWidth: '2px', backgroundColor: 'rgba(0,0,0,0.6)' }}>
-          <div className="card-body p-4">
-            <h1 className="h4 mb-3 text-center" style={{ color: primaryColor }}>Entrar como mentor</h1>
+              <form onSubmit={handleLogin}>
+                <div className="mb-3">
+                  <label htmlFor="mentor-email" className="form-label">E-mail</label>
+                  <input
+                    id="mentor-email"
+                    type="email"
+                    className="form-control"
+                    placeholder="voce@empresa.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
 
-            <form onSubmit={handleLogin}>
-              <div className="mb-3">
-                <label htmlFor="mentor-email" className="form-label" style={{ color: textColor }}>E-mail</label>
-                <input
-                  id="mentor-email"
-                  type="email"
-                  className="form-control"
-                  placeholder="voce@empresa.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  style={{ borderColor: secondaryColor, backgroundColor: 'rgba(255,255,255,0.1)', color: textColor }}
-                />
-              </div>
+                <div className="mb-3">
+                  <label htmlFor="mentor-senha" className="form-label">Senha</label>
+                  <input
+                    id="mentor-senha"
+                    type="password"
+                    className="form-control"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
 
-              <div className="mb-3">
-                <label htmlFor="mentor-senha" className="form-label" style={{ color: textColor }}>Senha</label>
-                <input
-                  id="mentor-senha"
-                  type="password"
-                  className="form-control"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  style={{ borderColor: secondaryColor, backgroundColor: 'rgba(255,255,255,0.1)', color: textColor }}
-                />
-              </div>
+                <button className="btn btn-primary w-100" type="submit">
+                  <i className="bi bi-box-arrow-in-right me-1" aria-hidden="true"></i>
+                  Entrar
+                </button>
+              </form>
 
-              <button className="btn w-100" type="submit" style={{ backgroundColor: primaryColor, borderColor: primaryColor, color: '#fff' }}>
-                <i className="bi bi-box-arrow-in-right me-1" aria-hidden="true"></i>
-                Entrar
-              </button>
-            </form>
-
-            <p className="text-center small mt-3 mb-0" style={{ color: textColor }}>
-              *Sem validação por enquanto: apenas navegação.
-            </p>
+              <p className="text-center small text-secondary mt-3 mb-0">
+                *Sem validação por enquanto: apenas navegação.
+              </p>
+            </div>
           </div>
-        </div>
 
-        <p className="text-center small mt-3 mb-0" style={{ fontSize: '1.1rem', color: primaryColor }}>
-          © {new Date().getFullYear()} Auria
-        </p>
+          <p className="text-center text-primary  mt-3 mb-0">
+            © {new Date().getFullYear()} Auria
+          </p>
+        </div>
       </div>
     </div>
   )
