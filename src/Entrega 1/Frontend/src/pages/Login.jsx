@@ -1,108 +1,117 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import "./Login.css"; // Reutilizando o mesmo CSS do LoginColab
+  import { useState } from "react";
+  import { useNavigate } from "react-router-dom";
 
-function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [userType, setUserType] = useState("0"); // 0 = Admin, 1 = Mentor, 2 = Grupo
-  const navigate = useNavigate();
+  export default function Login() {
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+    const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://localhost:3000/api/login", {
+      const response = await fetch("http://localhost:3000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, userType }),
+        body: JSON.stringify({ email, password: senha }),
       });
-
       const data = await response.json();
 
-      if (response.ok) {
-        alert("Login bem-sucedido!");
-        console.log("Token JWT:", data.token);
-        navigate("/");
-      } else {
-        alert(data.error || "Email ou senha incorretos!");
+      if (!response.ok) {
+        alert(data.error || "Erro ao logar");
+        return;
+      }
+
+      const userType = data.user?.type; // Proteção mínima
+
+      localStorage.setItem("token", data.token);
+
+      switch (userType) {
+        case "Administrador":
+          navigate("/admin/painel");
+          break;
+        case "Colaborador":
+          navigate("/colaborador/painel");
+          break;
+        case "Mentor":
+          navigate("/mentor/painel");
+          break;
+        default:
+          alert("Tipo de usuário desconhecido");
       }
     } catch (err) {
-      console.error(err);
-      alert("Erro ao conectar com o servidor.");
+      alert("Erro na conexão: " + err.message);
     }
   };
 
-  return (
-    <div className="login-container">
-      <div className="login-box">
-        <h2>Login</h2>
-        <form onSubmit={handleLogin}>
-          <div className="form-group">
-            <label>Email:</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Senha:</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
 
-          <div className="container-radio">
-            <label className="label-form">Tipo de usuário:</label>
-            <div className="radio-group">
-              <label>
-                <input
-                  type="radio"
-                  name="userType"
-                  value="0"
-                  checked={userType === "0"}
-                  onChange={(e) => setUserType(e.target.value)}
-                />
-                Admin
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="userType"
-                  value="1"
-                  checked={userType === "1"}
-                  onChange={(e) => setUserType(e.target.value)}
-                />
-                Mentor
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="userType"
-                  value="2"
-                  checked={userType === "2"}
-                  onChange={(e) => setUserType(e.target.value)}
-                />
-                Grupo
-              </label>
+    return (
+      <div className="container py-5">
+        <div className="row justify-content-center">
+          <div className="col-12 col-sm-10 col-md-8 col-lg-5">
+            <div className="card shadow-sm">
+              <div className="card-body p-4">
+                <h1 className="h4 mb-3">Entrar</h1>
+
+                <form
+                  className="needs-validation"
+                  noValidate
+                  onSubmit={handleLogin}
+                >
+                  <div className="mb-3">
+                    <label htmlFor="email" className="form-label">
+                      E-mail
+                    </label>
+                    <input
+                      id="email"
+                      type="email"
+                      className="form-control"
+                      placeholder="voce@empresa.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                    <div className="invalid-feedback">
+                      Informe um e-mail válido.
+                    </div>
+                  </div>
+
+                  <div className="mb-3">
+                    <label htmlFor="senha" className="form-label">
+                      Senha
+                    </label>
+                    <input
+                      id="senha"
+                      type="password"
+                      className="form-control"
+                      placeholder="••••••••"
+                      value={senha}
+                      onChange={(e) => setSenha(e.target.value)}
+                      required
+                    />
+                    <div className="invalid-feedback">Informe sua senha.</div>
+                  </div>
+
+                  <button className="btn btn-primary w-100" type="submit">
+                    <i
+                      className="bi bi-box-arrow-in-right me-1"
+                      aria-hidden="true"
+                    ></i>
+                    Entrar
+                  </button>
+                </form>
+
+                <p className="text-center small text-secondary mt-3 mb-0">
+                  Esqueceu a senha? #Recuperar acesso
+                </p>
+              </div>
             </div>
-          </div>
-          <hr />
-          <Link to="/cadastro" className="link-cadastro">
-            Não possui cadastro? Cadastre-se
-          </Link>
-          <div className="form-actions">
-            <button type="submit">Entrar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-}
 
-export default Login;
+            <p className="text-center text-secondary small mt-3 mb-0">
+              © {new Date().getFullYear()} Auria
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
