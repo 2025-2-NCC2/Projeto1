@@ -199,8 +199,8 @@ Feito os comandos, aparecerá um link no terminal para o direcionamento do site 
 
 ## 📍 Links públicos
 
-FRONTEND: https://auria-pro.netlify.app/   <br>
-BACKEND: https://auriadb.vercel.app/api/db/health
+🎨**Frontend**: https://astonishing-kheer-3f7ac0.netlify.app/   <br>
+🗄️**Backend**: https://auriadb.vercel.app/api/db/health
 
 
 ## 🎬 Vídeo demonstrativo
