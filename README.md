@@ -168,7 +168,7 @@ Pronto! O **Frontend** já está configurado e instalado😉
 4. Abra um novo terminal (`CTRL +`), e digite o seguinte comando para navegar até o **Backend**:
 
 ```sh
-cd Frontend
+cd Backend
 ```
 5. Instale as novas pendências:
 
