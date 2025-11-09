@@ -15,7 +15,7 @@
 
 <p align="center">
 <img src="Imagens/home_auria.png" alt="Projeto_Auria" border="0">
-  Site by <a href="Imagens/home_auria.png">Home page</a> <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 
+  Site by <a href="Imagens/home_atualizado.png">Home page</a> <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 
 </p>
 
 
