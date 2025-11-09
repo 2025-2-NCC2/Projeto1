@@ -221,7 +221,7 @@ Base URL: https://backend-iejz.onrender.com/api
 | `POST` | [/auth/forgot-password](https://backend-iejz.onrender.com/api/auth/forgot-password)            | Envia e-mail de recuperação de senha |
 | `POST` | [/auth/reset-password/:token](https://backend-iejz.onrender.com/api/auth/reset-password/token) | Redefine a senha do usuário          |
 | `POST` | [/auth/logout](https://backend-iejz.onrender.com/api/auth/logout)                              | Finaliza a sessão (token necessário) |
- ## 👤 Usuários
+ ### 👤 Usuários
 |  Método  | Endpoint                                                                | Descrição                           |
 | :------: | ----------------------------------------------------------------------- | ----------------------------------- |
 |   `GET`  | [/users/profile](https://backend-iejz.onrender.com/api/users/profile)   | Retorna os dados do usuário logado  |
@@ -229,6 +229,39 @@ Base URL: https://backend-iejz.onrender.com/api
 | `DELETE` | [/users/:id](https://backend-iejz.onrender.com/api/users/1)             | Deleta o usuário pelo ID            |
 |   `PUT`  | [/users/deact/:id](https://backend-iejz.onrender.com/api/users/deact/1) | Atualiza o status (ativo/inativo)   |
 |   `GET`  | [/users/list](https://backend-iejz.onrender.com/api/users/list)         | Lista todos os usuários             |
+
+ ### 👥 Grupos
+ | Método | Endpoint                                                                     | Descrição                                  |
+| :----: | ---------------------------------------------------------------------------- | ------------------------------------------ |
+|  `GET` | [/groups/list](https://backend-iejz.onrender.com/api/groups/list)            | Retorna todos os grupos                    |
+|  `GET` | [/groups/mentor](https://backend-iejz.onrender.com/api/groups/mentor)        | Retorna todos os mentores                  |
+|  `GET` | [/groups/total](https://backend-iejz.onrender.com/api/groups/total)          | Retorna total de grupos, membros e doações |
+|  `GET` | [/group/:groupId](https://backend-iejz.onrender.com/api/group/1)             | Retorna informações de um grupo específico |
+|  `PUT` | [/group/goals/:id](https://backend-iejz.onrender.com/api/group/goals/1)      | Atualiza metas do grupo                    |
+|  `GET` | [/user/groups/:groupId](https://backend-iejz.onrender.com/api/user/groups/1) | Retorna membros de um grupo                |
+
+ ### 💰 Doações
+ | Método | Endpoint                                                                          | Descrição                                      |
+| :----: | --------------------------------------------------------------------------------- | ---------------------------------------------- |
+| `POST` | [/donations](https://backend-iejz.onrender.com/api/donations)                     | Registra nova doação com upload de comprovante |
+|  `GET` | [/donations/list](https://backend-iejz.onrender.com/api/donations/list)           | Lista todas as doações                         |
+|  `GET` | [/donations/:userId](https://backend-iejz.onrender.com/api/donations/1)           | Lista doações de um usuário específico         |
+|  `GET` | [/user/donations/:userId](https://backend-iejz.onrender.com/api/user/donations/1) | Retorna dados do usuário com suas doações      |
+ ### 🖼️ Imagens
+ |  Método  | Endpoint                                                      | Descrição                     |
+| :------: | ------------------------------------------------------------- | ----------------------------- |
+|  `POST`  | [/images](https://backend-iejz.onrender.com/api/images)       | Envia uma imagem              |
+|   `GET`  | [/images](https://backend-iejz.onrender.com/api/images)       | Lista todas as imagens salvas |
+|   `PUT`  | [/images/:id](https://backend-iejz.onrender.com/api/images/1) | Atualiza imagem pelo ID       |
+| `DELETE` | [/images/:id](https://backend-iejz.onrender.com/api/images/1) | Remove imagem pelo ID         |
+
+### 📨 Convites
+| Método | Endpoint                                                                        | Descrição               |
+| :----: | ------------------------------------------------------------------------------- | ----------------------- |
+| `POST` | [/convidar](https://backend-iejz.onrender.com/api/convidar)                     | Envia convite           |
+|  `GET` | [/convites/validar](https://backend-iejz.onrender.com/api/convites/validar)     | Valida um convite       |
+| `POST` | [/convites/registrar](https://backend-iejz.onrender.com/api/convites/registrar) | Registra convite aceito |
+
 
 
 
