@@ -54,10 +54,10 @@ Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gere
 &emsp;|--> SRC  
 &emsp;&emsp;|--> Entrega 1  
 &emsp;&emsp;&emsp;|--> Backend  
-&emsp;&emsp;&emsp;|--> Frontend
-&emsp;&emsp;|--> Entrega 2
-&emsp;&emsp;&emsp;|--> Backend  
-&emsp;&emsp;&emsp;|--> Frontend
+&emsp;&emsp;&emsp;|--> Frontend<br>
+&emsp;&emsp;|--> Entrega 2<br>
+&emsp;&emsp;&emsp;|--> Backend <br>
+&emsp;&emsp;&emsp;|--> Frontend<br>
 
 &emsp;|--> .gitignore  
 &emsp;|--> README.md <br><br>
