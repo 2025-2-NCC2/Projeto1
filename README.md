@@ -115,10 +115,10 @@ Antes de começar, certifique-se de que possui os seguintes programas instalados
 | 🐬 **XAMPP** (ou outro servidor MySQL) | Inclui servidor MySQL e Apache.                         |
 | 🛠️ **MySQL Workbench** (opcional) | Ferramenta visual para gestão do banco de dados. 
 
-### 1. ⚛️ Instalação e configuração do Frontend
+## ⚙️ Instalação e Configuração
 
-1. [Clique aqui para o dowload do códgigo](/src/Entrega%202).
-Este dowload servirá como base para abrir o projeto no Frontend e Backend
+ [Clique aqui para o dowload do códgigo](/src/Entrega%202).
+Este dowload servirá como base para abrir o projeto no **Frontend** e **Backend**
 
 
 Para instalar as pendências:
