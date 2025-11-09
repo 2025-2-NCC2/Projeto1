@@ -34,8 +34,18 @@ Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gere
 &emsp;&emsp;&emsp;|--> Projeto Interdisciplinar - Programação Web  
 &emsp;&emsp;&emsp;&emsp;|--> Link Figma.txt  
 &emsp;&emsp;&emsp;|--> Projeto em Banco de Dados  
-&emsp;&emsp;&emsp;&emsp;|--> Entrega DB.draw.io  
-&emsp;&emsp;|--> Documento - Projeto Extensão COM empresa Auria.docx  
+&emsp;&emsp;&emsp;&emsp;|--> Entrega DB.draw.io  <br><br>
+ 
+&emsp;&emsp;|--> Entrega 2  
+&emsp;&emsp;&emsp;|--> Calculo II  
+&emsp;&emsp;&emsp;&emsp;|--> 2 Entrega_Cálculo II.pdf <br>
+&emsp;&emsp;&emsp;|--> Gestão Empresarial e Dinâmica das Organizações  
+&emsp;&emsp;&emsp;&emsp;|--> Entrega 2 - Gestão Empresarial  
+&emsp;&emsp;&emsp;|--> Projeto Interdisciplinar - Programação Web  
+&emsp;&emsp;&emsp;&emsp;|--> Projeto Extensão COM empresa Aujria.docx
+&emsp;&emsp;&emsp;|--> Projeto em Banco de Dados  
+&emsp;&emsp;&emsp;&emsp;|--> Entrega DB 
+&emsp;&emsp;|--> Documento - Projeto Extensão COM empresa Auria.docx <br><br>
 
 &emsp;|--> Imagens  
 &emsp;&emsp;|--> home auria.png<br>
