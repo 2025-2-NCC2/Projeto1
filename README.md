@@ -210,8 +210,6 @@ Tutorial demonstrativo da página inicial do site: https://youtu.be/HJaTsa5sXsE
 
 ## Rotas da API🚀
 
-O backend deste projeto está hospedado no Render.
-Base URL: https://backend-iejz.onrender.com/api
 
  ### 🔐 Autenticação<br>
  | Método | Endpoint                                                                                       | Descrição                            |
