@@ -89,6 +89,9 @@ Caso queira acessar diretamente o site, sem precisar instalar nada, bastar clica
 Link de acesso ao site: https://auria-pro.netlify.app/.
 
 ## 🎲 Acesso as entregas de Banco de dados
+
+Abaixo, segue o caminho diretamente as entegras 1 e 2 da disciplina de Banco de dados:
+
 👉 [Entrega 1](/documentos/Entrega%201/Projetos%20em%20Banco%20de%20Dados)
 
 👉 [Entrega 2](/documentos/Entrega%202/Projetos%20em%20Banco%20de%20Dados)
