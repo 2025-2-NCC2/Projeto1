@@ -117,29 +117,40 @@ Antes de começar, certifique-se de que possui os seguintes programas instalados
 
 ## ⚙️ Instalação e Configuração
 
- ### 📂 Faça o dowload da pasta.<br>
+ ### 📂 Faça o dowload da pasta, descompacte o arquivo obtenha o código:<br>
  [Clique aqui](/src/Entrega%202).<br>
-Este dowload servirá como base para abrir o projeto no **Frontend** e **Backend**
+Este arquivo servirá como base para abrir o projeto no **Frontend** e **Backend**
+
+##  🎨 Instalação e configuração do Frontend
 
 
-Para instalar as pendências:
-```sh
-npm install
-```
-e Por fim, para rodar no seu navegador
+### 🔧 Liberação das ferramentas de scripts
 
-```sh
-npm run dev
-```
-Feito os comandos, ele abrirá um link para o direcionamento do site (http://localhost:5173/)
-
-
-No <b>powershell<b/>, digite o comando abaixo, para liberar as ferramentes de scripts do seu computador:
+1. Para instalarmos e configurar os arquivos, precisamos liberar o acesso aos scripts do seu computador.
+Digite o comando abaixo, no (**Windows Powershell**):
 
 ```sh
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
-Posteriormente, instale as pendências:
+2. Depois de realizar a liberação acima e descompactar o arquivo, abra a pasta no seu **VS Code**
+3. Crie um terminal, e digite o seguinte comando abaixo, para navegar até o **Frontend**
+
+```sh
+cd Frontend
+```
+4. Agora vamos instalar as pendências:
+```sh
+npm install
+```
+5. Por fim, para rodar no seu navegador:
+```sh
+npm run dev
+```
+Feito os comandos, aparecerá um link no terminal para o direcionamento do site (http://localhost:5173/)
+
+Pronto! O **Frontend** já está configurado e instalado😁
+
+## 🧑‍💻 Instalação e configuração do Backend
 
 ```sh
 npm install
