@@ -182,7 +182,7 @@ npm install
    DB_USER=root
    DB_PASSWORD=
    DB_DATABASE=auria_db
-   DB_PORT=3306
+   DB_PORT=3000
    FRONTEND_URL=http://localhost:5173
    ```
 
@@ -192,7 +192,7 @@ npm install
 ```sh
 npm run dev
 ```
-Feito os comandos, aparecerá um link no terminal para o direcionamento do site (http://localhost:5173/)
+Feito os comandos, aparecerá um link no terminal para o direcionamento do site (http://localhost:3000/)
  
  🚀Pronto! Agora o site está rodando por completo no seu navegador🚀
 
