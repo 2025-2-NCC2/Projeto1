@@ -117,14 +117,14 @@ Antes de começar, certifique-se de que possui os seguintes programas instalados
 
 ## ⚙️ Instalação e Configuração
 
- ### 📂 Faça o dowload da pasta, descompacte o arquivo obtenha o código:<br>
+ ### 🗃️ Faça o dowload da pasta, descompacte o arquivo obtenha o código:<br>
  [Clique aqui](/src/Entrega%202).<br>
 Este arquivo servirá como base para abrir o projeto no **Frontend** e **Backend**
 
 ##  🎨 Instalação e configuração do Frontend
 
 
-### 🔧 Liberação das ferramentas de scripts
+### 🔓 Liberação das ferramentas de scripts
 
 1. Para instalarmos e configurar os arquivos, precisamos liberar o acesso aos scripts do seu computador.
 Digite o comando abaixo, no (**Windows Powershell**):
@@ -148,19 +148,21 @@ npm run dev
 ```
 Feito os comandos, aparecerá um link no terminal para o direcionamento do site (http://localhost:5173/)
 
-Pronto! O **Frontend** já está configurado e instalado😁
+Pronto! O **Frontend** já está configurado e instalado😉
 
-## 🧑‍💻 Instalação e configuração do Backend
+## 🗄️ Instalação e configuração do Backend
 
-```sh
-npm install
-```
-Por fim, para rodar o backend
+### 🐬 Configurando o MySQL
 
-```sh
-cd Backend
-npm start
-```
+1. **Abra o XAMPP**: abra o painel de controlo do XAMPP e inicie os módulos **Apache** e **MySQL**.
+2. **Importe o backup da base de dados** no seguin:
+   - Abra o **MySQL Workbench** e conecte-se ao servidor local (`localhost`).
+   - Vá até **Server > Data Import**.
+   - Selecione a opção **Import from Self-Contained File**.
+   - Clique em **...** e selecione o arquivo `backup empatech_db.sql` que está na pasta do projeto.
+   - Na seção **Default Schema to be Imported to**, escolha **New** e digite `empatech_db`.
+   - Clique em **Start Import**.  
+   Isso criará automaticamente a base de dados `empatech_db` com todas as tabelas e dados.
 
 ## 📍 Links públicos
 
