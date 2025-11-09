@@ -200,8 +200,7 @@ Feito os comandos, aparecerá um link no terminal para o direcionamento do site 
 ## 📍 Links públicos
 
 🎨**Frontend**: https://astonishing-kheer-3f7ac0.netlify.app/   <br>
-🗄️**Backend**: https://backend-iejz.onrender.com/health
-
+🗄️**Backend**: https://auriadb.vercel.app/api/db/health
 
 
 ## 🎬 Vídeo demonstrativo
