@@ -208,10 +208,28 @@ Feito os comandos, aparecerá um link no terminal para o direcionamento do site 
 
 Tutorial demonstrativo da página inicial do site: https://youtu.be/HJaTsa5sXsE
 
-## 📍 Rotas da API
+## Rotas da API🚀
 
- Endpoint de lista de user
-https://auriadb.vercel.app/api/users/list
+O backend deste projeto está hospedado no Render.
+Base URL: https://backend-iejz.onrender.com/api
+
+ ### 🔐 Autenticação<br>
+ | Método | Endpoint                                                                                       | Descrição                            |
+| :----: | ---------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `POST` | [/auth/register](https://backend-iejz.onrender.com/api/auth/register)                          | Cria um novo usuário                 |
+| `POST` | [/auth/login](https://backend-iejz.onrender.com/api/auth/login)                                | Faz login e retorna o token JWT      |
+| `POST` | [/auth/forgot-password](https://backend-iejz.onrender.com/api/auth/forgot-password)            | Envia e-mail de recuperação de senha |
+| `POST` | [/auth/reset-password/:token](https://backend-iejz.onrender.com/api/auth/reset-password/token) | Redefine a senha do usuário          |
+| `POST` | [/auth/logout](https://backend-iejz.onrender.com/api/auth/logout)                              | Finaliza a sessão (token necessário) |
+
+|  Método  | Endpoint                                                                | Descrição                           |
+| :------: | ----------------------------------------------------------------------- | ----------------------------------- |
+|   `GET`  | [/users/profile](https://backend-iejz.onrender.com/api/users/profile)   | Retorna os dados do usuário logado  |
+|   `PUT`  | [/users/me](https://backend-iejz.onrender.com/api/users/me)             | Atualiza os dados do usuário logado |
+| `DELETE` | [/users/:id](https://backend-iejz.onrender.com/api/users/1)             | Deleta o usuário pelo ID            |
+|   `PUT`  | [/users/deact/:id](https://backend-iejz.onrender.com/api/users/deact/1) | Atualiza o status (ativo/inativo)   |
+|   `GET`  | [/users/list](https://backend-iejz.onrender.com/api/users/list)         | Lista todos os usuários             |
+
 
 
 ## 📋 Licença/License
