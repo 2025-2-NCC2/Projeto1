@@ -115,7 +115,11 @@ Antes de começar, certifique-se de que possui os seguintes programas instalados
 | 🐬 **XAMPP** (ou outro servidor MySQL) | Inclui servidor MySQL e Apache.                         |
 | 🛠️ **MySQL Workbench** (opcional) | Ferramenta visual para gestão do banco de dados. 
 
-Para o <b>Frontend<b/>, navegue o seguinte caminho:    <b>src/Entrega 1/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência:
+### 1. ⚛️ Instalação e configuração do Frontend
+
+1. [Clique aqui para o dowload do códgigo](/src/Entrega%202).
+Este dowload servirá como base para abrir o projeto no Frontend e Backend
+
 
 Para instalar as pendências:
 ```sh
@@ -128,7 +132,6 @@ npm run dev
 ```
 Feito os comandos, ele abrirá um link para o direcionamento do site (http://localhost:5173/)
 
-Para o <b>Backend<b/>, navegue pelo seguinte caminho: <b>src/Entrega 1/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
 
 No <b>powershell<b/>, digite o comando abaixo, para liberar as ferramentes de scripts do seu computador:
 
