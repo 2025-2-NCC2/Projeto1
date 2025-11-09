@@ -133,7 +133,7 @@ Digite o comando abaixo, no (**Windows Powershell**):
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 2. Depois de realizar a liberação acima e descompactar o arquivo, abra a pasta no seu **VS Code**
-3. Crie um terminal, e digite o seguinte comando abaixo, para navegar até o **Frontend**
+3. Crie um terminal (`CTRL +`), e digite o seguinte comando abaixo, para navegar até o **Frontend**
 
 ```sh
 cd Frontend
@@ -155,14 +155,47 @@ Pronto! O **Frontend** já está configurado e instalado😉
 ### 🐬 Configurando o MySQL
 
 1. **Abra o XAMPP**: abra o painel de controlo do XAMPP e inicie os módulos **Apache** e **MySQL**.
-2. **Importe o backup da base de dados** no seguin:
-   - Abra o **MySQL Workbench** e conecte-se ao servidor local (`localhost`).
-   - Vá até **Server > Data Import**.
-   - Selecione a opção **Import from Self-Contained File**.
-   - Clique em **...** e selecione o arquivo `backup empatech_db.sql` que está na pasta do projeto.
-   - Na seção **Default Schema to be Imported to**, escolha **New** e digite `empatech_db`.
-   - Clique em **Start Import**.  
-   Isso criará automaticamente a base de dados `empatech_db` com todas as tabelas e dados.
+2. **Importe o backup da base de dados** no seguinte:
+   2.1 Abra o **MySQL Workbench** e conecte-se ao servidor local (`localhost`).
+   2.2 Vá até **Server > Data Import**.
+   2.3 Selecione a opção **Import from Self-Contained File**.
+   2.4 Clique em **...** e selecione o arquivo `backup auria_db.sql` que está na pasta do projeto.
+   2.5 Na seção **Default Schema to be Imported to**, escolha **New** e digite `auria_db`.
+   2.6 Clique em **Start Import**.  
+   Isso criará automaticamente a base de dados `auria_db` com todas as tabelas e dados.
+
+3. Abra o **VS Code** novamente
+4. Abra um novo terminal (`CTRL +`), e digite o seguinte comandom para navegar até o **Backend**:
+
+```sh
+cd Frontend
+```
+5. Instale as novas pendências:
+
+```sh
+npm install
+```
+6. Crie um arquivo `.env` dentro da pasta `Backend` com o seguinte conteúdo:
+
+   ```env
+   DB_HOST=localhost
+   DB_USER=root
+   DB_PASSWORD=
+   DB_DATABASE=auria_db
+   DB_PORT=3306
+   FRONTEND_URL=http://localhost:5173
+   ```
+
+
+7. Por fim, para rodar no seu navegador:
+
+```sh
+npm run dev
+```
+Feito os comandos, aparecerá um link no terminal para o direcionamento do site (http://localhost:5173/)
+ 
+ 🚀Pronto! Agora o site está rodando por completo no seu navegador🚀
+
 
 ## 📍 Links públicos
 
