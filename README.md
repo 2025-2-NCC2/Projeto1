@@ -155,7 +155,7 @@ Pronto! O **Frontend** já está configurado e instalado😉
 ### 🐬 Configurando o MySQL
 
 1. **Abra o XAMPP**: abra o painel de controlo do XAMPP e inicie os módulos **Apache** e **MySQL**.
-2. **Importe o backup da base de dados** no seguinte:
+2. **Importe o backup da base de dados** no seguinte:<br>
    2.1 Abra o **MySQL Workbench** e conecte-se ao servidor local (`localhost`).<br>
    2.2 Vá até **Server > Data Import**.<br>
    2.3 Selecione a opção **Import from Self-Contained File**.<br>
