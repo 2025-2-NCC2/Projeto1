@@ -38,7 +38,8 @@ Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gere
 &emsp;&emsp;|--> Documento - Projeto Extensão COM empresa Auria.docx  
 
 &emsp;|--> Imagens  
-&emsp;&emsp;|--> home auria.png  
+&emsp;&emsp;|--> home auria.png
+&emsp;&emsp;|--> home atualizado.png  
 
 &emsp;|--> SRC  
 &emsp;&emsp;|--> Entrega 1  
