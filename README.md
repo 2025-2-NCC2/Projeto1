@@ -117,7 +117,8 @@ Antes de começar, certifique-se de que possui os seguintes programas instalados
 
 ## ⚙️ Instalação e Configuração
 
- ### 📂[Clique aqui](/src/Entrega%202) para o dowload da pasta Entrega 2.<br>
+ ### 📂 Faça o dowload da pasta.<br>
+ [Clique aqui](/src/Entrega%202).<br>
 Este dowload servirá como base para abrir o projeto no **Frontend** e **Backend**
 
 
