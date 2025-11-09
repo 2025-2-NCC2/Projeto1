@@ -180,7 +180,7 @@ npm install
    ```env
    DB_HOST=localhost
    DB_USER=root
-   DB_PASSWORD= 
+   DB_PASSWORD=05012007
    DB_DATABASE=auria_db
    DB_PORT=3000
    FRONTEND_URL=http://localhost:5173
