@@ -221,7 +221,7 @@ Base URL: https://backend-iejz.onrender.com/api
 | `POST` | [/auth/forgot-password](https://backend-iejz.onrender.com/api/auth/forgot-password)            | Envia e-mail de recuperação de senha |
 | `POST` | [/auth/reset-password/:token](https://backend-iejz.onrender.com/api/auth/reset-password/token) | Redefine a senha do usuário          |
 | `POST` | [/auth/logout](https://backend-iejz.onrender.com/api/auth/logout)                              | Finaliza a sessão (token necessário) |
-
+ ## 👤 Usuários
 |  Método  | Endpoint                                                                | Descrição                           |
 | :------: | ----------------------------------------------------------------------- | ----------------------------------- |
 |   `GET`  | [/users/profile](https://backend-iejz.onrender.com/api/users/profile)   | Retorna os dados do usuário logado  |
