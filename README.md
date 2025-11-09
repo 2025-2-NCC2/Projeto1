@@ -201,6 +201,8 @@ Feito os comandos, aparecerá um link no terminal para o direcionamento do site 
 
 🎨**Frontend**: https://astonishing-kheer-3f7ac0.netlify.app/   <br>
 🗄️**Backend**: https://auriadb.vercel.app/api/db/health
+https://backend-iejz.onrender.com/
+https://backend-iejz.onrender.com/health
 
 
 ## 🎬 Vídeo demonstrativo
