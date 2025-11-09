@@ -159,7 +159,7 @@ Pronto! O **Frontend** já está configurado e instalado😉
    2.1 Abra o **MySQL Workbench** e conecte-se ao servidor local (`localhost`).<br>
    2.2 Vá até **Server > Data Import**.<br>
    2.3 Selecione a opção **Import from Self-Contained File**.<br>
-   2.4 Clique em **...** e selecione o arquivo `backup auria_db.sql` que está na pasta do projeto.<br>
+   2.4 Clique em **...** e selecione o arquivo `Create DB.sql` que está na pasta do projeto.<br>
    2.5 Na seção **Default Schema to be Imported to**, escolha **New** e digite `auria_db`.<br>
    2.6 Clique em **Start Import**.<br>
    Isso criará automaticamente a base de dados `auria_db` com todas as tabelas e dados.
@@ -180,7 +180,7 @@ npm install
    ```env
    DB_HOST=localhost
    DB_USER=root
-   DB_PASSWORD=
+   DB_PASSWORD= 
    DB_DATABASE=auria_db
    DB_PORT=3000
    FRONTEND_URL=http://localhost:5173
