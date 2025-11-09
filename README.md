@@ -98,11 +98,22 @@ Abaixo, segue o caminho diretamente as entegras 1 e 2 da disciplina de Banco de 
 
 ## 💻 Configuração para Desenvolvimento
 
-
 Para abrir este projeto, você necessitará das seguintes ferramentas:
 
-
 <a href="https://www.nodejs.tech/pt-br/download">Node.js</a>, <a href="https://code.visualstudio.com/download">VS Code</a>, <a href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a>.
+
+## 🚀 Tutorial para rodar o projeto localmente
+
+## 📌 Pré-requisitos
+
+Antes de começar, certifique-se de que possui os seguintes programas instalados no seu computador:
+
+| Software              | Descrição                                                                 |
+|-----------------------|---------------------------------------------------------------------------|
+| 🖥️ **Visual Studio Code** | Editor de código principal.                                              |
+| 🟢 **Node.js (LTS)**      | Ambiente de execução para backend e frontend.                          |
+| 🐬 **XAMPP** (ou outro servidor MySQL) | Inclui servidor MySQL e Apache.                         |
+| 🛠️ **MySQL Workbench** (opcional) | Ferramenta visual para gestão do banco de dados. 
 
 Para o <b>Frontend<b/>, navegue o seguinte caminho:    <b>src/Entrega 1/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência:
 
