@@ -1,5 +1,3 @@
-
-
 # FECAP - Fundação de Comércio Álvares Penteado
 
 <p align="center">
