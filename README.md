@@ -86,7 +86,7 @@ Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gere
 <b>HTML:</b>
 
 Caso queira acessar diretamente o site, sem precisar instalar nada, bastar clicar no link abaixo:
-Link de acesso ao site: https://auria-pro.netlify.app.
+Link de acesso ao site: https://auria-org.netlify.app/
 
 ## 🎲 Acesso as entregas de Banco de dados
 
