@@ -1,5 +1,3 @@
-
-
 # FECAP - Fundação de Comércio Álvares Penteado
 
 <p align="center">
@@ -16,8 +14,8 @@
 ## Descrição
 
 <p align="center">
-<img src="Imagens/home_auria.png" alt="Projeto_Auria" border="0">
-  Site by <a href="Imagens/home_auria.png">Home page</a> <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 
+<img src="Imagens/home_atualizado.png" alt="Projeto_Auria" border="0">
+  Site by <a href="Imagens/home_atualizado.png">Home page</a> <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> 
 </p>
 
 
@@ -36,16 +34,30 @@ Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gere
 &emsp;&emsp;&emsp;|--> Projeto Interdisciplinar - Programação Web  
 &emsp;&emsp;&emsp;&emsp;|--> Link Figma.txt  
 &emsp;&emsp;&emsp;|--> Projeto em Banco de Dados  
-&emsp;&emsp;&emsp;&emsp;|--> Entrega DB.draw.io  
-&emsp;&emsp;|--> Documento - Projeto Extensão COM empresa Auria.docx  
+&emsp;&emsp;&emsp;&emsp;|--> Entrega DB.draw.io  <br><br>
+ 
+&emsp;&emsp;&emsp;|--> Entrega 2  
+&emsp;&emsp;&emsp;&emsp;|--> Calculo II  
+&emsp;&emsp;&emsp;&emsp;&emsp;|--> 2 Entrega_Cálculo II.pdf <br>
+&emsp;&emsp;&emsp;&emsp;|--> Gestão Empresarial e Dinâmica das Organizações  
+&emsp;&emsp;&emsp;&emsp;&emsp;|--> Entrega 2 - Gestão Empresarial  
+&emsp;&emsp;&emsp;&emsp;|--> Projeto Interdisciplinar - Programação Web  
+&emsp;&emsp;&emsp;&emsp;&emsp;|--> Projeto Extensão COM empresa Auria.docx<br>
+&emsp;&emsp;&emsp;&emsp;|--> Projeto em Banco de Dados <br>
+&emsp;&emsp;&emsp;&emsp;&emsp;|--> Entrega DB <br>
+&emsp;&emsp;&emsp;|--> Documento - Projeto Extensão COM empresa Auria.docx <br><br>
 
 &emsp;|--> Imagens  
-&emsp;&emsp;|--> home auria.png  
+&emsp;&emsp;|--> home auria.png<br>
+&emsp;&emsp;|--> home atualizado.png  
 
 &emsp;|--> SRC  
 &emsp;&emsp;|--> Entrega 1  
 &emsp;&emsp;&emsp;|--> Backend  
-&emsp;&emsp;&emsp;|--> Frontend  
+&emsp;&emsp;&emsp;|--> Frontend<br>
+&emsp;&emsp;|--> Entrega 2<br>
+&emsp;&emsp;&emsp;|--> Backend <br>
+&emsp;&emsp;&emsp;|--> Frontend<br>
 
 &emsp;|--> .gitignore  
 &emsp;|--> README.md <br><br>
@@ -73,63 +85,181 @@ Através das funcionalidades do site, o Projeto Lideranças Empáticas pode gere
 
 <b>HTML:</b>
 
-Não há instalação!
-Para ter acesso ao site, utilize o link https://auria-pro.netlify.app/.
+Caso queira acessar diretamente o site, sem precisar instalar nada, bastar clicar no link abaixo:
+Link de acesso ao site: https://auria-pro.netlify.app.
+
+## 🎲 Acesso as entregas de Banco de dados
+
+Abaixo, segue o caminho diretamente as entegras 1 e 2 da disciplina de Banco de dados:
+
+👉 [Entrega 1](/documentos/Entrega%201/Projetos%20em%20Banco%20de%20Dados)
+
+👉 [Entrega 2](/documentos/Entrega%202/Projetos%20em%20Banco%20de%20Dados)
 
 ## 💻 Configuração para Desenvolvimento
 
-
 Para abrir este projeto, você necessitará das seguintes ferramentas:
-
 
 <a href="https://www.nodejs.tech/pt-br/download">Node.js</a>, <a href="https://code.visualstudio.com/download">VS Code</a>, <a href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a>.
 
-Para o <b>Frontend<b/>, navegue o seguinte caminho:    <b>src/Entrega 1/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência:
+## 🚀 Tutorial para rodar o projeto localmente
 
-Para instalar as pendências:
-```sh
-npm install
-```
-e Por fim, para rodar no seu navegador
+## 📌 Pré-requisitos
 
-```sh
-npm run dev
-```
-Feito os comandos, ele abrirá um link para o direcionamento do site (http://localhost:5173/)
+Antes de começar, certifique-se de que possui os seguintes programas instalados no seu computador:
 
-Para o <b>Backend<b/>, navegue pelo seguinte caminho: <b>src/Entrega 1/Frontend<b/>, e faça o dowload da pasta em ZIP. Após o dowload, abra a pasta pelo Vscode, abra o terminal (CRTL + ") e digite os seguintes comandos, na sequência
+| Software              | Descrição                                                                 |
+|-----------------------|---------------------------------------------------------------------------|
+| 🖥️ **Visual Studio Code** | Editor de código principal.                                              |
+| 🟢 **Node.js (LTS)**      | Ambiente de execução para backend e frontend.                          |
+| 🐬 **XAMPP** (ou outro servidor MySQL) | Inclui servidor MySQL e Apache.                         |
+| 🛠️ **MySQL Workbench** (opcional) | Ferramenta visual para gestão do banco de dados. 
 
-No <b>powershell<b/>, digite o comando abaixo, para liberar as ferramentes de scripts do seu computador:
+## ⚙️ Instalação e Configuração
+
+ ### 🗃️ Faça o dowload da pasta, descompacte o arquivo obtenha o código:<br>
+ [Clique aqui](/src/Entrega%202).<br>
+Este arquivo servirá como base para abrir o projeto no **Frontend** e **Backend**
+
+##  🎨 Instalação e configuração do Frontend
+
+
+### 🔓 Liberação das ferramentas de scripts
+
+1. Para instalarmos e configurar os arquivos, precisamos liberar o acesso aos scripts do seu computador.
+Digite o comando abaixo, no (**Windows Powershell**):
 
 ```sh
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
-Posteriormente, instale as pendências:
+2. Depois de realizar a liberação acima e descompactar o arquivo, abra a pasta no seu **VS Code**
+3. Crie um terminal (`CTRL +`), e digite o seguinte comando abaixo, para navegar até o **Frontend**
+
+```sh
+cd Frontend
+```
+4. Agora vamos instalar as pendências:
+```sh
+npm install
+```
+5. Por fim, para rodar no seu navegador:
+```sh
+npm run dev
+```
+Feito os comandos, aparecerá um link no terminal para o direcionamento do site (http://localhost:5173/)
+
+Pronto! O **Frontend** já está configurado e instalado😉
+
+## 🗄️ Instalação e configuração do Backend
+
+### 🐬 Configurando o MySQL
+
+1. **Abra o XAMPP**: abra o painel de controlo do XAMPP e inicie os módulos **Apache** e **MySQL**.
+2. **Importe o backup da base de dados** no seguinte:<br>
+   2.1 Abra o **MySQL Workbench** e conecte-se ao servidor local (`localhost`).<br>
+   2.2 Vá até **Server > Data Import**.<br>
+   2.3 Selecione a opção **Import from Self-Contained File**.<br>
+   2.4 Clique em **...** e selecione o arquivo `Create DB.sql` que está na pasta do projeto.<br>
+   2.5 Na seção **Default Schema to be Imported to**, escolha **New** e digite `auria_db`.<br>
+   2.6 Clique em **Start Import**.<br>
+   Isso criará automaticamente a base de dados `auria_db` com todas as tabelas e dados.
+
+3. Abra o **VS Code** novamente
+4. Abra um novo terminal (`CTRL +`), e digite o seguinte comando para navegar até o **Backend**:
+
+```sh
+cd Backend
+```
+5. Instale as novas pendências:
 
 ```sh
 npm install
 ```
-Por fim, para rodar o backend
+6. Crie um arquivo `.env` dentro da pasta `Backend` com o seguinte conteúdo:
+
+   ```env
+   DB_HOST=localhost
+   DB_USER=root
+   DB_PASSWORD=05012007
+   DB_DATABASE=auria_db
+   DB_PORT=3000
+   FRONTEND_URL=http://localhost:5173
+   ```
+
+
+7. Por fim, para rodar no seu navegador:
 
 ```sh
-cd Backend
-npm start
+npm run dev
 ```
+Feito os comandos, aparecerá um link no terminal para o direcionamento do site (http://localhost:3000/)
+ 
+ 🚀Pronto! Agora o site está rodando por completo no seu navegador🚀
+
 
 ## 📍 Links públicos
 
-FRONTEND: https://auria-pro.netlify.app/   <br>
-BACKEND: https://auriadb.vercel.app/api/db/health
+🎨**Frontend**: https://auria-pro.netlify.app  <br>
+🗄️**Backend**: https://auriadb.vercel.app
 
 
 ## 🎬 Vídeo demonstrativo
 
 Tutorial demonstrativo da página inicial do site: https://youtu.be/HJaTsa5sXsE
 
-## 📍 Rotas da API
+## Rotas da API🚀
 
- Endpoint de lista de user
-https://auriadb.vercel.app/api/users/list
+
+ ### 🔐 Autenticação<br>
+ | Método | Endpoint                                                                                       | Descrição                            |
+| :----: | ---------------------------------------------------------------------------------------------- | ------------------------------------ |
+| `POST` | [/auth/register](https://backend-iejz.onrender.com/api/auth/register)                          | Cria um novo usuário                 |
+| `POST` | [/auth/login](https://backend-iejz.onrender.com/api/auth/login)                                | Faz login e retorna o token JWT      |
+| `POST` | [/auth/forgot-password](https://backend-iejz.onrender.com/api/auth/forgot-password)            | Envia e-mail de recuperação de senha |
+| `POST` | [/auth/reset-password/:token](https://backend-iejz.onrender.com/api/auth/reset-password/token) | Redefine a senha do usuário          |
+| `POST` | [/auth/logout](https://backend-iejz.onrender.com/api/auth/logout)                              | Finaliza a sessão (token necessário) |
+ ### 👤 Usuários
+|  Método  | Endpoint                                                                | Descrição                           |
+| :------: | ----------------------------------------------------------------------- | ----------------------------------- |
+|   `GET`  | [/users/profile](https://backend-iejz.onrender.com/api/users/profile)   | Retorna os dados do usuário logado  |
+|   `PUT`  | [/users/me](https://backend-iejz.onrender.com/api/users/me)             | Atualiza os dados do usuário logado |
+| `DELETE` | [/users/:id](https://backend-iejz.onrender.com/api/users/1)             | Deleta o usuário pelo ID            |
+|   `PUT`  | [/users/deact/:id](https://backend-iejz.onrender.com/api/users/deact/1) | Atualiza o status (ativo/inativo)   |
+|   `GET`  | [/users/list](https://backend-iejz.onrender.com/api/users/list)         | Lista todos os usuários             |
+
+ ### 👥 Grupos
+ | Método | Endpoint                                                                     | Descrição                                  |
+| :----: | ---------------------------------------------------------------------------- | ------------------------------------------ |
+|  `GET` | [/groups/list](https://backend-iejz.onrender.com/api/groups/list)            | Retorna todos os grupos                    |
+|  `GET` | [/groups/mentor](https://backend-iejz.onrender.com/api/groups/mentor)        | Retorna todos os mentores                  |
+|  `GET` | [/groups/total](https://backend-iejz.onrender.com/api/groups/total)          | Retorna total de grupos, membros e doações |
+|  `GET` | [/group/:groupId](https://backend-iejz.onrender.com/api/group/1)             | Retorna informações de um grupo específico |
+|  `PUT` | [/group/goals/:id](https://backend-iejz.onrender.com/api/group/goals/1)      | Atualiza metas do grupo                    |
+|  `GET` | [/user/groups/:groupId](https://backend-iejz.onrender.com/api/user/groups/1) | Retorna membros de um grupo                |
+
+ ### 💰 Doações
+ | Método | Endpoint                                                                          | Descrição                                      |
+| :----: | --------------------------------------------------------------------------------- | ---------------------------------------------- |
+| `POST` | [/donations](https://backend-iejz.onrender.com/api/donations)                     | Registra nova doação com upload de comprovante |
+|  `GET` | [/donations/list](https://backend-iejz.onrender.com/api/donations/list)           | Lista todas as doações                         |
+|  `GET` | [/donations/:userId](https://backend-iejz.onrender.com/api/donations/1)           | Lista doações de um usuário específico         |
+|  `GET` | [/user/donations/:userId](https://backend-iejz.onrender.com/api/user/donations/1) | Retorna dados do usuário com suas doações      |
+ ### 🖼️ Imagens
+ |  Método  | Endpoint                                                      | Descrição                     |
+| :------: | ------------------------------------------------------------- | ----------------------------- |
+|  `POST`  | [/images](https://backend-iejz.onrender.com/api/images)       | Envia uma imagem              |
+|   `GET`  | [/images](https://backend-iejz.onrender.com/api/images)       | Lista todas as imagens salvas |
+|   `PUT`  | [/images/:id](https://backend-iejz.onrender.com/api/images/1) | Atualiza imagem pelo ID       |
+| `DELETE` | [/images/:id](https://backend-iejz.onrender.com/api/images/1) | Remove imagem pelo ID         |
+
+### 📨 Convites
+| Método | Endpoint                                                                        | Descrição               |
+| :----: | ------------------------------------------------------------------------------- | ----------------------- |
+| `POST` | [/convidar](https://backend-iejz.onrender.com/api/convidar)                     | Envia convite           |
+|  `GET` | [/convites/validar](https://backend-iejz.onrender.com/api/convites/validar)     | Valida um convite       |
+| `POST` | [/convites/registrar](https://backend-iejz.onrender.com/api/convites/registrar) | Registra convite aceito |
+
+
 
 
 ## 📋 Licença/License
