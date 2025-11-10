@@ -205,8 +205,7 @@ Feito os comandos, aparecerá um link no terminal para o direcionamento do site 
 
 ## 🎬 Vídeo demonstrativo
 
-Tutorial demonstrativo da página inicial do site: https://youtu.be/HJaTsa5sXsE
-
+Tutorial demonstrativo da página inicial do site: https://youtu.be/iWLVG1jg74Y
 ## Rotas da API🚀
 
 
