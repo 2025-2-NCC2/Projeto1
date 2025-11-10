@@ -16,6 +16,15 @@ export const deactivateParticipant = async (participantId, stts) => {
   return response.data;
 };
 
+export const deactivateGroup = async (participantId, stts) => {
+  const response = await api.put(
+    `/group/deact/${participantId}`,
+    {id: participantId, status: stts}, // corpo vazio, se não precisar enviar mais nada
+  );
+  /* console.log(response); */
+  return response.data;
+};
+
 export const totalUserDonation = async (userId) => {
   const response = await api.get(`/user/donations/${userId}`);
   /* console.log(userId); */

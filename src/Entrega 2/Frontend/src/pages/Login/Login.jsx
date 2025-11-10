@@ -27,7 +27,7 @@ export default function Login() {
         setErro(data.error || "Erro no login");
         return;
       }
-      console.log(data);
+      //console.log(data);
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("userType", data.user.type);

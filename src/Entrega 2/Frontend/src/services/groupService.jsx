@@ -4,13 +4,13 @@ import api from './api';
 // Buscar lista de grupos
 export const fetchGroups = async () => {
   const response = await api.get('/groups/list');
-  console.log(response.data);
+  /* console.log(response.data); */
   return response.data;
 };
 
 export const fetchGroup = async (idGroup) => {
   const response = await api.get(`/group/${idGroup}`);
-  console.log(response.data);
+  /* console.log(response.data); */
   return response.data;
 };
 

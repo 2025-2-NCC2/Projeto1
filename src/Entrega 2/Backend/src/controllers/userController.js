@@ -131,7 +131,7 @@ export const createMember = async (req, res) => {
     const tipoCapitalizado = tipo.charAt(0).toUpperCase() + tipo.slice(1).toLowerCase();
     
     // Gera uma senha aleatória de 8 caracteres
-    const tempPassword = Math.random().toString(36).slice(-8);
+    const tempPassword = 'admin123';
     
     // Hash da senha
     const hashedPassword = await bcrypt.hash(tempPassword, 10);
@@ -139,8 +139,8 @@ export const createMember = async (req, res) => {
     // Insere o novo membro
     const [result] = await db.query(
       `INSERT INTO users (name, email, type, status, group_id, password) 
-       VALUES (?, ?, ?, 1, ?, ?)`,
-      [nome, email, tipoCapitalizado, groupId, hashedPassword]
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [nome, email, tipoCapitalizado,1 , groupId, hashedPassword]
     );
     
     // Log da senha temporária (em produção, deveria ser enviada por email)
@@ -149,9 +149,10 @@ export const createMember = async (req, res) => {
     // Log do sucesso (sem expor dados sensíveis)
     console.log(`Novo membro criado: ID ${result.insertId}`);
 
-    res.status(201).json({ 
+    return res.status(201).json({ 
       message: "Membro registrado com sucesso",
-      userId: result.insertId
+      userId: result.insertId,
+      password: tempPassword
     });
 
   } catch (error) {
