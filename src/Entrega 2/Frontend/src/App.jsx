@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Home from "./pages/Home/Home.jsx";
 import Footer from "./components/Footer.jsx";
+import "./responsive.css";
 
 import Login from "./pages/Login/Login.jsx";
 import Cadastro from "./pages/Login/Cadastro.jsx";

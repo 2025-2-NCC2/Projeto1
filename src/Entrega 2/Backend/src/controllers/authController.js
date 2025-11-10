@@ -37,6 +37,9 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    
+    console.log('Login attempt:', { email, password: password ? '***' : 'empty' });
+    
     const [rows] = await pool.execute(`
       SELECT 
           users.id,
@@ -62,14 +65,23 @@ export const login = async (req, res) => {
         users.status = 1;`, 
         [email]);
 
-    console.log("rows:", rows);
-    if (rows.length === 0)
-      return res.status(401).json({ error: "Usuário não encontrado" });
+    console.log("Database rows found:", rows.length);
+    
+    if (rows.length === 0) {
+      console.log('Login failed: User not found or inactive for email:', email);
+      return res.status(401).json({ error: "Usuário não encontrado ou inativo" });
+    }
 
     const user = rows[0];
+    console.log('User found:', { id: user.id, email: user.email, type: user.type });
 
     const senhaValida = await bcrypt.compare(password, user.password);
-    if (!senhaValida) return res.status(401).json({ error: "Senha inválida" });
+    console.log('Password valid:', senhaValida);
+    
+    if (!senhaValida) {
+      console.log('Login failed: Invalid password for email:', email);
+      return res.status(401).json({ error: "Senha inválida" });
+    }
 
     // Cria token JWT
     const { token, jti } = createToken({
@@ -77,6 +89,8 @@ export const login = async (req, res) => {
       email: user.email,
       type: user.type,
     });
+
+    console.log('Login successful for user:', email);
 
     // Retorna o user corretamente
     return res.json({
@@ -92,8 +106,8 @@ export const login = async (req, res) => {
       },
       group:{
         idGroup: user.group_id,
-        currentFoodCollection: user.curr_gp_food_coll,
-        currentMoneyCollection: user.curr_gp_money_coll,
+        currentFoodCollection: user.current_food_collection,
+        currentMoneyCollection: user.current_money_collection,
         monetaryTarget: user.monetary_target,
         foodGoal: user.food_goal,
         groupName: user.group_name,

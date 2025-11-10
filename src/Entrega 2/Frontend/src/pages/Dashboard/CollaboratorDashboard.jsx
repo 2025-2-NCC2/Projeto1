@@ -124,25 +124,24 @@ export default function CollaboratorDashboard() {
   };
 
   return (
-    <div className="dashboard-container" style={{ maxWidth: '107em' }}>
-      <div className="d-flex ">
-        {/* Sidebar */}
-        <div className="sidebar shadow-sm border-end">
-          <div className="p-3 border-bottom">
-            <div className="d-flex align-items-center gap-3">
-              <div className="avatar-circle">
-                <i className="bi bi-person-fill"></i>
-              </div>
-              <div>
-                <h6 className="mb-1 fw-semibold">Colaborador</h6>
-                <h7 className="text-muted">{sessionData?.name}</h7>
-                <br />
-                <small className="text-success" style={{ fontSize: '14px', opacity: '0.5' }}>Online</small>
-              </div>
+    <div className="dashboard-container d-flex">
+      {/* Sidebar */}
+      <div className="sidebar shadow-sm border-end">
+        <div className="p-3 border-bottom">
+          <div className="d-flex align-items-center gap-3 flex-wrap">
+            <div className="avatar-circle">
+              <i className="bi bi-person-fill"></i>
+            </div>
+            <div className="d-none d-md-block">
+              <h6 className="mb-1 fw-semibold">Colaborador</h6>
+              <h7 className="text-muted">{sessionData?.name}</h7>
+              <br />
+              <small className="text-success" style={{ fontSize: '14px', opacity: '0.5' }}>Online</small>
             </div>
           </div>
+        </div>
 
-          <nav className="sidebar-nav">
+        <nav className="sidebar-nav d-flex flex-column gap-2">
             {[
               { id: "doacoes", icon: "gift", label: "Minhas Doações" },
               { id: "grupo", icon: "bi bi-people", label: "Meu Grupo" },
@@ -157,24 +156,24 @@ export default function CollaboratorDashboard() {
                 {item.label}
               </button>
             ))}
-          </nav>
-        </div>
-        
+        </nav>
+      </div>
 
-        {/* Área Principal */}
-        <div className="main-content p-4 bg-light">
+      {/* Área Principal */}
+      <div className="main-content p-4 flex-grow-1 bg-light">
           {/* Seção de Doações */}
           {activeSection === "doacoes" && (
             <>
-              <div className="section-header d-flex justify-content-between align-items-center mb-4">
+              <div className="section-header d-flex justify-content-between align-items-center mb-4 gap-3 flex-wrap">
                 <h1 className="h4 mb-0">Minhas Doações</h1>
                 <Button
                   variant="primary"
                   onClick={() => setShowDoacaoModal(true)}
-                  className="btn-custom"
+                  className="w-100 w-md-auto"
                 >
                   <i className="bi bi-gift-fill me-2"></i>
-                  Nova Doação
+                  <span className="d-none d-sm-inline">Nova Doação</span>
+                  <span className="d-sm-none">+ Doação</span>
                 </Button>
               </div>
 
@@ -262,25 +261,24 @@ export default function CollaboratorDashboard() {
               </div>
             </>
           )}
-        </div>
-        {activeSection === 'grupo' && (
-          <>
-          
-            <div className="mt-4 tab-pane fade show" style={{width: '-webkit-fill-available'}}>
-              <div className="section-header d-flex justify-content-between align-items-center mb-4">
+
+          {activeSection === 'grupo' && (
+            <>
+              <div className="section-header d-flex justify-content-between align-items-center mb-4 gap-3 flex-wrap">
                 <h1 className="h4 mb-0">Doações do Grupo</h1>
                 <Button
                   variant="primary"
                   onClick={() => setShowDoacaoModal(true)}
-                  className="btn-custom"
+                  className="w-100 w-md-auto"
                 >
                   <i className="bi bi-gift-fill me-2"></i>
-                  Nova Doação
+                  <span className="d-none d-sm-inline">Nova Doação</span>
+                  <span className="d-sm-none">+ Doação</span>
                 </Button>
               </div>
               <div className="card shadow-sm">
                 <div className="card-body">
-                  <div className="d-flex mt-3 mb-4 fw-bold align-items-center justify-content-between flex-wrap gap-2 ">
+                  <div className="d-flex mt-3 mb-4 fw-bold align-items-center justify-content-between flex-wrap gap-2">
                     <h5 className="fw-bold mb-0">Participantes do grupo <span style={{ color: "#1eb31e" }}>{sessionData?.groupName}</span></h5>
                   </div>
 
@@ -291,12 +289,11 @@ export default function CollaboratorDashboard() {
                       renderRow={renderRow}
                     />
                   </div>
-
                 </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
+        </div>
 
         {/* Modal de Nova Doação */}
         <Modal
@@ -423,6 +420,5 @@ export default function CollaboratorDashboard() {
           </Modal.Body>
         </Modal>
       </div>
-    </div>
   );
 }

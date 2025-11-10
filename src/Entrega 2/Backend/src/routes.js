@@ -51,6 +51,35 @@ r.get("/db/health", async (_, res) => {
   }
 });
 
+r.put("/group/deact/:id", async (req, res) => {
+  const { id, status } = req.body;
+  console.log("updateStatus called with:", { id, status });
+
+  if (!id || typeof status === 'undefined') {
+    return res.status(400).json({ error: "Envie o id e o novo status" });
+  }
+
+  try {
+    const [rows] = await pool.query("SELECT * FROM `groups` WHERE id = ?", [id]);
+    if (!rows.length) {
+      return res.status(404).json({ error: "Grupo não encontrado" });
+    }
+    console.log(rows);
+
+    await pool.query("UPDATE `groups` SET status = ? WHERE id = ?", [status, id]);
+
+    const [updated] = await pool.query(
+      "SELECT * FROM `groups` WHERE id = ?",
+      [id]
+    );
+    
+    return res.json(updated[0]);
+  } catch (err) {
+    console.error("updateStatus error:", err);
+    return res.status(500).json({ error: "Erro ao atualizar status" });
+  }
+});
+
 r.put("/users/deact/:id", async (req, res) => {
   const { id, status } = req.body;
   console.log("updateStatus called with:", { id, status });
@@ -79,6 +108,8 @@ r.put("/users/deact/:id", async (req, res) => {
     return res.status(500).json({ error: "Erro ao atualizar status" });
   }
 });
+
+
 
 //GET http://localhost:3000/api/users/list
 r.get("/users/list", async (_, res) => {

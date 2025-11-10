@@ -68,19 +68,23 @@ export default function Cadastro() {
   };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div className="d-flex justify-content-center align-items-center min-vh-100 py-3" style={{
+      background: "linear-gradient(135deg, #e8f5e9 0%, #3a533b 35%, #b2dfdb 100%)",
+      minHeight: "100vh"
+    }}>
       <div
-        className="card p-4 shadow"
-        style={{ width: "100%", maxWidth: "400px" }}
+        className="card p-4 p-md-5 shadow-lg rounded-4 w-100"
+        style={{ maxWidth: "500px" }}
       >
-        <h2 className="text-center mb-4">Cadastro</h2>
+        <h2 className="text-center mb-4" style={{fontSize: 'clamp(1.5rem, 5vw, 2rem)'}}>Cadastro</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label className="form-label">Nome completo</label>
+            <label className="form-label fw-semibold">Nome completo</label>
             <input
               type="text"
               name="nome"
-              className="form-control"
+              className="form-control p-2"
+              placeholder="Digite seu nome"
               value={formData.nome}
               onChange={handleChange}
               required
@@ -88,11 +92,12 @@ export default function Cadastro() {
           </div>
 
           <div className="mb-3">
-            <label className="form-label">E-mail</label>
+            <label className="form-label fw-semibold">E-mail</label>
             <input
               type="email"
               name="email"
-              className="form-control"
+              className="form-control p-2"
+              placeholder="seu@email.com"
               value={formData.email}
               onChange={handleChange}
               required
@@ -100,11 +105,12 @@ export default function Cadastro() {
           </div>
 
           <div className="mb-3">
-            <label className="form-label">Senha</label>
+            <label className="form-label fw-semibold">Senha</label>
             <input
               type="password"
               name="senha"
-              className="form-control"
+              className="form-control p-2"
+              placeholder="Digite uma senha segura"
               value={formData.senha}
               onChange={handleChange}
               required
@@ -112,25 +118,26 @@ export default function Cadastro() {
           </div>
 
           <div className="mb-3">
-            <label className="form-label">Confirmar senha</label>
+            <label className="form-label fw-semibold">Confirmar senha</label>
             <input
               type="password"
               name="confirmarSenha"
-              className="form-control"
+              className="form-control p-2"
+              placeholder="Confirme sua senha"
               value={formData.confirmarSenha}
               onChange={handleChange}
               required
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="tipoUsuario" className="form-label">
+          <div className="mb-4">
+            <label htmlFor="tipoUsuario" className="form-label fw-semibold">
               Tipo de usuário
             </label>
             <select
               id="tipoUsuario"
               name="tipoUsuario"
-              className="form-select"
+              className="form-select p-2"
               value={formData.tipoUsuario}
               onChange={handleChange}
               required
@@ -140,12 +147,12 @@ export default function Cadastro() {
               <option value="Colaborador">Colaborador</option>
               <option value="Administrador">Administrador</option>
             </select>
-            <div className="form-text">
+            <small className="form-text text-muted d-block mt-1">
               Escolha o que representa o seu papel no projeto.
-            </div>
+            </small>
           </div>
 
-          <button type="submit" className="btn btn-primary w-100">
+          <button type="submit" className="btn btn-success w-100 fw-semibold py-2">
             Cadastrar
           </button>
         </form>

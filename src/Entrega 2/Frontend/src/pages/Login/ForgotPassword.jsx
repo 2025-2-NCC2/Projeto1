@@ -26,26 +26,35 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="container py-5">
-      <h3 className="mb-3 text-center">Recuperar senha</h3>
-      <form onSubmit={handleSubmit} className="mx-auto" style={{ maxWidth: 400 }}>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">E-mail cadastrado</label>
-          <input
-            id="email"
-            type="email"
-            className="form-control"
-            placeholder="voce@empresa.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <button className="btn btn-primary w-100" type="submit" disabled={loading}>
-          {loading ? "Enviando..." : "Enviar link de recuperação"}
-        </button>
-        {msg && <p className="mt-3 text-center">{msg}</p>}
-      </form>
+    <div className="d-flex justify-content-center align-items-center min-vh-100 py-3" style={{
+      background: "linear-gradient(135deg, #e8f5e9 0%, #3a533b 35%, #b2dfdb 100%)",
+      minHeight: "100vh"
+    }}>
+      <div className="card p-4 p-md-5 shadow-lg rounded-4 w-100" style={{ maxWidth: "500px" }}>
+        <h3 className="mb-4 text-center" style={{fontSize: 'clamp(1.25rem, 4vw, 1.75rem)'}}>Recuperar Senha</h3>
+        <form onSubmit={handleSubmit} className="d-flex flex-column gap-3">
+          <div>
+            <label htmlFor="email" className="form-label fw-semibold">E-mail cadastrado</label>
+            <input
+              id="email"
+              type="email"
+              className="form-control p-2"
+              placeholder="voce@empresa.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <button 
+            className="btn btn-success w-100 fw-semibold py-2" 
+            type="submit" 
+            disabled={loading}
+          >
+            {loading ? "Enviando..." : "Enviar link de recuperação"}
+          </button>
+          {msg && <p className="mt-3 text-center small">{msg}</p>}
+        </form>
+      </div>
     </div>
   );
 }

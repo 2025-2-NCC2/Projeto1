@@ -3,7 +3,12 @@ import { Modal, Button } from "react-bootstrap";
 import { fetchGroups, fetchTotalGroups } from "../../services/groupService";
 import { DataTableWrapper } from "../../hooks/DataTableWrapper";
 import { fetchDonations } from "../../services/donationService";
-import { fetchUsersList, fetchMentor } from "../../services/userService";
+import {
+  fetchUsersList,
+  fetchMentor,
+  deactivateParticipant,
+  deactivateGroup
+} from "../../services/userService";
 import { getMentorSession } from "../../services/sessionService";
 
 export default function AdminTeamsDashboard() {
@@ -42,8 +47,20 @@ export default function AdminTeamsDashboard() {
     "Total (R$)",
     "Ação",
   ];
+  const columnsUsers = [
+    "Nome",
+    "E-mail",
+    "Tipo",
+    "Grupo",
+    "Entrada",
+    "Status",
+    "Total (kg)",
+    "Total (R$)",
+    "Ação",
+  ];
   const [total, setTotal] = useState([]);
   const [users, setUsers] = useState([]);
+  console.log(users);
   const [members, setMembers] = useState([{ nome: "", email: "" }]);
   const [sessionData, setSessionData] = useState();
   const [tipo, setTipo] = useState("");
@@ -52,7 +69,7 @@ export default function AdminTeamsDashboard() {
 
   const [selectedGroupId, setSelectedGroupId] = useState(null);
   const [filteredDonations, setFilteredDonations] = useState([]);
-  console.log(selectedGroupId);
+  /* console.log(selectedGroupId); */
 
   const [formData, setFormData] = useState({
     participanteId: null,
@@ -71,10 +88,93 @@ export default function AdminTeamsDashboard() {
   const [registrationLoading, setRegistrationLoading] = useState(false);
   const [registrationError, setRegistrationError] = useState("");
 
+
   useEffect(() => {
     const session = getMentorSession();
     setSessionData(session);
   }, []);
+
+  useEffect(() => {
+    const handleClick = (e) => {
+      const button = e.target.closest('[data-id]');
+      if (!button) return;
+
+      const id = button.getAttribute('data-id');
+      const type = button.getAttribute('data-type');
+
+      if (type == "0") {
+        handleDeactivate(id);
+      }
+      else if (type == "1") {
+        handleDeactivate(id, 1);
+      }
+    };
+
+    // Event delegation – funciona mesmo após DataTables recriar DOM
+    document.addEventListener("click", handleClick);
+
+    return () => {
+      document.removeEventListener("click", handleClick);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleClickGroup = (e) => {
+      const button = e.target.closest('[data-idg]');
+      if (!button) return;
+
+      const id = button.getAttribute('data-idg');
+      const type = button.getAttribute('data-type');
+
+      if (type == "0") {
+        handleDeactivateGroup(id);
+      }
+      else if (type == "1") {
+        handleDeactivateGroup(id, 1);
+      }
+    };
+
+    // Event delegation – funciona mesmo após DataTables recriar DOM
+    document.addEventListener("click", handleClickGroup);
+
+    return () => {
+      document.removeEventListener("click", handleClickGroup);
+    };
+  }, []);
+
+  const handleDeactivateGroup = async (memberId, active = 0) => {
+    const c = confirm(`Tem certeza que deseja ${active == 1 ? "reativar" : "desativar"} este grupo ?`);
+    if (!c) return;
+    try {
+      await deactivateGroup(memberId, active);
+      alert(`Grupo ${active == 1 ? 'reativado' : 'desativado'} com sucesso!`);
+      const usersData = await fetchUsersList();
+      const groupsData = await fetchGroups();
+      
+      setGroups(groupsData.groups || []);
+      setUsers(usersData.users || []);
+    } catch (error) {
+      alert('Erro ao alterar grupo.');
+      console.error(error);
+    }
+  };
+
+  const handleDeactivate = async (memberId, active = 0) => {
+    const c = confirm(`Tem certeza que deseja ${active == 1 ? "reativar" : "desativar"} este participante ?`);
+    if (!c) return;
+    try {
+      await deactivateParticipant(memberId, active);
+      alert(`Participante ${active == 1 ? 'reativado' : 'desativado'} com sucesso!`);
+
+      const usersData = await fetchUsersList();
+      const groupsData = await fetchGroups();
+      setGroups(groupsData.groups || []);
+      setUsers(usersData.users || []);
+    } catch (error) {
+      alert('Erro ao desativar participante.');
+      console.error(error);
+    }
+  };
 
   const handleRegistrarMembro = async (e) => {
     e.preventDefault();
@@ -139,7 +239,7 @@ export default function AdminTeamsDashboard() {
       }
 
       // sucesso
-      alert("Membro registrado com sucesso!");
+      alert("Membro registrado com sucesso com a seguinte senha de acesso: " + data.password + ". Ela não será mostrada novamente!");
       setShowModalRegistrarMembro(false);
 
       // limpa campos relacionados a membro
@@ -160,7 +260,10 @@ export default function AdminTeamsDashboard() {
 
       // atualiza lista de usuários/membros
       const usersData = await fetchUsersList();
+      const groupsData = await fetchGroups();
+      setGroups(groupsData.groups || []);
       setUsers(usersData.users || []);
+      window.location.reload();
     } catch (err) {
       console.error("Erro ao registrar membro:", err);
       setRegistrationError(err.message || "Erro ao registrar membro.");
@@ -191,8 +294,8 @@ export default function AdminTeamsDashboard() {
   const handleRegistrarGrupo = async (e) => {
     e.preventDefault();
     // validação básica
-    if (!groupForm.name || !groupForm.members) {
-      alert("Preencha nome e número de membros do grupo.");
+    if (!groupForm.name) {
+      alert("Preencha nome do grupo.");
       return;
     }
 
@@ -202,7 +305,7 @@ export default function AdminTeamsDashboard() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: groupForm.name.trim(),
-          members: parseInt(groupForm.members) || 0,
+          members: 0,
           monetary_target: parseFloat(groupForm.monetary_target) || 0,
           food_goal: parseFloat(groupForm.food_goal) || 0,
         }),
@@ -233,7 +336,7 @@ export default function AdminTeamsDashboard() {
 
   const renderRow = (p) => {
     const mentor = mentorList?.find((g) => g.group_id == p.id);
-    console.log(mentor);
+    /* console.log(mentor); */
     return [
       p.name,
       mentor ? mentor.name : "-",
@@ -245,11 +348,10 @@ export default function AdminTeamsDashboard() {
       `R$ ${(p.current_money_collection ?? 0).toFixed(2)}`,
       `
       <div class="btn-group">
-        ${
-          p.status === 1
-            ? `<button class="btn btn-sm btn-outline-danger" onclick="" data-id="${p.id}" data-type="0"><i class="bi bi-person-dash"></i></button>`
-            : `<button class="btn btn-sm btn-outline-secondary" data-id="${p.id}" data-type="1"><i class="bi bi-arrow-counterclockwise"></i></button>`
-        }
+        ${p.status === 1
+        ? `<button class="btn btn-sm btn-outline-danger" onclick="" data-idg="${p.id}" data-type="0"><i class="bi bi-person-dash"></i></button>`
+        : `<button class="btn btn-sm btn-outline-secondary" data-idg="${p.id}" data-type="1"><i class="bi bi-arrow-counterclockwise"></i></button>`
+      }
       </div>
     `,
     ];
@@ -270,11 +372,36 @@ export default function AdminTeamsDashboard() {
         : `${p.quantity ?? 0} kg`,
       p.proof
         ? (() => {
-            const fileName = p.proof.replace(/^uploads[\\/]/, ""); // remove o prefixo uploads\ ou uploads/
-            return `<a href="http://localhost:3000/api/${p.proof}" target="_blank" rel="noopener noreferrer">${fileName}</a>`;
-          })()
+          const fileName = p.proof.replace(/^uploads[\\/]/, ""); // remove o prefixo uploads\ ou uploads/
+          return `<a href="http://localhost:3000/api/${p.proof}" target="_blank" rel="noopener noreferrer">${fileName}</a>`;
+        })()
         : "—",
       p.score_fraud,
+    ];
+  };
+
+  const renderRowUsers = (p) => {
+    const group = groups?.find((g) => g.id == p.group_id);
+    /* console.log(mentor); */
+    return [
+      p.name,
+      p.email,
+      p.type,
+      group ? group.name : '-',
+      p.created_at ? new Date(p.created_at).toLocaleDateString("pt-BR") : "-",
+      p.status === 1
+        ? '<span class="badge bg-success">Ativo</span>'
+        : '<span class="badge bg-secondary">Inativo</span>',
+      `${p.current_food_collection ?? 0} kg`,
+      `R$ ${(p.current_money_collection ?? 0).toFixed(2)}`,
+      `
+      <div class="btn-group">
+        ${p.status === 1
+        ? `<button class="btn btn-sm btn-outline-danger" data-id="${p.id}" data-type="0"><i class="bi bi-person-dash"></i></button>`
+        : `<button class="btn btn-sm btn-outline-secondary" data-id="${p.id}" data-type="1"><i class="bi bi-arrow-counterclockwise"></i></button>`
+      }
+      </div>
+    `,
     ];
   };
 
@@ -284,7 +411,7 @@ export default function AdminTeamsDashboard() {
     fetchUsersList().then((data) => setUsers(data.users));
     fetchMentor().then((data) => setMentorList(data.mentor));
   }, []);
-  console.log(mentorList);
+  /* console.log(mentorList); */
 
   useEffect(() => {
     /* fetchDonations().then(data => setDonations(data.donations)); */
@@ -326,7 +453,7 @@ export default function AdminTeamsDashboard() {
 
   const handleChange = (e) => {
     const { name, type, value, files } = e.target;
-    console.log(name, value);
+    /*  console.log(name, value); */
     setFormData({
       ...formData,
       [name]: type === "file" ? files[0] : value,
@@ -384,39 +511,36 @@ export default function AdminTeamsDashboard() {
     <div className="dashboard-container d-flex">
       {/* Sidebar */}
       <div className="sidebar shadow-sm border-end p-3">
-        <div className="d-flex align-items-center gap-3 mb-3">
+        <div className="d-flex align-items-center gap-3 mb-3 flex-wrap">
           <div className="avatar-circle">
             <i className="bi bi-person-fill"></i>
           </div>
-          <div>
+          <div className="d-none d-md-block">
             <h6 className="mb-1 fw-semibold">Administrador</h6>
             <small className="text-muted">Online</small>
           </div>
         </div>
         <nav className="sidebar-nav d-flex flex-column gap-2">
           <button
-            className={`nav-link ${
-              activeSection === "visaoGeral" ? "active" : ""
-            }`}
+            className={`nav-link ${activeSection === "visaoGeral" ? "active" : ""
+              }`}
             onClick={() => setActiveSection("visaoGeral")}
           >
             <i className="bi bi-speedometer2 me-2"></i>Visão Geral
           </button>
           <button
-            className={`nav-link ${
-              activeSection === "equipes" ? "active" : ""
-            }`}
+            className={`nav-link ${activeSection === "equipes" ? "active" : ""
+              }`}
             onClick={() => setActiveSection("equipes")}
           >
             <i className="bi bi-diagram-3 me-2"></i>Doações
           </button>
           <button
-            className={`nav-link ${
-              activeSection === "doacoes" ? "active" : ""
-            }`}
+            className={`nav-link ${activeSection === "doacoes" ? "active" : ""
+              }`}
             onClick={() => setActiveSection("doacoes")}
           >
-            <i className="bi bi-gift me-2"></i>Doações
+            <i className="bi bi-people me-2"></i>Usuários
           </button>
           <button
             className={`nav-link ${activeSection === "perfil" ? "active" : ""}`}
@@ -431,15 +555,17 @@ export default function AdminTeamsDashboard() {
       <div className="main-content p-4 flex-grow-1 bg-light">
         {activeSection === "visaoGeral" && (
           <>
-            <div className="section-header d-flex justify-content-between align-items-center mb-4">
-              <h1 className="h4 mb-4">Dashboard de Equipes</h1>
-              <div className="d-flex gap-2">
+            <div className="section-header d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+              <h1 className="h4 mb-0">Dashboard de Equipes</h1>
+              <div className="d-flex gap-2 w-100 w-md-auto" style={{justifyContent: 'flex-start'}}>
                 <Button
                   variant="outline-primary"
                   onClick={() => setShowModalRegistrarGrupo(true)}
+                  className="w-100"
                 >
                   <i className="bi bi-bullseye me-1"></i>
-                  Registrar Grupo
+                  <span className="d-none d-sm-inline">Registrar Grupo</span>
+                  <span className="d-sm-none">Grupo</span>
                 </Button>
               </div>
             </div>
@@ -509,12 +635,11 @@ export default function AdminTeamsDashboard() {
 
         {activeSection === "equipes" && (
           <>
-            <div className="section-header d-flex justify-content-between align-items-center mb-4">
-              <h4>Selecione um grupo</h4>
-              <div className="d-flex gap">
+            <div className="section-header d-flex justify-content-between align-items-center mb-4 flex-column flex-md-row gap-3">
+              <h4 className="mb-0">Selecione um grupo</h4>
+              <div className="w-100 w-md-auto" style={{minWidth: '200px'}}>
                 <select
-                  className="form-select mb-3"
-                  style={{ width: "15em" }}
+                  className="form-select mb-3 mb-md-0"
                   onChange={handleSelectGroup}
                 >
                   <option value="">-- Escolha --</option>
@@ -573,14 +698,42 @@ export default function AdminTeamsDashboard() {
 
         {activeSection === "doacoes" && (
           <>
-            <div className="d-flex justify-content-between mb-3">
-              <h4>Registrar Doação</h4>
+            <div className="d-flex justify-content-between align-items-center mb-3 gap-3 flex-wrap">
+              <h4 className="mb-0">Usuários</h4>
               <Button
                 variant="primary"
                 onClick={() => setShowModalRegistrarMembro(true)}
-              > <i class="bi bi-person-plus-fill"> </i>
-                Registrar Membro
+                className="w-100 w-md-auto"
+              >
+                <i className="bi bi-person-plus-fill"></i>
+                <span className="d-none d-sm-inline ms-2">Registrar Membro</span>
+                <span className="d-sm-none">+ Membro</span>
               </Button>
+            </div>
+            <div
+              className="mt-4 tab-pane fade show active"
+              id="tab-participantes"
+              role="tabpanel"
+              aria-labelledby="tab-participantes-tab"
+            >
+              <div className="card shadow-sm">
+                <div className="card-body">
+                  <div className="d-flex mt-3 mb-4 fw-bold align-items-center justify-content-between flex-wrap gap-2 ">
+                    <h5 className="fw-bold mb-0">Lista de Usuários</h5>
+                  </div>
+
+                  <div className="table-responsive overflow-x-hidden">
+                    <DataTableWrapper
+                      data={users}
+                      columns={columnsUsers}
+                      renderRow={renderRowUsers}
+                      orderColunm={0}
+                      order={"asc"}
+                      columnsTarget={[1, 2, 3, 4, 5, 6, 7, 8]}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </>
         )}
@@ -661,9 +814,9 @@ export default function AdminTeamsDashboard() {
                 required
               >
                 <option value="">Selecione...</option>
-                <option value="mentor">Mentor</option>
-                <option value="collaborator">Colaborador</option>
-                <option value="administrador">Administrador</option>
+                <option value="Mentor">Mentor</option>
+                <option value="Colaborador">Colaborador</option>
+                <option value="Administrador">Administrador</option>
               </select>
             </div>
             <div className="mb-3">
@@ -816,11 +969,11 @@ export default function AdminTeamsDashboard() {
                         >
                           {resultadoAnalise.legitimo
                             ? `Comprovante parece legítimo (${(
-                                resultadoAnalise.score * 100
-                              ).toFixed(1)}%)`
+                              resultadoAnalise.score * 100
+                            ).toFixed(1)}%)`
                             : `Suspeito (${(
-                                resultadoAnalise.score * 100
-                              ).toFixed(1)}%)`}
+                              resultadoAnalise.score * 100
+                            ).toFixed(1)}%)`}
                         </small>
                       </>
                     )}
@@ -912,18 +1065,6 @@ export default function AdminTeamsDashboard() {
             </div>
 
             <div className="row g-3">
-              <div className="col-md-4">
-                <label className="form-label">Membros</label>
-                <input
-                  name="members"
-                  type="number"
-                  min="1"
-                  className="form-control"
-                  value={groupForm.members}
-                  onChange={handleGroupChange}
-                  required
-                />
-              </div>
               <div className="col-md-4">
                 <label className="form-label">Meta (R$)</label>
                 <input

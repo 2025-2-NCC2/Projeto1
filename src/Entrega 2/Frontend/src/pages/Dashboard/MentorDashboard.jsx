@@ -13,6 +13,7 @@ export default function MentorDashboard() {
   const [grupos, setGrupos] = useState([]);
   const [members, setMembers] = useState([]);
   const [donations, setDonations] = useState([]);
+  /* console.log(donations); */
   const [sessionData, setSessionData] = useState();
   const [resultadoAnalise, setResultadoAnalise] = useState(null);
   const [group, setGroup] = useState([]);
@@ -31,7 +32,6 @@ export default function MentorDashboard() {
     data: new Date().toISOString().slice(0, 10),
     file: {}
   });
-  const logout = useLogout();
 
   const [newGoal, setNewGoal] = useState({ kg: "", brl: "" });
 
@@ -39,23 +39,29 @@ export default function MentorDashboard() {
   const totalAtivos = ativos.length;
 
   const currUserInfo = members.filter(idMem => idMem.id === sessionData?.id);
-  /* console.log(currUserInfo); */
+  console.log(group);
 
   useEffect(() => {
-    const table = document.querySelector('.display');
-
     const handleClick = (e) => {
-      if (e.target.closest('[data-id]')) {
-        const id = e.target.closest('[data-id]').getAttribute('data-id');
-        const type = e.target.closest('[data-type]')?.getAttribute('data-type');
-        if (type == 0 && type) { handleDeactivate(id); } else if (type == 1) { handleDeactivate(id, 1) }
+      const button = e.target.closest('[data-id]');
+      if (!button) return;
+
+      const id = button.getAttribute('data-id');
+      const type = button.getAttribute('data-type');
+
+      if (type == "0") {
+        handleDeactivate(id);
+      }
+      else if (type == "1") {
+        handleDeactivate(id, 1);
       }
     };
 
-    table?.addEventListener('click', handleClick);
+    // Event delegation – funciona mesmo após DataTables recriar DOM
+    document.addEventListener("click", handleClick);
 
     return () => {
-      table?.removeEventListener('click', handleClick);
+      document.removeEventListener("click", handleClick);
     };
   }, []);
 
@@ -68,7 +74,7 @@ export default function MentorDashboard() {
     fetchDonations().then(data => setDonations(data.donations));
     fetchGroups().then(info => setGrupos(info.groups));
   }, []);
-  console.log(group);
+  //console.log(group);
 
   useEffect(() => {
     const idGroup = sessionData?.groupId;
@@ -85,7 +91,7 @@ export default function MentorDashboard() {
       getLastDonation(userId).then(don => setLastDonation(don));
     }
   }, [sessionData]);
-  console.log(lastDonation.donations);
+  //console.log(lastDonation.donations);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -146,7 +152,7 @@ export default function MentorDashboard() {
   };
 
   const handleDeactivate = async (memberId, active = 0) => {
-    const c = confirm(`Tem certeza que deseja ${active == 1 ? 'reativar' : 'desativar'} este participante ?`);
+    const c = confirm(`Tem certeza que deseja ${active == 1 ? "reativar" : "desativar"} este participante ?`);
     if (!c) return;
     try {
       if (active === 1) { await deactivateParticipant(memberId, active); } else { await deactivateParticipant(memberId, active); }
@@ -209,11 +215,11 @@ export default function MentorDashboard() {
   return (
     <div className="dashboard-container d-flex">
       {/* Sidebar */}
-      <div className="sidebar shadow-sm border-end p-3 justify-content-between">
+      <div className="sidebar shadow-sm border-end p-3">
         <div>
-          <div className="d-flex align-items-center gap-3 mb-3">
+          <div className="d-flex align-items-center gap-3 mb-3 flex-wrap">
             <div className="avatar-circle"><i className="bi bi-person-fill"></i></div>
-            <div>
+            <div className="d-none d-md-block">
               <h6 className="mb-1 fw-semibold">Mentor</h6>
               <h7 className="text-muted">{sessionData?.name}</h7>
               <br />
@@ -318,7 +324,7 @@ export default function MentorDashboard() {
               <div className="card shadow-sm">
                 <div className="card-body">
                   <div className="d-flex mt-3 mb-4 fw-bold align-items-center justify-content-between flex-wrap gap-2 ">
-                    <h5 className="fw-bold mb-0">Participantes do grupo <span style={{ color: "#1eb31e" }}>{grupos?.name}</span></h5>
+                    <h5 className="fw-bold mb-0">Participantes do grupo <span style={{ color: "#1eb31e" }}>{group?.[0]?.name}</span></h5>
                   </div>
 
                   <div className="table-responsive overflow-x-hidden">
@@ -326,6 +332,9 @@ export default function MentorDashboard() {
                       data={members}
                       columns={columns}
                       renderRow={renderRow}
+                      orderColunm={0}
+                      order={"asc"}
+                      columnsTarget={[2, 3, 4, 5, 6]}
                     />
                   </div>
 
@@ -374,7 +383,7 @@ export default function MentorDashboard() {
                   <div className="card shadow-sm h-100">
                     <div className="card-body">
                       <div className="text-secondary small">Meta (kg) • Atingido</div>
-                      <div className="fw-semibold">{grupos?.food_goal} kg • {grupos?.current_food_collection} kg</div>
+                      <div className="fw-semibold">{group?.[0]?.food_goal} kg • {group?.[0]?.current_food_collection} kg</div>
                       <div className="progress mt-2" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={progressoKg}>
                         <div className="progress-bar bg-success" title={progressoKg + '%'} style={{ width: `${progressoKg}%` }}>{progressoKg}%</div>
                       </div>
@@ -386,7 +395,7 @@ export default function MentorDashboard() {
                   <div className="card shadow-sm h-100">
                     <div className="card-body">
                       <div className="text-secondary small">Meta (R$) • Atingido</div>
-                      <div className="fw-semibold">R$ {grupos?.monetary_target} • R$ {grupos?.current_money_collection?.toFixed(2)}</div>
+                      <div className="fw-semibold">R$ {group?.[0]?.monetary_target} • R$ {group?.[0]?.current_money_collection?.toFixed(2)}</div>
                       <div className="progress mt-2" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={progressoBRL}>
                         <div className="progress-bar bg-info" title={progressoBRL + '%'} style={{ width: `${progressoBRL}%` }}>{progressoBRL}%</div>
                       </div>
@@ -412,10 +421,17 @@ export default function MentorDashboard() {
                 <div className="card shadow-sm">
                   <div className="card-body">
                     <div className="d-flex mt-3 mb-4 fw-bold align-items-center justify-content-between flex-wrap gap-2 ">
-                      <h5 className="fw-bold mb-0">Doações do grupo <span style={{ color: "#1eb31e" }}>{grupos?.name}</span></h5>
+                      <h5 className="fw-bold mb-0">Doações do grupo <span style={{ color: "#1eb31e" }}>{group?.[0]?.name}</span></h5>
                     </div>
 
-                    <DataTableWrapper data={donations} columns={columnsDonation} renderRow={renderRowDonations} orderColunm={2} order={'desc'} />
+                    <DataTableWrapper
+                      data={donations}
+                      columns={columnsDonation}
+                      renderRow={renderRowDonations}
+                      orderColunm={2}
+                      order={"desc"}
+                      columnsTarget={[1, 2, 3, 4, 5]}
+                    />
                   </div>
                 </div>
               </div>
