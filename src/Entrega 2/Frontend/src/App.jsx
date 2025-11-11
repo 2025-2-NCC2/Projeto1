@@ -1,12 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 
-import Header from "./components/Header.jsx";
+import Header from "./components/header.jsx";
 import Home from "./pages/Home/Home.jsx";
 import Footer from "./components/Footer.jsx";
-import "./responsive.css";
+import "./index.css";
 
 import Login from "./pages/Login/Login.jsx";
-import Cadastro from "./pages/Login/Cadastro.jsx";
 import ForgotPassword from "./pages/Login/ForgotPassword.jsx";
 import ResetPassword from "./pages/Login/ResetPassword.jsx";
 import Config from "./pages/Config.jsx";
@@ -23,7 +22,6 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/config" element={<Config />} />
 
         {/*  Página Sobre Nós */}

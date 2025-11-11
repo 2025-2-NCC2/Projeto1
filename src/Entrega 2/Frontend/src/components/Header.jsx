@@ -60,9 +60,6 @@ export default function Header() {
             {[
               { path: "/", label: "HOME" },
               { path: "/login", label: "LOGIN" }, // botão novo
-              ...(location.pathname === "/"
-                ? [{ path: "/cadastro", label: "CADASTRO" }]
-                : []),
             ].map((item) => (
               <li className="nav-item" key={item.path}>
                 <NavLink

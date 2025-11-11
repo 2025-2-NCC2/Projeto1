@@ -38,7 +38,7 @@ export default function AboutUs() {
     },
     {
       nome: "Artur",
-      cargo: "Backend Developer",
+      cargo: "Full Stack Developer",
       imgUrl:
         "https://media.licdn.com/dms/image/v2/D4D03AQHkY0gx8OY9gw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1721687292038?e=1763596800&v=beta&t=vqM-O4sJpqS5qorcg_nEVbOzGT9pyHm63ETCpLBmShM",
       link: "https://www.linkedin.com/in/artur-loreto/", // substitua
