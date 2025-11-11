@@ -202,6 +202,11 @@ Feito os comandos, aparecerá um link no terminal para o direcionamento do site 
 🎨**Frontend**: https://auria-gov.netlify.app  <br>
 🗄️**Backend**: https://auriadb.vercel.app
 
+## 📍 Logins de Entrada:
+
+🌐**Adm**: gustavo@teste.com | teste  <br>
+👥**Mentor**: loreto@teste.com | teste <br>
+👤**Colaborador**: mariana@teste.com | teste <br>
 
 ## 🎬 Vídeo demonstrativo
 
